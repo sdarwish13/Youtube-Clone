@@ -5,6 +5,7 @@ body {
 }
 
 .horizNav {
+    
     margin: 0px;  
     height: 45px;
     border-bottom: 1px solid rgb(226, 226, 226);
@@ -130,8 +131,11 @@ input {
 }
 
 .vertNav {
+    position: fixed;
+    top: 50px;
+    left: 0px;
     float: left;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .vertNav ul {
@@ -142,13 +146,26 @@ input {
 
 .vertNav li {
     text-align: center;
-    height: 70px;
-    width: 70px;
+    height: 80px;
+    width: 80px;
 }
 
 .vertNav li:hover {
     cursor: pointer;
-    background-color: lightgrey;
+    background-color: rgb(243, 243, 243);
+}
+
+.vertNav li a {
+    display: block;
+    width: 80px;
+    height: 80px;
+    text-decoration: none;
+    color: black;
+}
+
+.vertNav li :active {
+    text-decoration: none;
+    color: red;
 }
 
 .vertNav img {
@@ -164,25 +181,47 @@ input {
 }
 
 .videos {
+    position: fixed;
+    top: 50px;
+    left: 80px;
     background-color: rgb(247, 247, 247);
+    overflow: scroll;
     float: left;
-    width: calc(100% - 70px);
+    width: calc(100% - 80px);
     flex-wrap: wrap;
     flex-direction: row;
     display: flex;
-    padding: 20px;
     margin: auto;
     padding: 0px;
-    height: 100%;
+    height: calc(100% - 50px);
 }
 
 
 .videos button {
+    margin: 10px;
     border: none;
     background-color:  rgb(247, 247, 247);
     border-radius: 6px;
     margin-bottom: 10px;
     float: left;
-    /* width: 120px;
-    height: 120px; */
+    width: calc((100% - 80px) / 4);
+    height: calc(width * 1.777);
+}
+
+.videos img {
+    width: 100%;
+}
+
+@media (max-width: 921px)
+{
+    .videos button {
+        width: calc((100% - 65px) / 3);
+    }
+}
+
+@media (max-width: 670px)
+{
+    .videos button {
+        width: calc((100% - 45px) / 2);
+    }
 }
