@@ -1,0 +1,32 @@
+#signin{
+	width:35%;
+	text-align:center;
+	border: 1px groove;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-49%, -49%);
+	border-radius:8px;
+}
+
+#youtubelogo{
+	width:140px;
+	height:45px;
+}
+
+#lineh{
+	line-height:80%;
+}
+
+#div1{
+	padding:15px;
+}
+
+#signinbutton{
+	background-color:#3366ff;
+	font-size:14px;
+	width:70px;
+	height: 40px;
+	border-radius:8px;
+	color:white;
+}
