@@ -1,7 +1,7 @@
-#signup{
-	width: 35%;
-	height: calc(100% - 70px);
-	text-align:center;
+#signup {
+	width: 450px;
+	height: 500px;
+	text-align: center;
 	border: 1px solid rgb(190, 190, 190);
 	position: fixed;
 	top: 50%;
@@ -10,81 +10,92 @@
 	border-radius:8px;
 }
 
-#youtubelogo{
-	width: calc(100% - 275px);
-	height: calc(100% - 175px);
+#youtubelogo {
+	width: 200px;
+	margin: 10px;
 }
 
-#h1id{
-	font-size: 150%;
+#lineh h1 {
+	font-size: x-large;
 }
 
-#lineh{
-	line-height:80%;
+#lineh {
+	line-height: 80%;
 }
 
-#div1{
-	padding:15px;
+#lineh img {
+	margin-top: 5px;
 }
 
-#email{
+#email {
 	border: 1px solid rgb(190, 190, 190);
 	border-radius: 4px;
-	width: 89%;
-	font-size: calc(100px - 70px);
-	font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
+	width: 360px;
+	height: 30px;
+	font-size: large;
 }
 
-#signupbutton{
-	font-family: "Google Sans",Roboto,Arial,sans-serif;
-	background-color:#1a73e8;
-	font-size:14px;
-	width: 35%;
-	height: 50px;
+#signupbutton {
+	background-color: #1a73e8;
+	font-size: 14px;
+	width: 100px;
+	height: 45px;
 	position: relative;
-	overflow: auto;
-	border-radius:8px;
+	border-radius: 8px;
 	border-color: white;
-	color:white;
+	border-style: none;
+	color: white;
 }
 
-#fname{
+#fname {
 	border: 1px solid rgb(190, 190, 190);
 	border-radius: 4px;
-	width: 40%;
-	font-size: 20px;
-	font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
+	width: 175px;
+	height: 30px;
+	font-size: large;
 }
 
-#lastname{
+#lastname {
 	border: 1px solid rgb(190, 190, 190);
 	border-radius: 4px;
-	width: 40%;
-	font-size: 20px;
-	font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
+	width: 175px;
+	height: 30px;
+	font-size: large;
 }
 
-#password{
+#password {
 	border: 1px solid rgb(190, 190, 190);
 	border-radius: 4px;
-	width: 47%;
+	width: 175px;
+	height: 30px;
 	font-size: 20px;
-	font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
 }
 
-#confirm{
+#confirm {
 	border: 1px solid rgb(190, 190, 190);
 	border-radius: 4px;
-	width: 47%;
+	width: 175px;
+	height: 30px;
 	font-size: 20px;
-	font-family: roboto,'Noto Sans Myanmar UI',arial,sans-serif;
-}
-
-#donthaveanaccount{
-	font-size:16px;
-	position:relative;
 }
 
 ::placeholder {
   color: #bfbfbf;
+}
+
+#name {
+	margin: 40px;
+}
+
+#pass {
+	margin: 40px;
+}
+
+#mail {
+	/* border: 1px solid rgb(190, 190, 190); */
+	margin: 40px;
+}
+
+#signin {
+	margin: 30px;
 }
