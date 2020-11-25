@@ -7,7 +7,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-49%, -49%);
-	border-radius:8px;
+	border-radius: 8px;
 }
 
 #youtubelogo {
@@ -37,10 +37,9 @@
 
 #signupbutton {
 	background-color: #1a73e8;
-	font-size: 14px;
+	font-size: large;
 	width: 100px;
 	height: 45px;
-	position: relative;
 	border-radius: 8px;
 	border-color: white;
 	border-style: none;
@@ -92,7 +91,6 @@
 }
 
 #mail {
-	/* border: 1px solid rgb(190, 190, 190); */
 	margin: 40px;
 }
 
