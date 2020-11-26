@@ -2,78 +2,84 @@
 
 <html>
 	<head>
-		<title>Channel Videos- Upload</title>
+		<title>Channel videos - Upload</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="upload_vid.css">
 	</head>
 	
 	<body id="body">
-		
-		<div class="horizonNav">
-			<img class="youtubelogo" src="images/youtube studio.png" alt="youtube logo">
-			<div id="searchbar">
-                <form>
-                    <button id="searchBtn">
-                        <img id="searchBtnimg" src="images/search logo.png" alt="Search">
-                    </button>
-                    <input type="text" id="searchText" placeholder="Search">
-                </form>
-                
+
+		<div class="horizNav">
+            <div id="youtubelogo">
+                <img src="images/youtube studio.png" alt="youtube logo" id="logo">
             </div>
-			<input type="button" id="profileImage">
-			<button id="buttonme"><i style="color:red;font-size:16px;"class="fa fa-upload"></i> Upload </button>
+            <div id="searchBox">
+                <form>
+                    <img src="images/search logo.png" alt="Search">
+                    <input type="text" id="searchText" placeholder="Search">
+				</form>
+            </div>
+            <div id="buttons">
+                <button id="buttonme">
+					<i style="color:red;font-size:16px;" class="fa fa-upload"></i> Upload 
+				</button>
+                <input type="button" id="profileImage">
+            </div>
 		</div>
 		
+
 		<div class="vertNav">
+            <ul>
+                <li>
+                    <input type="button" id="profileImage">
+				</li>
+				<li id="urvidBtn">
+                    <a href="home.html">
+                        <img src="images/ur vid.png" alt="Your Vid Image">
+                        <p>Your Videos</p>
+                    </a>
+                </li>
+                <li id="playlistBtn">
+                    <a href="home.html">
+                        <img src="images/playlist.png" alt="Playlist Image">
+                        <p>Playlists</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
 		
-			<ul>
-				<li>
-					<input type="button" id="profileImagevert">
-				</li>
-				<li>
-					<a href="signin.html">
-					<img src="images/videos.png" alt="Videos">
-					<p>Videos</p>
-					</a>
-				</li>				
-				<li>
-					<a href="signin.html">
-					<img src="images/playlist.png" alt="playlist">
-					<p>Playlist</p>
-					</a>
-				</li>
-			</ul>
-			
-		</div>
 		
 		<div class="videos">
-				<p id="channel_videos">Channel videos</p>
-			</div>
+			<p id="channel_videos">Channel videos</p>
+		
 			
 			<div id="sorting">
 				<div id="checkboxvid">
-					<input class="checkbox_vid" type="checkbox" name="videos"/> <label class="checkbox_vid">Videos</label>
+					<label class="checkbox_vid">
+						<input type="checkbox" name="checkvideos"/>Videos
+					</label>
 				</div>
 				<div id="visibility">
-					<h6 class="floatingtext">Visibility</h6>
+					<span>Visibility</span>
 				</div>
 				<div id="restrictions">
-					<h5 class="floatingtext">Restrictions</h5>
+					<span>Restrictions</span>
 				</div>
 				<div id="date">
-					<h4 class="floatingtext">Date</h4>
+					<span>Date</span>
 				</div>
 				<div id="views">
-					<h3 class="floatingtext">Views</h3>
+					<span>Views</span>
 				</div>
 				<div id="comments">
-					<h2 class="floatingtext">Comments</h2>
+					<span>Comments</span>
 				</div>
 				<div id="likes">
-					<h1 class="floatingtext">Likes (vs.dislikes)</h1>
+					<span>Likes (vs. dislikes)</span>
 				</div>
 			</div>
+		</div>
 			
 				<!-- The Modal -->
 				<div id="myModal" class="modal">
@@ -94,9 +100,11 @@
 							<p class="footer_p">Please make sure that you do not violate others' copyright orr privacy rights. <a href="https://www.youtube.com/howyoutubeworks/policies/copyright/">Learn more</a></p>
 						</div>
 					
-				  </div>
+				  	</div>
 
 				</div>
+
+		
 		
 		
 			<script>
