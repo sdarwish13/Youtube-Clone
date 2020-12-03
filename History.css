@@ -1,0 +1,343 @@
+/* Watch Later page after sign in/ sign up */
+
+body {
+    margin-top: 4px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.horizNav {
+    
+    margin: 0px;  
+    height: 45px;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.horizNav img {
+    width: 20px;
+    height: 20px;
+}
+
+#profileImage {
+    width: 27px;
+    height: 27px;
+    /* background: url("unnamed.png") no-repeat; */
+    background-size: contain;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: none;
+}
+
+#profileImage:hover {
+    cursor: pointer;
+}
+
+#gridImage {
+    width: 16px;
+    height: 16px;
+    background: url("images/grid.png") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+}
+
+#gridImage:hover {
+    cursor: pointer;
+}
+
+#vidImage {
+    width: 20px;
+    height: 20px;
+    background: url("images/vid.jpeg") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+}
+
+#bellImage {
+    width: 20px;
+    height: 20px;
+    background: url("images/bell.webp") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+}
+
+#bellImage:hover {
+    cursor: pointer;
+}
+
+#vidImage:hover {
+    cursor: pointer;
+}
+
+#buttons input {
+    margin-left: 20px;
+}
+
+#logo {
+    width: 86px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+#searchText {
+    padding-left: 10px;
+    width: 66%;
+    height: 25px;
+    margin-right: 0px;
+    border: 1px solid rgb(196, 196, 196);
+    font-size: small;
+    font-weight: 300;
+}
+
+#searchBtn {
+    position: relative;                  
+    bottom: -4px;                          
+    margin-left: -4px;
+    border: 1px solid rgb(196, 196, 196);
+    border-left: none;
+    border-radius: 0px;
+    background-color: rgb(238, 238, 238);
+    height: 29px;
+    width: 50px;
+}
+
+#searchBtn:hover {
+    cursor: pointer;
+}
+
+#buttons {
+    width: 175px;
+    min-width: 175px;
+    float: right;
+    align-items: right;
+    margin-top: 8px;
+    margin-right: 15px;
+    
+}
+
+#searchBox {
+    text-align: center;
+    width: calc(100% - 305px);
+    float: left;
+}
+
+#youtubelogo {
+    width: 100px;
+    float: left;
+    margin-top: 8px;
+    margin-left: 15px;
+}
+
+.vertNav {
+    position: fixed;
+    top: 50px;
+    left: 0px;
+    float: left;
+}
+
+.vertNav ul {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.vertNav li {
+    text-align: center;
+    height: 80px;
+    width: 80px;
+}
+
+.vertNav li:hover {
+    cursor: pointer;
+    background-color: rgb(243, 243, 243);
+}
+
+.vertNav li a {
+    display: block;
+    width: 80px;
+    height: 80px;
+    text-decoration: none;
+    color: black;
+}
+
+.vertNav li :active {
+    text-decoration: none;
+    color: red;
+}
+
+.vertNav img {
+    margin: 2px;
+    margin-top: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+.vertNav p {
+    margin: 0px;
+    font-size: small;
+}
+
+#laterBtn p {
+    color: red;
+}
+
+#upload {
+    text-decoration: none;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #e7e7e7;
+}
+
+#shufflePlay {
+    width: 20px;
+    height: 20px;
+    background: url("images/shuffle.png") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+    margin: 0px 10px 0px 0px;
+}
+
+#moreInfo {
+    width: 20px;
+    height: 20px;
+    background: url("images/more.png") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+    margin: 0px 10px 0px 10px;
+}
+
+#accountInfo span {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#pImage {
+    width: 35px;
+    height: 35px;
+    /* background: url("unnamed.png") no-repeat; */
+    background-size: contain;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: none;
+}
+
+#actions {
+    height: 20px;
+}
+
+#laterVids {
+    padding: 20px;
+    position: fixed;
+    top: 50px;
+    left: 100px;
+    background-color: white;
+    height: 100%;
+    width: calc(100% - 500px);
+    height: calc(100% - 50px);
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#laterVids img {
+    width: 220px;
+    height: 150px;
+    float: left;
+}
+
+#laterVids button {
+    border: none;
+    background-color: white;
+    /* margin-bottom: 10px;
+    float: left; */
+    width: calc(96% - 10px);
+    height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+#laterVids button:hover {
+    background-color: #e2e2e2;
+}
+
+#laterVids h4 {
+    text-align: start;
+    float: left;
+    overflow: hidden;
+    margin: 10px;
+    max-height: 40px;
+}
+
+#vidDetails {
+    display: block;
+    overflow: hidden;
+    width: calc(100% - 220px);
+}
+#vidDetails h2{
+    text-align: start;
+    margin-left: 7px;
+    overflow: hidden;
+}
+
+.desWatchLater{
+    float: left;
+    margin-left: 7px;
+    font-size: 14px;
+    text-align: start;
+    color: gray;
+    overflow: hidden;
+
+}
+#historyInfo{
+    background-color: #f1f1f1;
+    height: 710px;
+    display: block;
+    margin-left: 1065px;
+}
+#clearHisBtn{
+    border: none;
+    background-color: #f1f1f1;
+    text-align: center;
+    margin-left: 50px;
+    color: gray;
+}
+#searchBtnHis {
+    position: relative;                  
+    bottom: -4px;                          
+    margin-left: 0px;
+    border: 1px solid rgb(196, 196, 196);
+    border-left: none;
+    border-radius: 0px;
+    background-color: rgb(238, 238, 238);
+    height: 20px;
+    width: 40px;
+   
+    
+}
+.searchHistory{
+    width: 200px;
+    font-size: 15px;
+    background-color: rgb(238, 238, 238);
+    color: gray;
+    outline: none;
+    border-top:none;
+    border-left: none;
+    border-right:none;
+    border-bottom-color: 2px solid rgb(25, 25, 25);  
+}
+
+#searchBtnHis:hover {
+    cursor: pointer;
+}
+
+
+
