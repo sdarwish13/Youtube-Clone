@@ -26,6 +26,7 @@ body {
     border-radius: 50%;
     vertical-align: middle;
     border: none;
+	color:black;
 }
 
 #profileImage:hover {

@@ -42,7 +42,9 @@
 						$sql =$conn->query("SELECT * FROM signup WHERE email LIKE '%$email%'");
 						foreach($sql as $row ){
 							if ($email == $row["email"] && $password == $row["password"]){
-								header("Location: homeAfter.html");
+								setcookie("fname", $row['fname']);
+								setcookie("lname", $row['lname']);
+								header("Location: homeAfter.php");
 							}
 						}
 						

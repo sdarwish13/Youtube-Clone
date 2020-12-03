@@ -36,7 +36,7 @@
 			
 						<?php
 							
-							error_reporting(0);
+							//error_reporting(0);
 							$fname= $_POST["fname"];
 							$lname= $_POST["lastname"];
 							$email= $_POST["email"];
@@ -55,7 +55,9 @@
 									$sql = "INSERT INTO signup (fname, lname, email, password)
 									VALUES ('$fname', '$lname', '$email', '$password')";
 									$conn->exec($sql);
-									header("Location: homeAfter.html");
+									setcookie("fname", $fname);
+									setcookie("lname", $lname);
+									header("Location: homeAfter.php");
 									
 								} catch(PDOException $e){
 									echo $sql . "<br>" . $e->getMessage();
