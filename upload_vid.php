@@ -88,12 +88,28 @@
 					$db = new PDO("mysql:dbname=278project", "root","");
 					$rows = $db->query("SELECT * FROM video");
 					foreach($rows as $row){
+						$print_title = $row["title"];
+						$print_description = $row["description"];
+						if ($row["private"] == 1){
+							$print_visibility = "Private";
+						}elseif($row["private"] == 0){
+							$print_visibility = "Public";
+						}
+						if ($row["restriction"] == 1){
+							$print_restriction = "Yes";
+						}elseif($row["restriction"] == 0){
+							$print_restriction = "None";
+						}
+					   $print_date = date("Y/m/d");
+						
 						?>
-						<ul>
-							<video width="200" height="200" controls>
-								<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-							</video>
-							<span id="centerit"><?php echo $row["title"] ?> </span>
+						<ul >
+							<div>
+								<video width="200" height="200">
+									<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+								</video>
+								<p id="centerit"><?php print "$print_title | $print_visibility | $print_restriction | $print_date " ?> </p>
+							</div>
 						</ul>
 						<?php
 					}

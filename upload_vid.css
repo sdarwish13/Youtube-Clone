@@ -332,7 +332,9 @@ li img {
 	font-family: 'Roboto', 'Noto', sans-serif;
 }
 
-
+#centerit{
+	padding-top:-30px;
+}
 
 /* The Modal (background) */
 .modal {

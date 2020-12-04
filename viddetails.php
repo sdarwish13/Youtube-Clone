@@ -21,7 +21,12 @@
 								<label>Private</label>
 								<input type="radio" id="true" name="visibility" value="TRUE">
 								<label>Public</label>
-								<input type="radio" id="false" name="visibility" value="FALSE"><br /><br />
+								<input type="radio" id="false" name="visibility" value="FALSE"><br />
+								<p>Is there restriction on this video?</p>
+								<label>Yes</label>
+								<input type="radio" id="true" name="restriction" value="TRUE">
+								<label>No</label>
+								<input type="radio" id="false" name="restriction" value="FALSE"><br /><br />
 								<button type="submit" id="submitbutton">Submit</button>
 								
 								
@@ -38,6 +43,7 @@
 					$title = $_POST["title"];
 					$description = $_POST["description"];
 					$visibility = $_POST["visibility"];
+					$restriction = $_POST["restriction"];
 					$input = $_COOKIE;
 					$theid = $input["id"];
 					
@@ -45,11 +51,16 @@
 					print $description;
 					print $theid;
 					if ($visibility == "TRUE"){
-						$boolean = 1;
+						$visibility_boolean = 1;
 					}elseif($visibility == "FALSE"){
-						$boolean = 0;
+						$visibility_boolean = 0;
 					}
-					print "--$boolean";
+					if ($restriction == "TRUE"){
+						$restriction_boolean = 1;
+					}elseif($restriction == "FALSE"){
+						$restriction_boolean = 0;
+					}
+					print "--$visibility_boolean";
 					
 					if(!empty($title) && !empty($description) && !empty($visibility)){
 					try {
@@ -57,7 +68,7 @@
 						$sql =$conn->query("SELECT * FROM video WHERE id LIKE '%$theid%'");
 						foreach($sql as $row ){
 							if($theid == $row["id"]){
-								$inserting = "UPDATE video SET title = '$title', description = '$description', private= '$boolean' WHERE id= $theid" ;
+								$inserting = "UPDATE video SET title = '$title', description = '$description', private= '$visibility_boolean', restriction= '$restriction_boolean' WHERE id= $theid" ;
 								$conn->exec($inserting);								
 								header("Location: upload_vid.php");
 							}
