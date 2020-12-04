@@ -36,7 +36,7 @@
 			
 						<?php
 							
-							//error_reporting(0);
+							error_reporting(0);
 							$fname= $_POST["fname"];
 							$lname= $_POST["lastname"];
 							$email= $_POST["email"];
@@ -52,7 +52,7 @@
 								try {
 									$conn = new PDO("mysql:host=localhost;dbname=278project","root","");
 									$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$sql = "INSERT INTO signup (fname, lname, email, password)
+									$sql = "INSERT INTO account (fname, lname, email, pass)
 									VALUES ('$fname', '$lname', '$email', '$password')";
 									$conn->exec($sql);
 									setcookie("fname", $fname);

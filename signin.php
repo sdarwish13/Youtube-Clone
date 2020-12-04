@@ -39,9 +39,9 @@
 				if(!empty($email) && !empty($password)){
 					try {
 						$conn = new PDO("mysql:host=localhost;dbname=278project","root","");
-						$sql =$conn->query("SELECT * FROM signup WHERE email LIKE '%$email%'");
+						$sql =$conn->query("SELECT * FROM account WHERE email LIKE '%$email%'");
 						foreach($sql as $row ){
-							if ($email == $row["email"] && $password == $row["password"]){
+							if ($email == $row["email"] && $password == $row["pass"]){
 								setcookie("fname", $row['fname']);
 								setcookie("lname", $row['lname']);
 								header("Location: homeAfter.php");

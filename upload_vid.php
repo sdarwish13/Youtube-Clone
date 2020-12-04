@@ -91,9 +91,9 @@
 						?>
 						<ul>
 							<video width="200" height="200" controls>
-								<source src="test_uploads/<?php echo $row["name"] ?>" type="video/mp4">
+								<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
 							</video>
-							<span id="centerit"><?php echo $row["name"] ?> </span>
+							<span id="centerit"><?php echo $row["title"] ?> </span>
 						</ul>
 						<?php
 					}
