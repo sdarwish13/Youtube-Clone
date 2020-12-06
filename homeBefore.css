@@ -203,7 +203,6 @@ body {
     height: calc(100% - 50px);
 }
 
-
 .videos button {
     margin: 10px;
     border: none;
@@ -214,8 +213,22 @@ body {
     height: calc(width * 1.777);
 }
 
+.videos button:hover {
+    cursor: pointer;
+}
+
 .videos img {
     width: 100%;
+}
+
+.videos button h4 {
+    text-align: left;
+    margin: 2px;
+}
+
+.videos button p {
+    text-align: left;
+    margin: 2px;
 }
 
 #homeBtn p {
@@ -238,4 +251,26 @@ body {
     .videos button {
         width: calc((100% - 45px) / 2);
     }
+}
+
+#channelImage {
+    width: 27px;
+    height: 27px;
+    /* background: url("unnamed.png") no-repeat; */
+    background-size: contain;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: none;
+    color: black;
+    float: left;
+}
+
+#channelImage:hover {
+    cursor: pointer;
+}
+
+#channelIm {
+    margin: 2px 10px 0px 2px;
+    float: left;
+    height: 40px;
 }
