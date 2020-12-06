@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html> <!-- Home page after sign in/ sign up -->
+<html> <!-- Home page before sign in/ sign up -->
     <head>
         <title>Youtube</title>
         <meta charset="UTF-8">
-        <!-- <script src="home.js"></script> -->
-        <link href="homeAfter.css" rel="stylesheet" type="text/css">
+        <link href="homeBefore.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="horizNav">
@@ -23,27 +22,23 @@
             <div id="buttons">
                 <input type="button" id="vidImage">
                 <input type="button" id="gridImage">
-                <input type="button" id="bellImage">
-                <button id="profileImage">
-				<?php
-					$input = $_COOKIE;
-					print $input["fname"][0];
-					print $input["lname"][0];
-				?>
-				</button>
+                <input type="button" id="settingsImage">
+                <a href="signin.html">
+                    <button id="signinBtn">SIGN IN</button> 
+                </a>
             </div>
         </div>
 
         <div class="vertNav">
             <ul>
                 <li id="homeBtn">
-                    <a href="homeAfter.php">
+                    <a href="homeBefore.html">
                         <img src="images/home.png" alt="Home Image">
                         <p>Home</p>
                     </a>
                 </li>
                 <li id="subBtn">
-                    <a href="subAfter.php">
+                    <a href="subBefore.html">
                         <img src="images/sub.png" alt="Sub Image">
                         <p>Subscriptions</p>
                     </a>
@@ -75,6 +70,7 @@
             </ul>
         </div>
 
+
         <?php
             $db = new PDO("mysql:dbname=278project", "root","");
             $rows = $db->query("SELECT * FROM Video ORDER BY RAND()");
@@ -89,7 +85,7 @@
                     {
                         $vid = $row["id"];
                     ?>
-                    <button onclick="window.location.href = `watchvideo.html?id=<?php echo $vid ?>`">
+                    <button id="videoBtn" onclick='window.location.href="watchvideo.html?id=<?php echo $vid ?>";'>
                         <video id="watchVideo" width="100%">
                             <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
                         </video>
@@ -101,6 +97,7 @@
                         <p><?php echo $channel["name"] ?></p>
                         <p>
                             <?php 
+                                // $view = $db->query("INSERT INTO Views (viewer, video) VALUES (2, $vid);");
                                 $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
                             ?>
                             <span><?php echo $views ?> views • </span>
@@ -113,4 +110,5 @@
             ?>
         </div>
     </body>
+
 </html>

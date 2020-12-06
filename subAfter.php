@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html> <!-- Home page after sign in/ sign up -->
+<html> <!-- Subscription page after sign in/ sign up -->
     <head>
-        <title>Youtube</title>
+        <title>Subscriptions - Youtube</title>
         <meta charset="UTF-8">
         <!-- <script src="home.js"></script> -->
-        <link href="homeAfter.css" rel="stylesheet" type="text/css">
+        <link href="subAfter.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="horizNav">
@@ -24,13 +24,7 @@
                 <input type="button" id="vidImage">
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
-                <button id="profileImage">
-				<?php
-					$input = $_COOKIE;
-					print $input["fname"][0];
-					print $input["lname"][0];
-				?>
-				</button>
+                <input type="button" id="profileImage">
             </div>
         </div>
 
@@ -49,25 +43,25 @@
                     </a>
                 </li>
                 <li id="libBtn">
-                    <a href="home.html">
+                    <a href="lib_after.html">
                         <img src="images/lib.png" alt="Library Image">
                         <p>Library</p>
                     </a>
                 </li>
                 <li id="historyBtn">
-                    <a href="home.html">
+                    <a href="History.html">
                         <img src="images/hist.png" alt="History Image">
                         <p>History</p>
                     </a>
                 </li>
                 <li id="urvidBtn">
-                    <a href="home.html">
+                    <a href="upload_vid.php">
                         <img src="images/ur vid.png" alt="Your Vid Image">
                         <p>Your Videos</p>
                     </a>
                 </li>
                 <li id="laterBtn">
-                    <a href="home.html">
+                    <a href="later.html">
                         <img src="images/later.png" alt="Later Image">
                         <p>Watch Later</p>
                     </a>
@@ -75,42 +69,29 @@
             </ul>
         </div>
 
-        <?php
-            $db = new PDO("mysql:dbname=278project", "root","");
-            $rows = $db->query("SELECT * FROM Video ORDER BY RAND()");
-        ?>
         <div class="videos">
-            <?php
-                foreach($rows as $row)
-                {
-                    $chan = $row["channel"];
-                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
-                    foreach($channels as $channel)
-                    {
-                        $vid = $row["id"];
-                    ?>
-                    <button onclick="window.location.href = `watchvideo.html?id=<?php echo $vid ?>`">
-                        <video id="watchVideo" width="100%">
-                            <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-                        </video>
-                        <div id="channelIm">
-                            <input type="button" id="channelImage">
-                        </div>
-                        
-                        <h4><?php echo $row["title"] ?></h4>
-                        <p><?php echo $channel["name"] ?></p>
-                        <p>
-                            <?php 
-                                $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                            ?>
-                            <span><?php echo $views ?> views • </span>
-                            <span>date</span>
-                        </p>
-                    </button>
+            <div id="subWrap">
+                <?php
+                    $db = new PDO("mysql:dbname=278project", "root","");
+                    $rows = $db->query("SELECT * FROM Video ORDER BY upload_date DESC");
+                ?>
+                <h3></h3>
+                <div id="center">
                     <?php
-                    }
-                }
-            ?>
+                        foreach($rows as $row)
+                        {
+                            ?>
+                            <button onclick="window.location.href = `watchvideo.html?id=<?php echo $row['id'] ?>`">
+                                <video id="watchVideo" width="100%">
+                                    <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                                </video>
+                                <h4><?php echo $row["title"] ?></h4>
+                            </button>
+                            <?php
+                        }
+                    ?>
+                </div>
+            </div>
         </div>
     </body>
 </html>
