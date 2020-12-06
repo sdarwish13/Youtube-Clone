@@ -81,7 +81,6 @@
 			</div>
 			
 			
-			<div id="display_videos">
 				
 				<?php
 				
@@ -103,20 +102,34 @@
 					   $print_date = date("Y/m/d");
 						
 						?>
-						<ul >
-							<div>
-								<video width="200" height="200">
+							<div id="video_display">
+								<video width="250" height="200" style="float:left;">
 									<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-								</video>
-								<p id="centerit"><?php print "$print_title | $print_visibility | $print_restriction | $print_date " ?> </p>
+								</video >
+								<div id="visibility">
+									<span> <?php print "$print_visibility" ?> </span>
+								</div>
+								<div id="restrictions">
+									<span> <?php print "$print_restriction" ?> </span>
+								</div>
+								<div id="date">
+									<span> <?php print "$print_date" ?> </span>
+								</div>
+								<div id="views">
+									<span>Views</span>
+								</div>
+								<div id="comments">
+									<span>Comments</span>
+								</div>
+								<div id="likes">
+									<span>Likes (vs. dislikes)</span>
+								</div>
 							</div>
-						</ul>
 						<?php
 					}
 				
 				?>
 				
-			</div>
 			
 			
 		</div>

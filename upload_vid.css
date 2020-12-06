@@ -332,9 +332,18 @@ li img {
 	font-family: 'Roboto', 'Noto', sans-serif;
 }
 
-#centerit{
-	padding-top:-30px;
+#video_display{
+	min-height:150px;
+	width: 100%;
+    overflow: hidden;
+	height: 50px;
+
 }
+
+
+
+
+
 
 /* The Modal (background) */
 .modal {

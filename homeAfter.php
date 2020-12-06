@@ -25,11 +25,6 @@
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
                 <button id="profileImage">
-				<?php
-					$input = $_COOKIE;
-					print $input["fname"][0];
-					print $input["lname"][0];
-					?>
 				</button>
             </div>
         </div>

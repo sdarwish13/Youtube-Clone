@@ -42,9 +42,10 @@
 						$sql =$conn->query("SELECT * FROM account WHERE email LIKE '%$email%'");
 						foreach($sql as $row ){
 							if ($email == $row["email"] && $password == $row["pass"]){
-								setcookie("fname", $row['fname']);
-								setcookie("lname", $row['lname']);
-								header("Location: homeAfter.php");
+								$fname = $row["fname"];
+								$lname = $row["lname"];
+								$url = "homeAfter.php?fname=$fname&lname=$lname&email=$email";
+								header("Location: " .$url);
 							}
 						}
 						

@@ -55,10 +55,8 @@
 									$sql = "INSERT INTO account (fname, lname, email, pass)
 									VALUES ('$fname', '$lname', '$email', '$password')";
 									$conn->exec($sql);
-									setcookie("fname", $fname);
-									setcookie("lname", $lname);
-									header("Location: homeAfter.php");
-									
+									$url = "homeAfter.php?fname=$fname&lname=$lname&email=$email";
+									header("Location: " .$url);
 								} catch(PDOException $e){
 									echo $sql . "<br>" . $e->getMessage();
 								}
