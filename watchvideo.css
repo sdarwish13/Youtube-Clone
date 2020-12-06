@@ -180,6 +180,16 @@ input {
     border: none;
     vertical-align: middle;
 }
+#likeImage:active{
+    margin-top: -9px;
+    width: 25px;
+    height: 25px;
+    background: url("images/liked.png") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+}
+
 #dislikeImage {
     margin-top: -5px;
     width: 25px;
@@ -255,7 +265,7 @@ input {
 }
 #subButton{
   
-    background-color: rgb(200, 55, 55);
+    background-color: rgb(107, 182, 67);
     display: inline-flex;
     font-size: 18px;
     /* font-stretch: extra-expanded; */
@@ -265,7 +275,6 @@ input {
     padding: 10px 32px;
     border: none;
 
-    
 }
 #notifImage {
     width: 30px;
@@ -316,7 +325,11 @@ input {
     padding-top: 10px;
     text-indent: 8px;
 }
-#details h3{
+/* #details h3{
+    margin-top: -3px;
+    margin-bottom: 30px;
+} */
+#test{
     margin-top: -3px;
     margin-bottom: 30px;
 }
