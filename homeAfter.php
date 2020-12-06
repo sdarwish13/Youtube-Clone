@@ -21,18 +21,25 @@
                 
             </div>
             <div id="buttons">
-                <input type="button" id="vidImage">
+			
+				<?php
+					
+					$fname = $_REQUEST["fname"];
+					$lname = $_REQUEST["lname"];
+					$email = $_REQUEST["email"];
+			
+				?>
+                <button onclick="window.location.href = `upload_vid.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>`"  id="vidImage">
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
                 <button id="profileImage">
-<<<<<<< HEAD
-=======
 				<?php
-					$input = $_COOKIE;
-					print $input["fname"][0];
-					print $input["lname"][0];
+					//error_reporting(0);
+					$fname = $_REQUEST["fname"];
+					$lname = $_REQUEST["lname"];
+					print $fname[0];
+					print $lname[0];
 				?>
->>>>>>> 64fee5324a6fe98d3faa6b21f342ce6e17e4379e
 				</button>
             </div>
         </div>

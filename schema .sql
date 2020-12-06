@@ -26,7 +26,7 @@ create table Subscription (
 );
 
 create table Video (
-	id varchar(60),
+	id varchar(60) ,
 	channel varchar(60),
 	title varchar(60),
 	location varchar(255),

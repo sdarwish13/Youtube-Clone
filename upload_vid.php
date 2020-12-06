@@ -83,7 +83,7 @@
 			
 				
 				<?php
-				
+					error_reporting(0);
 					$db = new PDO("mysql:dbname=278project", "root","");
 					$rows = $db->query("SELECT * FROM video");
 					foreach($rows as $row){
@@ -156,8 +156,7 @@
 							<label id="select_files" style="font-size:16px" for="actual-btn">SELECT FILES </label>
 							<p id="donthaveanaccount">Dont have an account? <a href="upload_form.html">Sign up</a></p>
 							-->
-							
-							<button id="select_files" style="font-size:16px" onclick="openwindow()">SELECT FILES </button>
+							<button onclick="openwindow()" id="select_files"  style="font-size:16px">SELECT FILES</button>
 							
 							
 							<p class="footer_p">By sumitting your videos to Youtube, you acknowledge that you agree to Youtube's <a href="https://www.youtube.com/t/terms">Term's Service </a>and  <a href="https://www.youtube.com/howyoutubeworks/policies/community-guidelines/">Community Guidelines.</a></p>
