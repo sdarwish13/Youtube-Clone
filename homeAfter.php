@@ -25,6 +25,14 @@
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
                 <button id="profileImage">
+<<<<<<< HEAD
+=======
+				<?php
+					$input = $_COOKIE;
+					print $input["fname"][0];
+					print $input["lname"][0];
+				?>
+>>>>>>> 64fee5324a6fe98d3faa6b21f342ce6e17e4379e
 				</button>
             </div>
         </div>
@@ -32,13 +40,13 @@
         <div class="vertNav">
             <ul>
                 <li id="homeBtn">
-                    <a href="homeAfter.html">
+                    <a href="homeAfter.php">
                         <img src="images/home.png" alt="Home Image">
                         <p>Home</p>
                     </a>
                 </li>
                 <li id="subBtn">
-                    <a href="subAfter.html">
+                    <a href="subAfter.php">
                         <img src="images/sub.png" alt="Sub Image">
                         <p>Subscriptions</p>
                     </a>
@@ -70,111 +78,42 @@
             </ul>
         </div>
 
+        <?php
+            $db = new PDO("mysql:dbname=278project", "root","");
+            $rows = $db->query("SELECT * FROM Video ORDER BY RAND()");
+        ?>
         <div class="videos">
-            <button>
-                <img src="images/thumbnail.jpeg" alt="Video Thumbnail">
-                <h4>WhatsApp</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>AUST</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Facebook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Gmail</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Youtube</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>LinkedIn</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Ogero</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Duolingo</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Outlook</h4>
-            </button>
-            <button>
-                <img src="images/thumbnail.jpeg">
-                <h4>Add Shortcut</h4>
-            </button>
+            <?php
+                foreach($rows as $row)
+                {
+                    $chan = $row["channel"];
+                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                    foreach($channels as $channel)
+                    {
+                        $vid = $row["id"];
+                    ?>
+                    <button onclick="window.location.href = `watchvideo.html?id=<?php echo $vid ?>`">
+                        <video id="watchVideo" width="100%">
+                            <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                        </video>
+                        <div id="channelIm">
+                            <input type="button" id="channelImage">
+                        </div>
+                        
+                        <h4><?php echo $row["title"] ?></h4>
+                        <p><?php echo $channel["name"] ?></p>
+                        <p>
+                            <?php 
+                                $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                            ?>
+                            <span><?php echo $views ?> views • </span>
+                            <span>date</span>
+                        </p>
+                    </button>
+                    <?php
+                    }
+                }
+            ?>
         </div>
     </body>
 </html>
