@@ -54,9 +54,7 @@
 									$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 									$sql = "INSERT INTO account (fname, lname, email, pass)
 									VALUES ('$fname', '$lname', '$email', '$password')";
-									$sql2 = "INSERT INTO channel (owner, name) VALUES ('$email', '$fname')";
 									$conn->exec($sql);
-									$conn->exec($sql2);
 									$url = "homeAfter.php?fname=$fname&lname=$lname&email=$email";
 									header("Location: " .$url);
 								} catch(PDOException $e){

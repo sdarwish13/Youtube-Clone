@@ -21,25 +21,18 @@
                 
             </div>
             <div id="buttons">
-			
-				<?php
-					
-					$fname = $_REQUEST["fname"];
-					$lname = $_REQUEST["lname"];
-					$email = $_REQUEST["email"];
-			
-				?>
-                <button onclick="window.location.href = `upload_vid.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>`"  id="vidImage">
+                <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php'">
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
                 <button id="profileImage">
+<<<<<<< HEAD
+=======
 				<?php
-					//error_reporting(0);
-					$fname = $_REQUEST["fname"];
-					$lname = $_REQUEST["lname"];
-					print $fname[0];
-					print $lname[0];
+					$input = $_COOKIE;
+					print $input["fname"][0];
+					print $input["lname"][0];
 				?>
+>>>>>>> 64fee5324a6fe98d3faa6b21f342ce6e17e4379e
 				</button>
             </div>
         </div>
@@ -93,13 +86,14 @@
             <?php
                 foreach($rows as $row)
                 {
+                    $vid = $row["id"];
                     $chan = $row["channel"];
                     $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
                     foreach($channels as $channel)
                     {
-                        $vid = $row["id"];
+                        
                     ?>
-                    <button onclick="window.location.href = `watchvideo.html?id=<?php echo $vid ?>`">
+                    <button class="videoBtn" onClick="window.location.href='watchvideo.php?id=<?php echo $vid ?>'">
                         <video id="watchVideo" width="100%">
                             <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
                         </video>
@@ -114,7 +108,7 @@
                                 $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
                             ?>
                             <span><?php echo $views ?> views • </span>
-                            <span>date</span>
+                            <span><?php echo $row['upload_date'] ?></span>
                         </p>
                     </button>
                     <?php

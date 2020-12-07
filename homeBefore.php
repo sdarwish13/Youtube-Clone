@@ -20,7 +20,7 @@
                 
             </div>
             <div id="buttons">
-                <input type="button" id="vidImage">
+                <input type="button" id="vidImage" onclick="window.location.href='signin.php'">
                 <input type="button" id="gridImage">
                 <input type="button" id="settingsImage">
                 <a href="signin.html">
@@ -77,15 +77,16 @@
         ?>
         <div class="videos">
             <?php
-                foreach($rows as $row)
+            foreach($rows as $row)
+            {
+                $vid = $row["id"];
+                // $view = "INSERT INTO Views (viewer, video) VALUES (2, $vid);";
+                $chan = $row["channel"];
+                $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                foreach($channels as $channel)
                 {
-                    $chan = $row["channel"];
-                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
-                    foreach($channels as $channel)
-                    {
-                        $vid = $row["id"];
-                    ?>
-                    <button id="videoBtn" onclick='window.location.href="watchvideo.html?id=<?php echo $vid ?>";'>
+                ?>
+                    <button class="videoBtn" onClick="window.location.href='watchvideo.php?id=<?php echo $vid ?>'">
                         <video id="watchVideo" width="100%">
                             <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
                         </video>
@@ -97,17 +98,34 @@
                         <p><?php echo $channel["name"] ?></p>
                         <p>
                             <?php 
-                                // $view = $db->query("INSERT INTO Views (viewer, video) VALUES (2, $vid);");
                                 $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
                             ?>
                             <span><?php echo $views ?> views • </span>
-                            <span>date</span>
+                            <span><?php echo $row['upload_date'] ?></span>
                         </p>
                     </button>
-                    <?php
-                    }
+                
+                <?php
                 }
+            }
             ?>
+            <!-- <script>
+                
+                var s = document.getElementsByClassName("videoBtn");
+                console.log(s);
+                for(var i=0; i<arr.length; i++)
+                {
+                    s[i].onclick = function()
+                    {
+                        v = true;
+                        console.log('hlloooo');
+                        console.log(i);
+                        // console.log(arr[i]);
+                    };
+                }
+                // console.log(i);
+                // console.log(arr[0]);
+            </script> -->
         </div>
     </body>
 

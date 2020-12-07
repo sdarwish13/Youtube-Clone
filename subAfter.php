@@ -73,21 +73,44 @@
             <div id="subWrap">
                 <?php
                     $db = new PDO("mysql:dbname=278project", "root","");
-                    $rows = $db->query("SELECT * FROM Video ORDER BY upload_date DESC");
+                    $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%Y-%m-%d') AS upload_date FROM Video ORDER BY DATE_FORMAT(upload_date , '%Y-%m-%d %h-%i-%s') ASC");
+                    $rows2 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%Y-%m-%d') AS upload_date FROM Video ORDER BY DATE_FORMAT(upload_date , '%Y-%m-%d %h-%i-%s') DESC");
                 ?>
-                <h3></h3>
+                
                 <div id="center">
+                    <h3>Today</h3>
                     <?php
+                        
                         foreach($rows as $row)
                         {
-                            ?>
-                            <button onclick="window.location.href = `watchvideo.html?id=<?php echo $row['id'] ?>`">
-                                <video id="watchVideo" width="100%">
-                                    <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-                                </video>
-                                <h4><?php echo $row["title"] ?></h4>
-                            </button>
-                            <?php
+                            if($row['upload_date']==date("Y-m-d"))
+                            {
+                                ?>
+                                <button onclick="window.location.href = `watchvideo.php?id=<?php echo $row['id'] ?>`">
+                                    <video id="watchVideo" width="100%">
+                                        <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                                    </video>
+                                    <h4><?php echo $row["title"] ?></h4>
+                                </button>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <h3>Older</h3>
+                        <?php
+                        foreach($rows2 as $row)
+                        {
+                            if($row['upload_date']!=date("Y-m-d"))
+                            {
+                                ?>
+                                <button onclick="window.location.href = `watchvideo.php?id=<?php echo $row['id'] ?>`">
+                                    <video id="watchVideo" width="100%">
+                                        <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                                    </video>
+                                    <h4><?php echo $row["title"] ?></h4>
+                                </button>
+                                <?php
+                            }
                         }
                     ?>
                 </div>

@@ -39,7 +39,7 @@
 				if(!empty($email) && !empty($password)){
 					try {
 						$conn = new PDO("mysql:host=localhost;dbname=278project","root","");
-						$sql =$conn->query("SELECT * FROM account WHERE email LIKE '%$email%'");
+						$sql =$conn->query("SELECT * FROM Account WHERE email LIKE '%$email%'");
 						foreach($sql as $row ){
 							if ($email == $row["email"] && $password == $row["pass"]){
 								$fname = $row["fname"];
