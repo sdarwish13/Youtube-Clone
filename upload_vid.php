@@ -156,7 +156,15 @@
 							<label id="select_files" style="font-size:16px" for="actual-btn">SELECT FILES </label>
 							<p id="donthaveanaccount">Dont have an account? <a href="upload_form.html">Sign up</a></p>
 							-->
-							<button onclick="openwindow()" id="select_files"  style="font-size:16px">SELECT FILES</button>
+							<?php
+							
+								$fname = $_REQUEST["fname"];
+								$lname = $_REQUEST["lname"];
+								$email = $_REQUEST["email"];
+								
+							?>
+							
+							<button onclick="window.location.href = `upload_form.php?fname=<?php echo $fname?>&lname=<?php echo $lname?> &email=<?php echo $email?>`" id="select_files"  style="font-size:16px">SELECT FILES</button>
 							
 							
 							<p class="footer_p">By sumitting your videos to Youtube, you acknowledge that you agree to Youtube's <a href="https://www.youtube.com/t/terms">Term's Service </a>and  <a href="https://www.youtube.com/howyoutubeworks/policies/community-guidelines/">Community Guidelines.</a></p>

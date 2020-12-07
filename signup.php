@@ -36,7 +36,7 @@
 			
 						<?php
 							
-							
+							error_reporting(0);
 							$fname= $_POST["fname"];
 							$lname= $_POST["lastname"];
 							$email= $_POST["email"];

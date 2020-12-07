@@ -5,6 +5,9 @@ $dbusername = "root"; #username of phpmyadmin
 $dbpassword = "";  #password of phpmyadmin
 $dbname = "278project";  #database name
  
+$lname = $_REQUEST["lname"];
+print $lname;
+
 #connection string
 $conn = mysqli_connect($localhost,$dbusername,$dbpassword,$dbname);
 
