@@ -39,13 +39,17 @@
 				</div>
 				
 				<?php
-				
 					$title = $_POST["title"];
 					$description = $_POST["description"];
 					$visibility = $_POST["visibility"];
 					$restriction = $_POST["restriction"];
 					$input = $_COOKIE;
 					$theid = $input["id"];
+					$print_date = date("Y/m/d");
+					
+					$fname = $_REQUEST["fname"];
+					$lname = $_REQUEST["lname"];
+					$email = $_REQUEST["email"];
 					
 					print $title;
 					print $description;
@@ -65,17 +69,22 @@
 					if(!empty($title) && !empty($description) && !empty($visibility)){
 					try {
 						$conn = new PDO("mysql:host=localhost;dbname=278project","root","");
-						$sql =$conn->query("SELECT * FROM video WHERE id LIKE '%$theid%'");
-						foreach($sql as $row ){
+						$sql =$conn->query("SELECT id FROM Channel WHERE owner LIKE '%$email%'");
+						foreach($sql as $row){
+							$channel = $row["id"];
+						};
+						$sql2 =$conn->query("SELECT * FROM Video WHERE id LIKE '%$theid%'");
+						foreach($sql2 as $row ){
 							if($theid == $row["id"]){
-								$inserting = "UPDATE video SET title = '$title', description = '$description', private= '$visibility_boolean', restriction= '$restriction_boolean' WHERE id= $theid" ;
-								$conn->exec($inserting);								
-								header("Location: upload_vid.php");
+								$inserting = "UPDATE Video SET title = '$title', description = '$description', channel= '$channel', private= '$visibility_boolean', restriction= '$restriction_boolean', upload_date = '$print_date' WHERE id= $theid" ;
+								$conn->exec($inserting);
+								$url = "upload_vid.php?fname=$fname&lname=$lname&email=$email";
+								header("Location: " .$url);
 							}
 						}
 
 					} catch(PDOException $e){
-						echo $sql . "<br>" . $e->getMessage();
+						echo $sql2 . "<br>" . $e->getMessage();
 					}
 				}
 				

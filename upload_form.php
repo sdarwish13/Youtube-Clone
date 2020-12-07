@@ -36,8 +36,16 @@
 							</form>
 						</div>
 					
-					
-						<button type="button" onclick="changepage()" >Next</button>
+						
+						<?php
+				
+							$fname = $_REQUEST["fname"];
+							$lname = $_REQUEST["lname"];
+							$email = $_REQUEST["email"];
+						
+						?>
+						
+						<button type="button" onclick="window.location.href='viddetails.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">Next</button>
 				  	</div>
 
 				</div>

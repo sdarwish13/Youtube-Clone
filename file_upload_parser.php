@@ -5,8 +5,6 @@ $dbusername = "root"; #username of phpmyadmin
 $dbpassword = "";  #password of phpmyadmin
 $dbname = "278project";  #database name
  
-$lname = $_REQUEST["lname"];
-print $lname;
 
 #connection string
 $conn = mysqli_connect($localhost,$dbusername,$dbpassword,$dbname);
@@ -17,6 +15,7 @@ $fileType = $_FILES["file1"]["type"]; // The type of file it is
 $fileSize = $_FILES["file1"]["size"]; // File size in bytes
 $fileErrorMsg = $_FILES["file1"]["error"]; // 0 for false... and 1 for true
 
+
 setcookie("id", $fileSize);
 
 if (!$fileTmpLoc) { // if file not chosen
@@ -24,7 +23,7 @@ if (!$fileTmpLoc) { // if file not chosen
     exit();
 }
 if(move_uploaded_file($fileTmpLoc, "test_uploads/$fileName")){
-	$sql = "INSERT into video(id, fileName,location) VALUES('$fileSize', '$fileName','$fileTmpLoc')";
+	$sql = "INSERT into Video(id, fileName,location) VALUES('$fileSize', '$fileName','$fileTmpLoc')";
 	if(mysqli_query($conn,$sql)){
 		echo "$fileName upload is complete"; 
     }

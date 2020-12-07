@@ -21,10 +21,17 @@
 				</form>
             </div>
             <div id="buttons">
+				<?php
+				
+					$fname = $_REQUEST["fname"];
+					$lname = $_REQUEST["lname"];
+					$email = $_REQUEST["email"];
+				
+				?>
                 <button id="buttonme">
 					<i style="color:red;font-size:16px;" class="fa fa-upload"></i> Upload 
 				</button>
-                <input type="button" id="profileImage">
+                <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0']; ?>">
             </div>
 		</div>
 		
@@ -85,47 +92,54 @@
 				<?php
 				
 					$db = new PDO("mysql:dbname=278project", "root","");
+					$sql =$db->query("SELECT id FROM Channel WHERE owner LIKE '%$email%'");
+						foreach($sql as $row){
+							$channel = $row["id"];
+						};
 					$rows = $db->query("SELECT * FROM Video");
 					foreach($rows as $row){
-						$print_title = $row["title"];
-						$print_description = $row["description"];
-						if ($row["private"] == 1){
-							$print_visibility = "Private";
-						}elseif($row["private"] == 0){
-							$print_visibility = "Public";
-						}
-						if ($row["restriction"] == 1){
-							$print_restriction = "Yes";
-						}elseif($row["restriction"] == 0){
-							$print_restriction = "None";
-						}
-					   $print_date = date("Y/m/d");
+					if ($channel == $row["channel"]){
+							$print_title = $row["title"];
+							$print_description = $row["description"];
+							if ($row["private"] == 1){
+								$print_visibility = "Private";
+							}elseif($row["private"] == 0){
+								$print_visibility = "Public";
+							}
+							if ($row["restriction"] == 1){
+								$print_restriction = "Yes";
+							}elseif($row["restriction"] == 0){
+								$print_restriction = "None";
+							}
+						   $print_date = date("Y/m/d");
+							
+							?>
+								<div id="video_display">
+									<video width="250" height="200" style="float:left;">
+										<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+									</video >
+									<div id="visibility">
+										<span> <?php print "$print_visibility" ?> </span>
+									</div>
+									<div id="restrictions">
+										<span> <?php print "$print_restriction" ?> </span>
+									</div>
+									<div id="date">
+										<span> <?php print "$print_date" ?> </span>
+									</div>
+									<div id="views">
+										<span>Views</span>
+									</div>
+									<div id="comments">
+										<span>Comments</span>
+									</div>
+									<div id="likes">
+										<span>Likes (vs. dislikes)</span>
+									</div>
+								</div>
+							<?php
 						
-						?>
-							<div id="video_display">
-								<video width="250" height="200" style="float:left;">
-									<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-								</video >
-								<div id="visibility">
-									<span> <?php print "$print_visibility" ?> </span>
-								</div>
-								<div id="restrictions">
-									<span> <?php print "$print_restriction" ?> </span>
-								</div>
-								<div id="date">
-									<span> <?php print "$print_date" ?> </span>
-								</div>
-								<div id="views">
-									<span>Views</span>
-								</div>
-								<div id="comments">
-									<span>Comments</span>
-								</div>
-								<div id="likes">
-									<span>Likes (vs. dislikes)</span>
-								</div>
-							</div>
-						<?php
+						}
 					}
 				
 				?>
@@ -157,7 +171,7 @@
 							<p id="donthaveanaccount">Dont have an account? <a href="upload_form.html">Sign up</a></p>
 							-->
 							
-							<button id="select_files" style="font-size:16px" onclick="openwindow()">SELECT FILES </button>
+							<button id="select_files" style="font-size:16px" onclick="window.location.href='upload_form.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">SELECT FILES </button>
 							
 							
 							<p class="footer_p">By sumitting your videos to Youtube, you acknowledge that you agree to Youtube's <a href="https://www.youtube.com/t/terms">Term's Service </a>and  <a href="https://www.youtube.com/howyoutubeworks/policies/community-guidelines/">Community Guidelines.</a></p>

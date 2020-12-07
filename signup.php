@@ -52,9 +52,15 @@
 								try {
 									$conn = new PDO("mysql:host=localhost;dbname=278project","root","");
 									$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$sql = "INSERT INTO account (fname, lname, email, pass)
+									$sql = "INSERT INTO Account (fname, lname, email, pass)
 									VALUES ('$fname', '$lname', '$email', '$password')";
 									$conn->exec($sql);
+									foreach($conn->query('SELECT COUNT(*) FROM Channel') as $row) {
+										$channelid =  $row['COUNT(*)'] + 1;
+									}
+									$sql2 = "INSERT INTO Channel(id, owner, name)
+									VALUES ('$channelid', '$email', '$fname')";
+									$conn->exec($sql2);
 									$url = "homeAfter.php?fname=$fname&lname=$lname&email=$email";
 									header("Location: " .$url);
 								} catch(PDOException $e){
