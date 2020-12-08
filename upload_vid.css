@@ -148,7 +148,7 @@ li img {
 }
 
 #urvidBtn p {
-	color: red;
+	color: blue;
 }
 
 .vertNav li input {
@@ -198,7 +198,7 @@ li img {
 #sorting {
     width: 100%;
     overflow: hidden;
-	height: 50px;
+	height: max-content;
 	border-bottom: 1px solid rgb(226, 226, 226);
 	border-top: 1px solid rgb(226, 226, 226);
 }
@@ -220,7 +220,7 @@ li img {
 #visibility span {
     position: relative;
     top: calc(50% - 10px);
-    margin: 30px;
+    margin-left: 10px;
 }
 
 #restrictions {
@@ -232,7 +232,7 @@ li img {
 #restrictions span {
     position: relative;
     top: calc(50% - 10px);
-    margin: 30px;
+    margin-left: 10px;
 }
 
 #date {
@@ -244,7 +244,7 @@ li img {
 #date span {
     position: relative;
     top: calc(50% - 10px);
-    margin: 30px;
+    margin-left: 10px;
 }
 
 #views {
@@ -256,7 +256,7 @@ li img {
 #views span {
     position: relative;
     top: calc(50% - 10px);
-    margin: 30px;
+    margin-left: 10px;
 }
 
 #comments {
@@ -268,7 +268,7 @@ li img {
 #comments span {
     position: relative;
     top: calc(50% - 10px);
-    margin: 30px;
+    margin-left: 10px;
 }
 
 #likes {
@@ -280,7 +280,7 @@ li img {
 #likes span {
     position: relative;
     top: calc(50% - 10px);
-    margin: 10px;
+    margin-left: 10px;
 }
 
 #header {

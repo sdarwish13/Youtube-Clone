@@ -42,7 +42,7 @@
                     <input type="button" id="profileImage">
 				</li>
 				<li id="urvidBtn">
-                    <a href="home.html">
+                    <a href="upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/ur vid.png" alt="Your Vid Image">
                         <p>Your Videos</p>
                     </a>
@@ -96,9 +96,10 @@
 						foreach($sql as $row){
 							$channel = $row["id"];
 						};
-					$rows = $db->query("SELECT * FROM Video");
+					$rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video");
 					foreach($rows as $row){
-					if ($channel == $row["channel"]){
+						$vid = $row["id"];
+						if ($channel == $row["channel"]){
 							$print_title = $row["title"];
 							$print_description = $row["description"];
 							if ($row["private"] == 1){
@@ -111,13 +112,19 @@
 							}elseif($row["restriction"] == 0){
 								$print_restriction = "None";
 							}
-						   $print_date = date("Y/m/d");
+						   $print_date = $row["upload_date"];
+						   $print_views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+						   $print_comments = $db->query("SELECT * FROM VideoComment WHERE video=$vid")->rowCount();
+						   $print_likes = $db->query("SELECT * FROM Likes WHERE video=$vid AND is_liked=1")->rowCount();
+						   $print_dislikes = $db->query("SELECT * FROM Likes WHERE video=$vid AND is_liked=0")->rowCount();
 							
 							?>
 								<div id="video_display">
-									<video width="250" height="200" style="float:left;">
+									<div id="checkboxvid">
+									<video width="100%" style="float:left;">
 										<source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
 									</video >
+									</div>
 									<div id="visibility">
 										<span> <?php print "$print_visibility" ?> </span>
 									</div>
@@ -128,15 +135,15 @@
 										<span> <?php print "$print_date" ?> </span>
 									</div>
 									<div id="views">
-										<span>Views</span>
+										<span><?= $print_views ?> Views</span>
 									</div>
 									<div id="comments">
-										<span>Comments</span>
+										<span><?= $print_comments ?> Comments</span>
 									</div>
 									<div id="likes">
-										<span>Likes (vs. dislikes)</span>
+										<span><?= $print_likes ?> Likes/<?= $print_dislikes ?> dislikes</span>
 									</div>
-								</div>
+							</div>
 							<?php
 						
 						}
