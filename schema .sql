@@ -32,6 +32,7 @@ create table Video (
 	location varchar(255),
 	description	text,
 	private boolean, --  if true => hide , false => show
+	restriction boolean,
 	upload_date datetime,
 	fileName varchar(60),
 	primary key (id),

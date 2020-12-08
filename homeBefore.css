@@ -203,14 +203,23 @@ body {
     height: calc(100% - 50px);
 }
 
+.video form {
+    margin: 10px;
+    border: none;
+    background-color:  rgb(247, 247, 247);
+    margin-bottom: 10px;
+    width: calc((100% - 80px) / 4);
+    height: calc(width * 1.777);
+}
+
 .videos button {
     margin: 10px;
     border: none;
     background-color:  rgb(247, 247, 247);
     margin-bottom: 10px;
     float: left;
-    width: calc((100% - 80px) / 4);
-    height: calc(width * 1.777);
+    width: 90%;
+    height: 90%;
 }
 
 .videos button:hover {
@@ -232,7 +241,7 @@ body {
 }
 
 #homeBtn p {
-    color: red;
+    color: blue;
 }
 
 #buttons a {
@@ -241,14 +250,14 @@ body {
 
 @media (max-width: 921px)
 {
-    .videos button {
+    .videos form {
         width: calc((100% - 65px) / 3);
     }
 }
 
 @media (max-width: 670px)
 {
-    .videos button {
+    .videos form {
         width: calc((100% - 45px) / 2);
     }
 }

@@ -3,7 +3,6 @@
     <head>
         <title>Youtube</title>
         <meta charset="UTF-8">
-        <!-- <script src="home.js"></script> -->
         <link href="subBefore.css" rel="stylesheet" type="text/css">
     </head>
     <body>
@@ -21,10 +20,10 @@
                 
             </div>
             <div id="buttons">
-                <input type="button" id="vidImage">
+                <input type="button" id="vidImage" onclick="window.location.hrey = 'signin.php'">
                 <input type="button" id="gridImage">
                 <input type="button" id="settingsImage">
-                <a href="signin.html">
+                <a href="signin.php">
                     <button id="signinBtn">SIGN IN</button> 
                 </a>
             </div>
@@ -56,12 +55,6 @@
                         <p>History</p>
                     </a>
                 </li>
-                <li id="urvidBtn">
-                    <a href="upload_vid.php">
-                        <img src="images/ur vid.png" alt="Your Vid Image">
-                        <p>Your Videos</p>
-                    </a>
-                </li>
             </ul>
         </div>
 
@@ -69,7 +62,7 @@
             <img src="images/sub.png" alt="Sub Image">
             <h2>Don't miss new videos</h2>
             <p>Sign in to see updates from your favourite YouTube channels</p>
-            <a href="signin.html">
+            <a href="signin.php">
                 <button id="signinBtn">SIGN IN</button> 
             </a>
         </div>

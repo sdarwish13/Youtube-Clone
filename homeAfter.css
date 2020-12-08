@@ -198,7 +198,8 @@ body {
     height: calc(100% - 50px);
 }
 
-.videos button {
+.videos form {
+    display: inline;
     margin: 10px;
     border: none;
     background-color:  rgb(247, 247, 247);
@@ -206,6 +207,16 @@ body {
     float: left;
     width: calc((100% - 80px) / 4);
     height: calc(width * 1.777);
+}
+
+.videos button {
+    margin: 10px;
+    border: none;
+    background-color:  rgb(247, 247, 247);
+    margin-bottom: 10px;
+    float: left;
+    width: 95%;
+    height: 95%;
 }
 
 .videos button:hover {
@@ -227,19 +238,19 @@ body {
 }
 
 #homeBtn p {
-    color: blue;
+    color: red;
 }
 
 @media (max-width: 921px)
 {
-    .videos button {
+    .videos form {
         width: calc((100% - 65px) / 3);
     }
 }
 
 @media (max-width: 670px)
 {
-    .videos button {
+    .videos form {
         width: calc((100% - 45px) / 2);
     }
 }

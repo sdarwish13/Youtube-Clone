@@ -47,37 +47,37 @@
         <div class="vertNav">
             <ul>
                 <li id="homeBtn">
-                    <a href="homeAfter.php">
+                    <a href="homeAfter.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/home.png" alt="Home Image">
                         <p>Home</p>
                     </a>
                 </li>
                 <li id="subBtn">
-                    <a href="subAfter.php">
+                    <a href="subAfter.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/sub.png" alt="Sub Image">
                         <p>Subscriptions</p>
                     </a>
                 </li>
                 <li id="libBtn">
-                    <a href="home.html">
+                    <a href="lib_after.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/lib.png" alt="Library Image">
                         <p>Library</p>
                     </a>
                 </li>
                 <li id="historyBtn">
-                    <a href="home.html">
+                    <a href="History.html?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/hist.png" alt="History Image">
                         <p>History</p>
                     </a>
                 </li>
                 <li id="urvidBtn">
-                    <a href="home.html">
+                    <a href="upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/ur vid.png" alt="Your Vid Image">
                         <p>Your Videos</p>
                     </a>
                 </li>
                 <li id="laterBtn">
-                    <a href="home.html">
+                    <a href="later.html?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/later.png" alt="Later Image">
                         <p>Watch Later</p>
                     </a>
@@ -87,7 +87,7 @@
 
         <?php
             $db = new PDO("mysql:dbname=278project", "root","");
-            $rows = $db->query("SELECT * FROM Video ORDER BY RAND()");
+            $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");
         ?>
         <div class="videos">
             <?php
@@ -98,28 +98,38 @@
                     $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
                     foreach($channels as $channel)
                     {
-                        
-                    ?>
-                    <button class="videoBtn" onClick="window.location.href='watchvideo.php?id=<?php echo $vid ?>'">
-                        <video id="watchVideo" width="100%">
-                            <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-                        </video>
-                        <div id="channelIm">
-                            <input type="button" id="channelImage">
-                        </div>
-                        
-                        <h4><?php echo $row["title"] ?></h4>
-                        <p><?php echo $channel["name"] ?></p>
-                        <p>
-                            <?php 
-                                $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                            ?>
-                            <span><?php echo $views ?> views • </span>
-                            <span><?php echo $row['upload_date'] ?></span>
-                        </p>
-                    </button>
-                    <?php
+                        ?>
+                        <form action="watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>" method="POST">
+                            <button id="videoBtn" name="videoBtn">
+                                <video id="watchVideo" width="100%">
+                                    <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                                </video>
+                                <div id="channelIm">
+                                    <input type="button" id="channelImage">
+                                </div>
+                                
+                                <h4><?php echo $row["title"] ?></h4>
+                                <p><?php echo $channel["name"] ?></p>
+                                <p>
+                                    <?php 
+                                        $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                    ?>
+                                    <span><?php echo $views ?> views • </span>
+                                    <span><?php echo $row['upload_date'] ?></span>
+                                </p>
+                            </button>
+                        </form>
+                        <?php
+                        if(isset($_POST["videoBtn"]))
+                        {
+                            echo $email;
+                            // $acc = $db->query("SELECT * FROM Channel WHERE email=$email");
+                            // $cid = $acc['id'];
+                            $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES (1, $vid);";
+                            $db->exec($view);
+                        }
                     }
+                    
                 }
             ?>
         </div>
