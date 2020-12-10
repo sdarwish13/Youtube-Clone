@@ -4,7 +4,7 @@
     <head>
         <title>Youtube video</title>
         <meta charset="UTF-8">
-        <link href="watchvideo.css" rel="stylesheet" type="text/css">
+        <link href="watchvideoPlaylist.css" rel="stylesheet" type="text/css">
         <!-- <script src="watchvideo.js">
 
         </script> -->
@@ -24,78 +24,13 @@
                 </form>
                 
             </div>
- <?php
-                    $db = new PDO("mysql:dbname=278project", "root","");
-                    
-                    $fname = $_REQUEST["fname"];
-                    $lname = $_REQUEST["lname"];
-                    $email = $_REQUEST["email"];
-                    $vid_id_link = $_REQUEST["id"];
-
-                    $emailLinks = $db->query("SELECT * FROM `Channel` WHERE owner='$email'");
-
-                    // $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '$vid_id_link ';");
-                    $id_linked="";
-                    foreach($emailLinks as $emailLink){
-                        // $owner=$emailLink["owner"];
-                        // if($email == $owner){
-                            $id_linked = $emailLink["id"];
-                     
-
-                        // }
-                    // break;
-
-                     
-        
-                    }
-                    $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                    $db->exec($view);
-
-                    // echo $id_linked;
-                    // echo $owner;
-                    // echo "THis is email : ",$email;
-                 
-
-
-                    // $trueVar=true;
-                    // if($trueVar==true){
-
-                    //     $rows89= $db->query("SELECT * FROM `Channel` ");
-                    //     foreach($rows89 as $row89){
-                    //         $owner= $row89["owner"];
-                    //         $id_from_channel=$rows89["id"];
-                    //         if($email == $owner){
-
-
-
-
-                    //         }
-                           
-                    //     }
-
-                    // }
-
-                  
-                 
-                
-                ?>
-
             <div id="buttons">
-
                 <input type="button" id="vidImage">
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
-                <button id="profileImage" onclick="openNav()">
-
-				<?php
-					print $fname[0];
-					print $lname[0];
-				?>
-
-				</button>
+                <input type="button" id="profileImage" onclick="openNav()">
                
             </div>
-           
             <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="#">About</a>
@@ -107,21 +42,61 @@
         </div>
 
         <div id="box">
-
                 <?php
                     $db = new PDO("mysql:dbname=278project", "root","");
                    
                 ?>
-
             <div id="upNext">
 
-                <span class="upNexttxt">
-                    Up next 
-                </span>
+            <div id="PlaylistVids">
+                <button>
+                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
+                    <div id="vidDetailsPlay">
+                        <h2> Video title</h2>     
+                        <span class="desWatchLater">
+                            Youtuber name  
+                        </span>          
+                    </div>
+                </button>
+                <button>
+                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
+                    <div id="vidDetailsPlay">
+                        <h2> Video title</h2>     
+                        <span class="desWatchLater">
+                            Youtuber name  
+                        </span>          
+                    </div>
+                </button>
+                <button>
+                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
+                    <div id="vidDetailsPlay">
+                        <h2> Video title</h2>     
+                        <span class="desWatchLater">
+                            Youtuber name  
+                        </span>          
+                    </div>
+                </button>
+                <button>
+                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
+                    <div id="vidDetailsPlay">
+                        <h2> Video title</h2>     
+                        <span class="desWatchLater">
+                            Youtuber name  
+                        </span>          
+                    </div>
+                </button>    
+                
+                 
+            </div>
 
-                <ul>
+             <span class="upNexttxt">
+                 Up Next
+                </span>
+            
+
+                <ul >
                     <?php
-                        $rows6 = $db->query("SELECT * FROM Video WHERE id != $vid_id_link");
+                        $rows6 = $db->query("SELECT * FROM Video");
                         $varChannelIds= $db->query("SELECT channel FROM Video");
  
                         foreach($rows6 as $row6)
@@ -174,7 +149,7 @@
                         <?php
                             //des and title and video playback
                             // $db = new PDO("mysql:dbname=278project", "root","");
-                            $rows = $db->query("SELECT * FROM Video WHERE id=$vid_id_link ");
+                            $rows = $db->query("SELECT * FROM Video WHERE id=1");
                             $des ="";
                             $vidTitle="";
                             foreach($rows as $row){
@@ -182,35 +157,24 @@
                                     <video id="watchVideo" controls>
                                         <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
                                     </video>
+
                                 <?php
                                 $des = $row["description"];
                                 $vidTitle= $row["title"];
-                                $channelId=$row["channel"];
                             } 
 
                             //for likes and dislikes
                             if(isset($_POST['likeImage'])) {
-                                $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE video=$vid_id_link AND viewer=$id_linked";
+                                $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE id=1";
                                 $db->exec($sqlLike);
-
-                                $likesCount1=$db->query("SELECT * FROM Likes")->rowCount();
-                                $likesCount1++;
-                                $sqlLike12="INSERT INTO `Likes` (`id`, `viewer`, `video`, `is_liked`) VALUES ('$likesCount1', '$id_linked', '$vid_id_link', '1');"; 
-                                $db->exec($sqlLike12);
-                               
-                               
                             };
                             if(isset($_POST['dislikeImage'])) {
-                                $sqlDislike = "UPDATE `Likes` SET is_liked='0' WHERE video=$vid_id_link AND viewer=$id_linked ";
+                                $sqlDislike = "UPDATE `Likes` SET is_liked='0' WHERE id=1";
                                 $db->exec($sqlDislike);
-
-                                $dislikesCount1=$db->query("SELECT * FROM Likes")->rowCount();
-                                $dislikesCount1++;
-                                $sqldisLike12="INSERT INTO `Likes` (`id`, `viewer`, `video`, `is_liked`) VALUES ('$dislikesCount1', '$id_linked', '$vid_id_link', '0');"; 
-                                $db->exec($sqldisLike12);
                             };
+                             
                             //to display dislikes 
-                            $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link");
+                            $rows12 = $db->query("SELECT is_liked FROM Likes ");
                             $countDislikes=0; //dislikes count
                             foreach($rows12 as $row12){
                                 if( $row12["is_liked"] == 0){
@@ -218,29 +182,31 @@
                                 }
                             };
                             //to display likes 
-                            $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link ");
+                            $rows1 = $db->query("SELECT is_liked FROM Likes ");
                             $countLikes =0; //likes count
                             foreach($rows1 as $row1){
                                 if( $row1["is_liked"] == 1 ){
                                         $countLikes++;
-                                }
-                            };
+                                    }
+                                };
+
                             #for channel name ( tuber name)
-                            $rows2 = $db->query("SELECT name FROM Channel WHERE id=$channelId ");
+                            $rows2 = $db->query("SELECT name FROM Channel WHERE id=1 ");
                             $tuberName="";
                             foreach($rows2 as $row2){
                                 $tuberName = $row2["name"];
                             };
 
                             #for subscribers( sub count)
-                            $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=$channelId");
+                            $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=1 ");
                             $subsCount=0;
+                            
                             foreach($rows3 as $row3){
                                 $subsCount++;
                             };
 
                             #for comment count
-                            $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link  ");
+                            $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=1 ");
                             $CommentCount=0;
                             $varCommentid=0;
                             foreach($rows4 as $row4){
@@ -249,7 +215,7 @@
                                
                             };       
                             #display video views
-                            $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid_id_link  ");
+                            $rows8 = $db->query("SELECT * FROM Views WHERE video=1 ");
                             $viewsCount=0;
                                 foreach($rows8 as $row8){
                                     $viewsCount++;
@@ -277,7 +243,7 @@
                     <button id="dislikeImage"  value="dislikeImage" name="dislikeImage"></button>
                     <span class="likes"> <?=$countDislikes?> </span>
                     </form>
-                    <button id="shareImage" ></button>
+                    <button id="shareImage"></button>
                     <span class="likes"> SHARE </span>
                     <button id="saveImage"></button>
                     <span class="likes"> SAVE </span>
@@ -337,19 +303,24 @@
                         <br>
                         <span> Reddit</span>
                         </button>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div id="myModal1" class="modal">
+
                     <!-- Modal content -->
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <p>Save to...</p>
+                        <p>Share</p>
+                        <button id="iconButton">
+                        <img id="iconImages"src="images/facebookIcon.png" alt="Avatar" style="width:70px" onclick="window.location.href='https://www.facebook.com/';">
                         <br>
-                       
-                        <button id="addWatchLater" name="addWatchLater" value="Watch Later">Watch Later</button>
-                        
+                        <span> Facebook</span>
+                        </button>
                     </div>
                 </div>   
 
@@ -362,10 +333,7 @@
                         </span>
                         <br>
                         <span class="tuberSubs"> <?=$subsCount ?> subscribers</span> 
-                        <form action="" method="post" id="formSub">
-                        <button id="subButton" name="subButton"> Subscribe</button>
-                        </form>
-                        <!-- <button id="subButton" name="subButton"> Subscribe</button> -->
+                        <button id="subButton" onclick=""> Subscribe</button>
                         <input type="button" id="notifImage">
                 </div>
                 <br>
@@ -384,20 +352,8 @@
                 <div id="commentBtns">
                     <button id="cancelCommBtn" onclick="document.getElementById('commentInput').value = ''">CANCEL</button>
                     <button id="commentBtn" name="commentBtn" onclick="commentBtn()">COMMENT</button>
-
                 </div>
                 <?php
-
-                //on click sub to channel
-
-            
-                if (isset($_POST['subButton'])){
-                    $subs_table= "INSERT INTO `Subscription` (`subscriber`, `channel`) VALUES ('$id_linked', '$channelId')";
-                    $db->exec($subs_table);
-                    // echo"successsss!";
-                }
-                // echo  "  this is sub ",$id_linked;
-                // echo " this is channel id",$channelId;
               
                 //to insert a comment
                 $commContent="";
@@ -406,7 +362,7 @@
                     $varComment = $_POST['commentInput'];
                     $comments = $db->query("SELECT * FROM VideoComment")->rowCount();
                     $comments++;
-                    $sql10 = "INSERT INTO `VideoComment` (`id`, `author`, `video`, `comment`) VALUES ( '$comments', '$id_linked', '$vid_id_link ', '$varComment')";
+                    $sql10 = "INSERT INTO `VideoComment` (`id`, `author`, `video`, `comment`) VALUES ( '$comments', '2', '1', '$varComment')";
                     $db->exec($sql10); 
                 };
                  //add reply to db 
@@ -415,7 +371,7 @@
                     $replies= $db->query("SELECT * FROM CommentReply")->rowCount();
                     $test=$_POST['commentIDinput'];
                     $replies++;
-                    $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '$id_linked', '$vid_id_link ', '$replyContent')";
+                    $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '2', '1', '$replyContent')";
                     $db->exec($replySql); 
                     echo" success reply saved to db!";
                     echo "this is :" ,$replyContent;
@@ -423,29 +379,21 @@
 
                 //likes and dislike for comments //need to insert if first time liking
                 if(isset($_POST['likeImageComm'])){  
-
                     $test1=$_POST['commentIDinput'];
-                    $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link '; "; 
+                    $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
                     $db->exec($sqlLikeComment1);
-
-                    $likesCommCount1=$db->query("SELECT * FROM CommentLikes")->rowCount();
-                    $likesCommCount1++;
-                    $sqlCommLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '1');"; 
-                    $db->exec($sqlCommLike12);
-
-
-                   
+                  
                 };
                 if(isset($_POST['dislikeImageComm'])){
                     $test1=$_POST['commentIDinput'];
                     //WHERE `CommentLikes`.`viewer` = '3'
-                    $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link '; "; 
+                    $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
                     $db->exec($sqldisLikeComment);
                 };
 
                 if(isset($_POST['viewReply'])){
                     $test2=$_POST['commentIDinput'];
-                    $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '$vid_id_link ';");
+                    $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '1';");
                     $replyContentDb="";
                     $replyNam_db=$_POST['replyName_db'];
                     foreach($replyTables as $replyTable){
@@ -467,7 +415,7 @@
                 }
                 $g = true;
                 if( $g == true){
-                    $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link  ");
+                    $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=1 ");
                     foreach($commentDbs as $commentDb){
 
                         $commContent= $commentDb["comment"];
@@ -489,7 +437,7 @@
                          };
                          
                         // echo $commentID;
-                        $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=$vid_id_link  AND id= $commentID AND is_liked=1");
+                        $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=1 AND id= $commentID AND is_liked=1");
                         $likeCommCount=0;
                         // $dislikeCommCount=0;
                         foreach($commentLikes as $commentLike){
@@ -502,13 +450,13 @@
                         };
                         
                         ?>
-                         <form action="" method="post" >
+                         <form action="" method="post">
                          <div id="comment">
                             <input type="button" id="tuberImage">
                             <div id="commName">  <?=$commenterName?> </div>
                             <div id="commContent"> <?=$commContent?></div>
                             <div id="likeMenuComm"> 
-                            <button id="likeImageComm" name="likeImageComm" ></button>
+                            <button id="likeImageComm" name="likeImageComm"></button>
                             <span class="likesComm"> <?=$likeCommCount?> </span>
                             <button id="dislikeImageComm" name="dislikeImageComm"></button>
                             <button id="reply" name="reply"> REPLY</button>
@@ -540,7 +488,6 @@
                 else{
                     echo "No comments yet";
                 }
-
                 ?>
             </div>
             </form>
@@ -562,10 +509,6 @@
     function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     }
-
-    // var form = document.getElementById("myForm");
-    // function handleForm(event) { event.preventDefault(); } 
-    // form.addEventListener('submit', handleForm);
 
     
     // var commentBtn = document.getElementById("commentBtn");
@@ -707,10 +650,10 @@
         }
         }
 
-        // Get the modal for reprt
-        var modal1 = document.getElementById("myModal1");
+            // Get the modal for reprt
+            var modal1 = document.getElementById("myModal1");
         // Get the button that opens the modal
-        var btn1 = document.getElementById("saveImage");
+        var btn1 = document.getElementById("reportBtn");
         // Get the <span> element that closes the modal
         var span1 = document.getElementsByClassName("close")[0];
         // When the user clicks the button, open the modal 

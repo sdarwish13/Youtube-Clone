@@ -261,7 +261,7 @@ input {
     margin-right: 620px;
 }
 #subButton{
-    background-color: rgb(203, 11, 11);
+    background-color: rgb(25, 140, 16);
     display: inline-flex;
     font-size: 18px;
     /* font-stretch: extra-expanded; */
@@ -296,10 +296,11 @@ input {
     /* padding-left: 70%; */
     /* margin-left: 70%; */
     float: right;
-
     height: 100%;
     padding-right:2px;
     width: 400px;
+   
+
     
 
 }
@@ -308,6 +309,8 @@ input {
     font-family: sans-serif;
     width: 300px;
     height:18px;
+    margin-bottom: 20px;
+   
     
 
 }
@@ -317,6 +320,8 @@ input {
     margin-left: -72px;
     list-style-type: none;
     display: block;
+    margin-top: 400px;
+   
 }
 #details{
     padding-top: 10px;
@@ -649,8 +654,65 @@ input {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-
-#formSub{
-    display: inline;
+#PlaylistVids{
+    padding: 20px;
+    position: right;
+    top: 50px;
+    /* left: 100px; */
+    background-color: white;
+    height: 200px;
+    /* width: calc(100% - 500px); */
+    /* height: calc(100% - 50px); */
+    width: 500px;
+    height: 200px;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    float: right;
+    padding-left: 20px;
 }
+#PlaylistVids img {
+    width: 200px;
+    height: 100px;
+    float: right;
+}
+#PlaylistVids button {
+    border: none;
+    background-color: white;
+    /* margin-bottom: 10px;
+    float: left; */
+    width: calc(96% - 10px);
+    height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+#PlaylistVids button:hover {
+    background-color: #e2e2e2;
+}
+#vidDetailsPlay {
+    display: block;
+    overflow: hidden;
+    width: 200px;
+}
+#vidDetailsPlay h2{
+    text-align: start;
+    margin-left: 7px;
+    overflow: hidden;
+}
+.desWatchLater{
+    float: right;
+    margin-left: 7px;
+    font-size: 14px;
+    text-align: start;
+    color: gray;
+    overflow: hidden;
+
+}
+
+
+
+
+
 
