@@ -7,7 +7,6 @@ else{
 
 $conn = new PDO("mysql:host=localhost;dbname=278project","root","");
 $sql1 =$conn->query("DELETE FROM Report WHERE video = '$id'");
-$sql2 =$conn->query("DELETE FROM Video WHERE id = '$id'");
 print "done";
 	header("Location: user_management.php");
 }

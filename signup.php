@@ -61,7 +61,7 @@
 									$sql2 = "INSERT INTO Channel(id, owner, name)
 									VALUES ('$channelid', '$email', '$fname')";
 									$conn->exec($sql2);
-									$url = "homeAfter.php?fname=$fname&lname=$lname&email=$email";
+									$url = "userDetails.php?fname=$fname&lname=$lname&email=$email";
 									header("Location: " .$url);
 								} catch(PDOException $e){
 									echo $sql . "<br>" . $e->getMessage();

@@ -14,15 +14,15 @@ create table Channel (
 	-- contact_info varchar(120),
 	-- location varchar(60),
 	primary key (id),
-	foreign key (owner) references Account(email)
+	foreign key (owner) references Account(email) ON DELETE CASCADE
 );
 
 create table Subscription (
 	subscriber varchar(60),
 	channel varchar(60),
 	primary key (subscriber, channel),
-	foreign key (subscriber) references Channel(id),
-	foreign key (channel) references Channel(id)
+	foreign key (subscriber) references Channel(id) ON DELETE CASCADE,
+	foreign key (channel) references Channel(id) ON DELETE CASCADE
 );
 
 create table Video (
@@ -36,15 +36,15 @@ create table Video (
 	upload_date datetime,
 	fileName varchar(60),
 	primary key (id),
-	foreign key (channel) references Channel(id)
+	foreign key (channel) references Channel(id) ON DELETE CASCADE
 );
 
 create table Report (
 	reporter varchar(60),
 	video varchar(60),
 	primary key (reporter, video),
-	foreign key (reporter) references Channel(id),
-	foreign key (video) references Video(id)
+	foreign key (reporter) references Channel(id) ON DELETE CASCADE,
+	foreign key (video) references Video(id) ON DELETE CASCADE
 );
 
 create table VideoComment (
@@ -53,8 +53,8 @@ create table VideoComment (
 	video varchar(60),
 	comment text,
 	primary key (id, video),
-	foreign key (author) references Channel(id),
-	foreign key (video) references Video(id)
+	foreign key (author) references Channel(id) ON DELETE CASCADE,
+	foreign key (video) references Video(id) ON DELETE CASCADE
 );
 
 create table CommentReply (
@@ -64,8 +64,8 @@ create table CommentReply (
 	video varchar(60),
 	reply text,
 	primary key (id, parent_id, video),
-	foreign key (parent_id, video) references VideoComment(id, video),
-	foreign key (author) references Channel(id)
+	foreign key (parent_id, video) references VideoComment(id, video) ON DELETE CASCADE,
+	foreign key (author) references Channel(id) ON DELETE CASCADE
 );
 
 create table CommentLikes (
@@ -74,7 +74,7 @@ create table CommentLikes (
 	video varchar(60),
 	is_liked boolean,
 	primary key (viewer, id, video),
-	foreign key (id, video) references VideoComment(id, video)
+	foreign key (id, video) references VideoComment(id, video) ON DELETE CASCADE
 );
 
 create table ReplyLikes (
@@ -84,15 +84,15 @@ create table ReplyLikes (
 	video varchar(60),
 	is_liked boolean,
 	primary key (viewer, id, parent_id, video),
-	foreign key (id, parent_id, video) references CommentReply(id, parent_id, video)
+	foreign key (id, parent_id, video) references CommentReply(id, parent_id, video) ON DELETE CASCADE
 );
 
 create table Views (
 	viewer varchar(60),
 	video varchar(60),
 	primary key (viewer, video),
-	foreign key (viewer) references Channel(id),
-	foreign key (video) references Video(id)
+	foreign key (viewer) references Channel(id) ON DELETE CASCADE
+	foreign key (video) references Video(id) ON DELETE CASCADE
 );
 
 create table Likes (
@@ -100,8 +100,8 @@ create table Likes (
 	video varchar(60),
 	is_liked boolean,
 	primary key (viewer, video),
-	foreign key (viewer) references Channel(id),
-	foreign key (video) references Video(id)
+	foreign key (viewer) references Channel(id) ON DELETE CASCADE,
+	foreign key (video) references Video(id) ON DELETE CASCADE
 );
 
 create table History (
@@ -109,8 +109,8 @@ create table History (
 	video varchar(60),
 	view_datetime datetime,
 	primary key (viewer, video, view_datetime),
-	foreign key (viewer) references Channel(id),
-	foreign key (video) references Video(id)
+	foreign key (viewer) references Channel(id) ON DELETE CASCADE
+	foreign key (video) references Video(id) ON DELETE CASCADE
 );
 
 
@@ -119,13 +119,13 @@ create table Playlist (
 	owner varchar(60),
 	title varchar(60),
 	primary key(id),
-	foreign key (owner) references Channel(id)
+	foreign key (owner) references Channel(id) ON DELETE CASCADE
 );
 
 create table PlaylistVideos (
 	video varchar(60),
 	playlist varchar(60),
 	primary key (video, playlist),
-	foreign key (video) references Video(id),
-	foreign key (playlist) references Playlist(id)
+	foreign key (video) references Video(id) ON DELETE CASCADE,
+	foreign key (playlist) references Playlist(id) ON DELETE CASCADE
 );

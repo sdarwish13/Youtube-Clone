@@ -39,6 +39,7 @@
 				</div>
 				
 				<?php
+					error_reporting(0);
 					$title = $_POST["title"];
 					$description = $_POST["description"];
 					$visibility = $_POST["visibility"];
@@ -51,9 +52,7 @@
 					$lname = $_REQUEST["lname"];
 					$email = $_REQUEST["email"];
 					
-					print $title;
-					print $description;
-					print $theid;
+
 					if ($visibility == "TRUE"){
 						$visibility_boolean = 1;
 					}elseif($visibility == "FALSE"){
@@ -64,7 +63,6 @@
 					}elseif($restriction == "FALSE"){
 						$restriction_boolean = 0;
 					}
-					print "--$visibility_boolean";
 					
 					if(!empty($title) && !empty($description) && !empty($visibility)){
 					try {

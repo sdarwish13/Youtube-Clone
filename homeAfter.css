@@ -276,3 +276,83 @@ body {
     float: left;
     height: 40px;
 }
+
+#displaythechannel{
+    position: fixed;
+    top: 50px;
+    left: 80px;
+    background-color: rgb(247, 247, 247);
+    overflow: scroll;
+    float: left;
+    width: calc(100% - 80px);
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+    padding: 0px;
+    height: calc(100% - 50px);
+}
+
+#channelLogo {
+    width: 100px;
+    height: 100px;
+	margin-top: 50px;
+    margin-left: 50px;
+    border-radius: 50%;
+}
+
+#marginfromtop{
+	margin-top:90px;
+	margin-left:5px;
+}
+#subscribercount{
+	margin-top:110px;
+	margin-left:-95px;
+}
+
+.tab {
+
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+    position: fixed;
+    top: 225px;
+    left: 80px;
+    float: left;
+    width: calc(100% - 80px);
+    margin: auto;
+    padding: 0px;
+}
+
+.tablelinks{
+	margin-right:50px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  border-top: none;
+    position: fixed;
+    top: 275px;
+    left: 90px;
+    float: left;
+    width: calc(100% - 80px);
+    margin: auto;
+    padding: 0px;
+}
