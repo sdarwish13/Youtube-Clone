@@ -106,9 +106,53 @@
 				  <h3>HOME</h3>
 				  <p>HOME is the capital city of England.</p>
 				</div>
-					<div id="VIDEOS" class="tabcontent">
+				<div id="VIDEOS" class="tabcontent">
+				<!--	
 				  <h3>VIDEOS</h3>
 				  <p>VIDEOS is the capital of France.</p> 
+				-->
+				<?php
+                foreach($rows as $row)
+                {
+                    $vid = $row["id"];
+                    $chan = $row["channel"];
+                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                    foreach($channels as $channel)
+                    {
+                        ?>
+                        <form action="watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>" method="POST">
+                            <button id="videoBtn" name="videoBtn">
+                                <video id="watchVideo" width="100%">
+                                    <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                                </video>
+                                <div id="channelIm">
+                                    <input type="button" id="channelImage">
+                                </div>
+                                
+                                <h4><?php echo $row["title"] ?></h4>
+                                <p><?php echo $channel["name"] ?></p>
+                                <p>
+                                    <?php 
+                                        $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                    ?>
+                                    <span><?php echo $views ?> views • </span>
+                                    <span><?php echo $row['upload_date'] ?></span>
+                                </p>
+                            </button>
+                        </form>
+                        <?php
+                        if(isset($_POST["videoBtn"]))
+                        {
+                            echo $email;
+                            // $acc = $db->query("SELECT * FROM Channel WHERE email=$email");
+                            // $cid = $acc['id'];
+                            $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES (1, $vid);";
+                            $db->exec($view);
+                        }
+                    }
+                    
+                }
+            ?>
 				</div>
 
 				<div id="ABOUT" class="tabcontent">

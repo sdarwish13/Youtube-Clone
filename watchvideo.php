@@ -44,13 +44,20 @@
 
                         // }
                     // break;
-
+					
                      
         
                     }
-                    $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                    $db->exec($view);
-
+					
+					$testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != $id_linked");
+                    foreach($testing62s as $testing62){
+                        $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
+                        $db->exec($view);
+                    }
+					
+                    //$view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
+                    //$db->exec($view);
+					echo "$id_linked --- $vid_id_link";
                     // echo $id_linked;
                     // echo $owner;
                     // echo "THis is email : ",$email;
