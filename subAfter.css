@@ -198,7 +198,6 @@ body {
     height: calc(100% - 50px);
 }
 
-
 .videos button {
     padding: 0px;
     margin: 3px;
@@ -245,20 +244,6 @@ body {
 #subBtn p {
     color: red;
 }
-
-/* @media (max-width: 921px)
-{
-    .videos button {
-        width: calc((100% - 65px) / 3);
-    }
-} */
-
-/* @media (max-width: 670px)
-{
-    .videos button {
-        width: calc((100% - 45px) / 2);
-    }
-} */
 
 #channelImage {
     width: 27px;

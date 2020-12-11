@@ -134,7 +134,6 @@
                                             <span><?php echo $row['upload_date'] ?></span>
                                         </p>
                                     </button>
-                                    <input type="button" id="vidSettings">
                                     <?php
                                 }
                             }
@@ -169,7 +168,6 @@
                                             <span><?php echo $row['upload_date'] ?></span>
                                         </p>
                                     </button>
-                                    <input type="button" id="vidSettings">
                                     <?php
                                 }
                             }

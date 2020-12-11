@@ -148,11 +148,16 @@ li img {
 }
 
 #urvidBtn p {
-	color: blue;
+	color: red;
 }
 
 .vertNav li input {
 	margin: 20px;
+}
+
+.vertNav p {
+    margin: 0px;
+    font-size: small;
 }
 
 #buttonme {
