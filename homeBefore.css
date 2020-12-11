@@ -203,14 +203,14 @@ body {
     height: calc(100% - 50px);
 }
 
-.video form {
+/* .video form {
     margin: 10px;
     border: none;
     background-color:  rgb(247, 247, 247);
     margin-bottom: 10px;
     width: calc((100% - 80px) / 4);
     height: calc(width * 1.777);
-}
+} */
 
 .videos button {
     margin: 10px;
@@ -218,8 +218,8 @@ body {
     background-color:  rgb(247, 247, 247);
     margin-bottom: 10px;
     float: left;
-    width: 90%;
-    height: 90%;
+    width: calc((100% - 80px) / 4);
+    height: calc(width * 1.777);
 }
 
 .videos button:hover {
@@ -241,7 +241,7 @@ body {
 }
 
 #homeBtn p {
-    color: blue;
+    color: red;
 }
 
 #buttons a {
@@ -250,14 +250,14 @@ body {
 
 @media (max-width: 921px)
 {
-    .videos form {
+    .videos button {
         width: calc((100% - 65px) / 3);
     }
 }
 
 @media (max-width: 670px)
 {
-    .videos form {
+    .videos button {
         width: calc((100% - 45px) / 2);
     }
 }

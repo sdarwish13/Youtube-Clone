@@ -198,7 +198,7 @@ body {
     width: 300px;
 }
 
-#name img {
+#name video {
     width: 300px;
 }
 
@@ -284,13 +284,16 @@ hr {
     height: 20px;
 }
 
+#wrapLater {
+    height: fit-content;
+}
+
 #laterVids {
     padding: 10px;
     position: fixed;
     top: 50px;
     left: 410px;
     background-color: #f1f1f1;
-    height: 100%;
     width: calc(100% - 410px);
     height: calc(100% - 50px);
     overflow: scroll;
@@ -299,16 +302,14 @@ hr {
     flex-direction: row;
 }
 
-#laterVids img {
-    width: 110px;
+#watchVideo {
+    width: 150px;
     float: left;
 }
 
 #laterVids button {
     border: none;
     background-color: #f1f1f1;
-    /* margin-bottom: 10px;
-    float: left; */
     width: calc(96% - 10px);
     height: 96px;
     overflow: hidden;
@@ -316,6 +317,7 @@ hr {
 }
 
 #laterVids button:hover {
+    cursor: pointer;
     background-color: #e2e2e2;
 }
 
@@ -327,8 +329,18 @@ hr {
     max-height: 40px;
 }
 
+#laterVids p {
+    text-align: start;
+    float: left;
+    overflow: hidden;
+    margin: 0px 10px 10px 10px;
+    max-height: 40px;
+    width:100%;
+}
+
 #vidDetails {
+    float: left;
     display: block;
     overflow: hidden;
-    width: calc(100% - 110px);
+    width: calc(100% - 150px);
 }

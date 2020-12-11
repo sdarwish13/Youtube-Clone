@@ -91,7 +91,7 @@ create table Views (
 	viewer varchar(60),
 	video varchar(60),
 	primary key (viewer, video),
-	foreign key (viewer) references Channel(id) ON DELETE CASCADE
+	foreign key (viewer) references Channel(id) ON DELETE CASCADE,
 	foreign key (video) references Video(id) ON DELETE CASCADE
 );
 
@@ -108,11 +108,10 @@ create table History (
 	viewer varchar(60),
 	video varchar(60),
 	view_datetime datetime,
-	primary key (viewer, video, view_datetime),
-	foreign key (viewer) references Channel(id) ON DELETE CASCADE
+	primary key (viewer, video, view_datetime) ON DELETE CASCADE,
+	foreign key (viewer) references Channel(id) ON DELETE CASCADE,
 	foreign key (video) references Video(id) ON DELETE CASCADE
 );
-
 
 create table Playlist (
 	id varchar(60),
@@ -128,4 +127,13 @@ create table PlaylistVideos (
 	primary key (video, playlist),
 	foreign key (video) references Video(id) ON DELETE CASCADE,
 	foreign key (playlist) references Playlist(id) ON DELETE CASCADE
+);
+
+create table WatchLater (
+	viewer varchar(60),
+	video varchar(60),
+	later_datetime datetime,
+	primary key (viewer, video),
+	foreign key (viewer) references Channel(id) ON DELETE CASCADE,
+	foreign key (video) references Video(id) ON DELETE CASCADE
 );
