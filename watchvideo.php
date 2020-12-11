@@ -193,9 +193,9 @@
                                 $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE video=$vid_id_link AND viewer=$id_linked";
                                 $db->exec($sqlLike);
 
-                                $likesCount1=$db->query("SELECT * FROM Likes")->rowCount();
-                                $likesCount1++;
-                                $sqlLike12="INSERT INTO `Likes` (`id`, `viewer`, `video`, `is_liked`) VALUES ('$likesCount1', '$id_linked', '$vid_id_link', '1');"; 
+                                // $likesCount1=$db->query("SELECT * FROM Likes")->rowCount();
+                                // $likesCount1++;
+                                $sqlLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '1');"; 
                                 $db->exec($sqlLike12);
                                
                                
@@ -204,9 +204,9 @@
                                 $sqlDislike = "UPDATE `Likes` SET is_liked='0' WHERE video=$vid_id_link AND viewer=$id_linked ";
                                 $db->exec($sqlDislike);
 
-                                $dislikesCount1=$db->query("SELECT * FROM Likes")->rowCount();
-                                $dislikesCount1++;
-                                $sqldisLike12="INSERT INTO `Likes` (`id`, `viewer`, `video`, `is_liked`) VALUES ('$dislikesCount1', '$id_linked', '$vid_id_link', '0');"; 
+                                // $dislikesCount1=$db->query("SELECT * FROM Likes")->rowCount();
+                                // $dislikesCount1++;
+                                $sqldisLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '0');"; 
                                 $db->exec($sqldisLike12);
                             };
                             //to display dislikes 
