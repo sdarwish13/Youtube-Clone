@@ -147,7 +147,7 @@ li img {
     height: 25px;
 }
 
-#urvidBtn p {
+#playlistBtn p {
 	color: red;
 }
 
@@ -216,8 +216,12 @@ li img {
 	border-right: 1px solid rgb(226, 226, 226);
 }
 
+#checkboxvid :hover {
+    cursor: pointer;
+}
+
 #visibility {
-	width: calc(80%/6 - 1px);
+    width: calc(75%/5 - 1px);
     height: 100%;
     float: left;
 }
@@ -228,21 +232,10 @@ li img {
     margin-left: 10px;
 }
 
-#restrictions {
-    float: left;
-	width: calc(80%/6 + 18px);
-	height: 100%;
-}
-
-#restrictions span {
-    position: relative;
-    top: calc(50% - 10px);
-    margin-left: 10px;
-}
-
 #date {
     float: left;
-	width: calc(80%/6 - 20px);
+    margin-left: 3%;
+	width: calc(75%/5 - 20px);
 	height: 100%;
 }
 
@@ -252,37 +245,15 @@ li img {
     margin-left: 10px;
 }
 
-#views {
+#video {
     float: left;
-	width: calc(80%/6 - 30px);
+    margin-left: 4%;
+    margin-right: 20px;
+	width: fit-content;
 	height: 100%;
 }
 
-#views span {
-    position: relative;
-    top: calc(50% - 10px);
-    margin-left: 10px;
-}
-
-#comments {
-    float: left;
-	width: calc(80%/6 - 10px);
-    height: 100%;
-}
-
-#comments span {
-    position: relative;
-    top: calc(50% - 10px);
-    margin-left: 10px;
-}
-
-#likes {
-    float: left;
-	width: calc(80%/6 + 12px);
-	height: 100%;
-}
-
-#likes span {
+#video span {
     position: relative;
     top: calc(50% - 10px);
     margin-left: 10px;

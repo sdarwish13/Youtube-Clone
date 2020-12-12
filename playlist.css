@@ -1,4 +1,4 @@
-/* Subscription css after sign in/ sign up */
+/* Watch Later page after sign in/ sign up */
 
 body {
     margin-top: 4px;
@@ -42,8 +42,6 @@ body {
 }
 
 #gridImage:hover {
-    /* background: url("images/grid-after-click.png") no-repeat; */
-    /* background-size: contain; */
     cursor: pointer;
 }
 
@@ -181,110 +179,164 @@ body {
     font-size: small;
 }
 
-.videos {
+#upload {
+    text-decoration: none;
+}
+
+#prev {
+    background-color: #f9f9f9;
     position: fixed;
     top: 50px;
     left: 80px;
-    background-color: rgb(247, 247, 247);
-    overflow: scroll;
-    float: left;
-    width: calc(100% - 120px);
-    flex-wrap: wrap;
-    flex-direction: row;
-    display: flex;
-    margin: auto;
-    padding: 20px;
-    padding-left: 20px;
-    height: calc(100% - 50px);
+    /* float: left; */
+    padding: 15px;
+    height: 100%;
+    width: 300px;
 }
 
-.videos button {
-    padding: 0px;
+#name video {
+    width: 300px;
+}
+
+#name p {
+    margin: 10px 0px;
+    font-size: x-large;
+}
+
+#type {
+    margin: 20px 10px 20px 0px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    font-size: 12px;
+    width: fit-content;
+}
+
+#type img {
+    margin: 2px -3px 3px 3px;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+}
+
+#type span {
     margin: 3px;
+    color: #606060;
+    vertical-align: middle;
+}
+
+#details {
+    font-size: small;
+    color: rgb(88, 88, 88);
+    margin: 10px 10px 10px 0px;
+}
+
+#actions {
+    margin: 10px 10px 20px 0px;
+}
+
+hr {
     border: none;
-    background-color:  rgb(247, 247, 247);
-    margin-bottom: 10px;
-    float: left;
-    width: 170px;
-    height: calc(width * 1.777);
+    height: 1px;
+    background-color: #e7e7e7;
 }
 
-.videos button:hover {
-    cursor: pointer;
+#shufflePlay {
+    width: 20px;
+    height: 20px;
+    background: url("images/shuffle.png") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+    margin: 0px 10px 0px 0px;
 }
 
-.videos img {
-    width: 100%;
+#moreInfo {
+    width: 20px;
+    height: 20px;
+    background: url("images/more.png") no-repeat;
+    background-size: contain;
+    border: none;
+    vertical-align: middle;
+    margin: 0px 10px 0px 10px;
 }
 
-.videos button h4 {
-    text-align: left;
-    margin: 2px;
+#accountInfo span {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
-.videos button p {
-    text-align: left;
-    margin: 2px;
-}
-
-#center {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-#center h3 {
-    width: 100%;
-}
-
-#subWrap {
-    margin: 0px 50px 50px 50px;
-}
-
-#subBtn p {
-    color: red;
-}
-
-#channelImage {
-    width: 27px;
-    height: 27px;
+#pImage {
+    width: 35px;
+    height: 35px;
     /* background: url("unnamed.png") no-repeat; */
     background-size: contain;
     border-radius: 50%;
     vertical-align: middle;
     border: none;
-    color: black;
+}
+
+#actions {
+    height: 20px;
+}
+
+#wrapLater {
+    height: fit-content;
+}
+
+#laterVids {
+    padding: 10px;
+    position: fixed;
+    top: 50px;
+    left: 410px;
+    background-color: #f1f1f1;
+    width: calc(100% - 410px);
+    height: calc(100% - 50px);
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#watchVideo {
+    width: 150px;
     float: left;
 }
 
-#channelImage:hover {
-    cursor: pointer;
-}
-
-#channelIm {
-    margin: 2px 10px 0px 2px;
-    float: left;
-    height: 40px;
-}
-
-#vidSettings {
-    margin-left: 10px;
-    padding: 0px;
-    width: 15px;
-    height: 15px;
-    position: relative;
-    top: 110px;
-    right: 25px;
-    background: url("images/vidSetting.png") no-repeat;
-    background-size: contain;
+#laterVids button {
     border: none;
-    vertical-align: middle;
+    background-color: #f1f1f1;
+    width: calc(96% - 10px);
+    height: 96px;
+    overflow: hidden;
+    border-bottom: 1px solid #e2e2e2;
 }
 
-#vidSettings:hover {
+#laterVids button:hover {
     cursor: pointer;
+    background-color: #e2e2e2;
 }
 
-video {
-    margin-bottom: 5px;
+#laterVids h4 {
+    text-align: start;
+    float: left;
+    overflow: hidden;
+    margin: 10px;
+    max-height: 40px;
+}
+
+#laterVids p {
+    text-align: start;
+    float: left;
+    overflow: hidden;
+    margin: 0px 10px 10px 10px;
+    max-height: 40px;
+    width:100%;
+}
+
+#vidDetails {
+    float: left;
+    display: block;
+    overflow: hidden;
+    width: calc(100% - 150px);
 }

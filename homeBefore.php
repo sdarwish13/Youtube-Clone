@@ -67,32 +67,29 @@
             foreach($rows as $row)
             {
                 $vid = $row["id"];
-                
                 $chan = $row["channel"];
                 $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
                 foreach($channels as $channel)
                 {
                 ?>
-                    <form action="watchvideo.php?id=<?php echo $vid ?>" method="POST">
-                        <button id="videoBtn">
-                            <video id="watchVideo" width="100%">
-                                <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-                            </video>
-                            <div id="channelIm">
-                                <input type="button" id="channelImage">
-                            </div>
-                            
-                            <h4><?php echo $row["title"] ?></h4>
-                            <p><?php echo $channel["name"] ?></p>
-                            <p>
-                                <?php 
-                                    $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                                ?>
-                                <span><?php echo $views ?> views • </span>
-                                <span><?php echo $row['upload_date'] ?></span>
-                            </p>
-                        </button>
-                    </form>
+                    <button id="videoBtn" onclick="window.location.href = `watchvideo.php?id=<?php echo $row['id'] ?>`">
+                        <video id="watchVideo" width="100%">
+                            <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                        </video>
+                        <div id="channelIm">
+                            <input type="button" id="channelImage" value="<?= $channel["name"][0]?>">
+                        </div>
+                        
+                        <h4><?php echo $row["title"] ?></h4>
+                        <p><?php echo $channel["name"] ?></p>
+                        <p>
+                            <?php 
+                                $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                            ?>
+                            <span><?php echo $views ?> views • </span>
+                            <span><?php echo $row['upload_date'] ?></span>
+                        </p>
+                    </button>
                 <?php
                 }
             }
