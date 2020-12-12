@@ -167,11 +167,11 @@
                                 foreach($varChannelIds as $varChannelId)
                                 {
                                     $ID = $varChannelId["channel"];
-                                    $rows7 = $db->query("SELECT name FROM Channel WHERE id='$ID'");
+                                    $rows7 = $db->query("SELECT name FROM Channel WHERE id='$ID'  ");
                                     foreach($rows7 as $row7)
                                     {
                                         ?>
-                                        <h5><?php echo $row7["name"] ?>  </h5>
+                                        <h5><?php echo $row7["name"] ?></h5>
                                         <?php
                                     }
                                 break;
@@ -181,11 +181,12 @@
                                 foreach($channels as $channel)
                                 {
                                     $vid = $row6["id"];
+                                    $dateVids = $row6["upload_date"];
                                     $views = $db->query("SELECT * FROM Views WHERE video='$vid'")->rowCount();
                                     ?>
                                     <h5><?php echo $views ?> views 
                                     &bull;
-                                    2 months ago
+                                    <?php echo $dateVids ?>
                                     </h5>
                                 <?php
                                 }
@@ -214,6 +215,7 @@
                                 $des = $row["description"];
                                 $vidTitle= $row["title"];
                                 $channelId=$row["channel"];
+                                $vidDate = $row["upload_date"];
                             } 
 
                             // $conn= new mysqli('localhost', 'root', '','278project');
@@ -268,7 +270,7 @@
                                 }
                             };
                             #for channel name ( tuber name)
-                            $rows2 = $db->query("SELECT name FROM Channel WHERE id='$channelId' ");
+                            $rows2 = $db->query("SELECT name FROM Channel WHERE id='$channelId'");
                             $tuberName="";
                             foreach($rows2 as $row2){
                                 $tuberName = $row2["name"];
@@ -305,9 +307,8 @@
                     <?= $viewsCount?> views 
                         &nbsp;
                         &bull;
-                        <script>
-                            document.write( '&nbsp'+ new Date().toDateString()); 
-                       </script>
+                        <?= $vidDate ?>
+                        
                 </div>
 
                 
@@ -325,16 +326,34 @@
                     <span class="likes"> SAVE </span>
                     <!-- onclick report -->
                     <button id="dotsImage" onclick="myFunction()" class="popup">
+                    <form action="" method="post">
                     <div> 
-                        <span class="popuptext" id="myPopup">A Simple Popup!
+                        <span class="popuptext" id="myPopup">
                         <ul id="reportList">
-                        <li> <input type="button" placeholder="Report" value="Report" id="reportBtn" > </li>
+                            
+                                <li> <input type="submit" placeholder="Report" value="Report" id="reportBtn" name="reportBtn" > </li>
+                           
+                        
+                        <!-- <li> <button id="reportBtn" name="reportBtn" value="Report">Report</button></li> -->
                         </ul>
                         </span>
                     </div>
                     </button> 
+
+                    
                     
                 </div>
+                <?php
+                     if (isset($_POST['reportBtn'])){
+                         $report = "INSERT INTO `Report` (`reporter`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
+                         $db->exec( $report);  
+                     }
+
+
+                    ?>
+
+
+                </form>
                
 
                 <div id="myModal" class="modal">
@@ -389,9 +408,75 @@
                         <span class="close">&times;</span>
                         <p>Save to...</p>
                         <br>
-                       
+                        <form action="" method="post">
                         <button id="addWatchLater" name="addWatchLater" value="Watch Later">Watch Later</button>
+                        <br>
+                      
+                        <?php
+                        $playlists = $db->query("SELECT * FROM Playlist");
+                        foreach($playlists as $playlst)
+                        {
+                            
+
+                            ?>
+                            <input type="radio" name="playlistForm" value="<?= $playlst["id"]?> ">
+                            <label for=" <?= $playlst["id"]?>" > <?= $playlst["title"]?> </label>
+                            <br>
+
+                            <?php
+                            // echo  $playlst["id"];
+                        }
+                       
+                        ?>
+                        <button id="saveVidPlaylist" name="saveVidPlaylist"> Save into my selected playlist</button>
+                       
+                        <br>
+                        <p>Create a new playlist:</p>
                         
+                          <select name="privacy" id="privacy">
+                            <option value="0"> public
+                            </option>
+                            <option value="1"> private</option>
+                        </select>
+                          <input type="text" name="playlistTitle" id="playlistTitle" placeholder="Add a title for new playlist">
+                          <button name="createplaylistBtn" id="createplaylistBtn"> Add a new playlist</button>
+                          <br>
+                          <?php
+                        //on click add  to watch later 
+                        if (isset($_POST['addWatchLater'])){
+                            $datetime = date('Y-m-d H:i:s');
+                            // $datetime =  DATE_FORMAT('%m-%d-%Y');
+                            // $date=date("Y-m-d",strtotime($date));
+                            $watchlaters = "INSERT INTO `WatchLater` (`viewer`, `video`, `later_datetime`) VALUES ('$id_linked ', '$vid_id_link', '$datetime') ";
+                            $db->exec($watchlaters);
+                            echo $datetime;
+                        }
+
+                        //add a new playlist on click
+                        if (isset($_POST['createplaylistBtn'])){
+                            $playlists = $db->query("SELECT * FROM Playlist")->rowCount();
+                            $playlists++;
+
+                            $playlist_title= $_POST['playlistTitle'];
+                            $privacy = $_REQUEST["privacy"];
+
+                            $playlistmake = "INSERT INTO `Playlist` (`id`, `owner`, `title`, `private`) VALUES ('$playlists', '$id_linked', '$playlist_title', '$privacy') ";
+                            $db->exec($playlistmake);
+                            // echo "this is privacy :", $privacy;
+                        }
+
+                        //    //add to a playlist on click
+                  
+                        if(isset($_POST['saveVidPlaylist'])){
+                            $datetime = date('Y-m-d H:i:s');
+                            $form21 = $_POST['playlistForm'];
+                            $playlistAdd = "INSERT INTO `PlaylistVideos` (`video`, `playlist`, `playlist_datetime`) VALUES ('$vid_id_link', '$form21', '$datetime') ";
+                            $db->exec($playlistAdd);
+                        }
+                          ?>
+
+
+                        </form>
                     </div>
                 </div>   
 
@@ -430,9 +515,9 @@
                 </div>
                 <?php
 
-                //on click sub to channel
+             
 
-            
+                // //on click sub to channel
                 if (isset($_POST['subButton'])){
                     $subs_table= "INSERT INTO `Subscription` (`subscriber`, `channel`) VALUES ('$id_linked', '$channelId')";
                     $db->exec($subs_table);
@@ -444,7 +529,6 @@
                     //     $db->exec($subs_table);
                     // }
                 
-
                 }
                 // echo  "  this is sub ",$id_linked;
                 // echo " this is channel id",$channelId;
@@ -631,135 +715,6 @@
         document.getElementById("mySidenav2").style.width = "250px";
     }
 
-   
-//   document.querySelector('button.LikeI,').addEventListener("click", function() {
-//     this.type = "submit";
-//     });
-
-
-    // var form = document.getElementById("myForm");
-    // function handleForm(event) { event.preventDefault(); } 
-    // form.addEventListener('submit', handleForm);
-
-    
-    // var commentBtn = document.getElementById("commentBtn");
-    // commentBtn.onclick = createAddForm;
-    // commentBtn.onclick="location.href=location.href";
-
-    // var replyBtn = document.getElementById("reply");
-    // replyBtn.onclick = createReplyForm;
-    // // replyBtn.onclick ="location.href=location.href";
-
-    // function createReplyForm(){
-    //     var commentsBox = document.getElementById("commentsBox");
-
-    //     var replyBox= document.createElement("div");
-    //     replyBox.id="commment";
-
-    //     var inputImageR = document.createElement("input");
-    //     inputImageR.id= "tuberImage";
-    //     inputImageR.type="button";
-
-    //     var commNameR= document.createElement("div");
-    //     commNameR.id="commName";
-
-    //     var commentInputR  = "ghinaaaa test reply "
-    //     // document.getElementById("commentInput");
-    //     var commContentR = document.createElement("div");
-    //     commContentR.id ="commContent";
-
-    //     if(commentInputR.value.length > 0 ){
-    //         commContentR.innerHTML=commentInputR.value;
-            
-    //     }
-    //     else{
-    //         console.log("empty comment");
-    //         return;
-    //     }
-
-    //     var likeMenuCommR = document.createElement("div");
-    //     likeMenuCommR.id="LikeMenuComm";
-
-    //     var likeCommR = document.createElement("button");
-    //     likeCommR.id="likeImageComm";
-
-    //     var dislikeCommR = document.createElement("button");
-    //     dislikeCommR.id="dislikeImageComm";
-
-
-    //     var replyR= document.createElement("button");
-    //     replyR.id="reply";
-    //     replyR.innerHTML= "REPLY";
-
-    //     replyBox.appendChild(inputImageR);
-    //     replyBox.appendChild(commNameR);
-    //     replyBox.appendChild(commContentR);
-    //     replyBox.appendChild(likeMenuCommR);
-    //     replyBox.appendChild(likeCommR);
-    //     replyBox.appendChild(dislikeCommR);
-    //     replyBox.appendChild(replyR);
-
-    //     commentsBox.appendChild(replyBox);
-
-    //     console.log("SUCCESS Comment!");
-    //     document.getElementById('commentInput').value = ''
-
-    // }
-
-    // function createAddForm() {
-    //     var commentsBox = document.getElementById("commentsBox");
-
-    //     var comment= document.createElement("div");
-    //     comment.id="commment";
-
-    //     var inputImage = document.createElement("input");
-    //     inputImage.id= "tuberImage";
-    //     inputImage.type="button";
-
-    //     var commName= document.createElement("div");
-    //     commName.id="commName";
-
-    //     var commentInput  = document.getElementById("commentInput");
-    //     var commContent = document.createElement("div");
-    //     commContent.id ="commContent";
-
-    //     if(commentInput.value.length > 0 ){
-    //         commContent.innerHTML=commentInput.value;
-            
-    //     }
-    //     else{
-    //         console.log("empty comment");
-    //         return;
-    //     }
-
-    //     var likeMenuComm = document.createElement("div");
-    //     likeMenuComm.id="LikeMenuComm";
-
-    //     var likeComm = document.createElement("button");
-    //     likeComm.id="likeImageComm";
-
-    //     var dislikeComm = document.createElement("button");
-    //     dislikeComm.id="dislikeImageComm";
-
-
-    //     var reply = document.createElement("button");
-    //     reply.id="reply";
-    //     reply.innerHTML= "REPLY";
-
-    //     comment.appendChild(inputImage);
-    //     comment.appendChild(commName);
-    //     comment.appendChild(commContent);
-    //     comment.appendChild(likeMenuComm);
-    //     comment.appendChild(likeComm);
-    //     comment.appendChild(dislikeComm);
-    //     comment.appendChild(reply);
-        
-    //     commentsBox.appendChild(comment);
-
-    //     console.log("SUCCESS Comment!");
-    //     // document.getElementById('commentInput').value = ''
-
-    // }   
             // Get the modal
         var modal = document.getElementById("myModal");
         // Get the button that opens the modal
