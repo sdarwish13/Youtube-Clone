@@ -73,7 +73,7 @@
                     <img src="images/ur vid.png" alt="Your Vid Image">
                     <p>Your Videos</p>
                 </li>
-                <li id="laterBtn" onclick="window.location.href = 'later.html?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="laterBtn" onclick="window.location.href = 'later.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
                     <img src="images/later.png" alt="Later Image">
                     <p>Watch Later</p>
                 </li>
