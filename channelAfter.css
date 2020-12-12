@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/* Home page after sign in/ sign up */
-=======
 /* Channel page after sign in/ sign up */
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
 
 body {
     margin-top: 4px;
@@ -11,10 +7,6 @@ body {
 }
 
 .horizNav {
-<<<<<<< HEAD
-    
-=======
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
     margin: 0px;  
     height: 45px;
     border-bottom: 1px solid rgb(226, 226, 226);
@@ -189,47 +181,6 @@ body {
     font-size: small;
 }
 
-<<<<<<< HEAD
-.videos {
-    margin-top: 0px;
-    position: fixed;
-    top: 50px;
-    left: 80px;
-    background-color: rgb(24, 117, 82);
-    overflow: scroll;
-    float: left;
-    width: calc(100% - 80px);
-    flex-wrap: wrap;
-    flex-direction: row;
-    display: flex;
-    margin: auto;
-    padding: 0px;
-    height: calc(100% - 50px);
-}
-
-.videos form {
-    display: inline;
-    margin: 10px;
-    border: none;
-    background-color:  rgb(247, 247, 247);
-    margin-bottom: 10px;
-    float: left;
-    width: calc((100% - 80px) / 4);
-    height: calc(width * 1.777);
-}
-
-.videos button {
-    margin: 10px;
-    border: none;
-    background-color:  rgb(247, 247, 247);
-    margin-bottom: 10px;
-    float: left;
-    width: 95%;
-    height: 95%;
-}
-
-=======
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
 .videos button:hover {
     cursor: pointer;
 }
@@ -252,23 +203,6 @@ body {
     color: red;
 }
 
-<<<<<<< HEAD
-@media (max-width: 921px)
-{
-    .videos form {
-        width: calc((100% - 65px) / 3);
-    }
-}
-
-@media (max-width: 670px)
-{
-    .videos form {
-        width: calc((100% - 45px) / 2);
-    }
-}
-
-=======
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
 #channelImage {
     width: 27px;
     height: 27px;
@@ -291,11 +225,7 @@ body {
     height: 40px;
 }
 
-<<<<<<< HEAD
-#displaythechannel{
-=======
 #displaythechannel {
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
     position: fixed;
     top: 50px;
     left: 80px;
@@ -308,18 +238,11 @@ body {
     display: flex;
     margin: auto;
     padding: 0px;
-<<<<<<< HEAD
-    height: calc(100% - 50px);
-}
-
-#channelLogo {
-=======
     height: 230px;
 }
 
 #channelLogo {
     border: none;
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
     width: 100px;
     height: 100px;
 	margin-top: 50px;
@@ -327,19 +250,6 @@ body {
     border-radius: 50%;
 }
 
-<<<<<<< HEAD
-#marginfromtop{
-	margin-top:90px;
-	margin-left:5px;
-}
-#subscribercount{
-	margin-top:110px;
-	margin-left:-95px;
-}
-
-.tab {
-
-=======
 #marginfromtop {
 	margin-top: 90px;
 	margin-left: 5px;
@@ -350,7 +260,6 @@ body {
 }
 
 .tab {
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
 	overflow: hidden;
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
@@ -385,20 +294,6 @@ body {
 
 /* Style the tab content */
 .tabcontent {
-<<<<<<< HEAD
-  display: none;
-  border-top: none;
-    position: fixed;
-    top: 275px;
-    left: 90px;
-    float: left;
-    width: calc(100% - 80px);
-    margin: auto;
-    padding: 0px;
-}
-#testing{
-    margin-top: 200px;
-=======
     overflow: scroll;
     display: none;
     border-top: none;
@@ -448,5 +343,4 @@ body {
     .videos button {
         width: calc((100% - 45px) / 2);
     }
->>>>>>> 0b052f850d0a6d5466aa6697ce29a38f0056e85f
 }
