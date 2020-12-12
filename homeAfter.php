@@ -12,8 +12,8 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
@@ -86,8 +86,15 @@
         </div>
 
         <?php
+			error_reporting(0);
             $db = new PDO("mysql:dbname=278project", "root","");
-            $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");
+			if (empty($_POST["searchinput"])){
+				$searchinput = $_POST["searchinput"];
+				$rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+			}else{
+				$searchinput = $_POST["searchinput"];
+				$rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+			}
         ?>
         <div class="videos">
             <?php

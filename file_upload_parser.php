@@ -15,15 +15,18 @@ $fileType = $_FILES["file1"]["type"]; // The type of file it is
 $fileSize = $_FILES["file1"]["size"]; // File size in bytes
 $fileErrorMsg = $_FILES["file1"]["error"]; // 0 for false... and 1 for true
 
+foreach($conn->query('SELECT COUNT(*) FROM Video') as $row) {
+	$videoid =  $row['COUNT(*)'] + 1;
+}
 
-setcookie("id", $fileSize);
+setcookie("id", $videoid);
 
 if (!$fileTmpLoc) { // if file not chosen
     echo "ERROR: Please browse for a file before clicking the upload button.";
     exit();
 }
 if(move_uploaded_file($fileTmpLoc, "test_uploads/$fileName")){
-	$sql = "INSERT into Video(id, fileName,location) VALUES('$fileSize', '$fileName','$fileTmpLoc')";
+	$sql = "INSERT into Video(id, fileName,location) VALUES('$videoid', '$fileName','$fileTmpLoc')";
 	if(mysqli_query($conn,$sql)){
 		echo "$fileName upload is complete"; 
     }
