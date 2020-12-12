@@ -33,12 +33,7 @@
                 <!-- <input type="button" id="bellImage"> -->
                 <!-- <button id="gridImage"onclick="openNav()"> -->
                 <input type="button" id="bellImage">
-                <input type="button" id="profileImage" onclick="openNav()">
-
-				<?php
-					print $fname[0];
-					print $lname[0];
-				?>
+                <input type="button" id="profileImage" onclick="openNav()" value="<?php echo $fname[0]; echo $lname[0];?>">
 
 				<!-- </button> -->
             </div>
