@@ -3,10 +3,12 @@
     <head>
         <title> History Page - Youtube</title>
         <meta charset="UTF-8">
-        <!-- <script src="home.js"></script> -->
+     
         <link href="History.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        
+    
         <div class="horizNav">
             <div id="youtubelogo">
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
@@ -26,56 +28,86 @@
                     $lname = $_REQUEST["lname"];
                     $email = $_REQUEST["email"];
                 ?>
-                <a href="upload_vid.html" id="upload">
-                    <input type="button" id="vidImage" onclick="window.location.href = ''">
-                </a>
-                <input type="button" id="gridImage">
+                <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '"> 
+                <input type="button" id="gridImage" onclick="openNav2()">
+                <!-- <input type="button" id="bellImage"> -->
+                <!-- <button id="gridImage"onclick="openNav()"> -->
                 <input type="button" id="bellImage">
-                <button id="profileImage" onclick="openNav()">
+                <input type="button" id="profileImage" onclick="openNav()">
 
 				<?php
 					print $fname[0];
 					print $lname[0];
 				?>
 
-				</button>
+				<!-- </button> -->
             </div>
+        </div>
+        <div id="mySidenav" class="sidenav">
+                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <hr>
+                    <input type="button" id="details_sideNavImg" name="details_sideNavImg" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
+                    <span class="details_sideNav"> Your Channel</span>
+                    <br>
+                    <hr>
+                    <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+                    <span class="details_sideNav">Language: English</span>
+                    <br>
+                    <hr>
+                    <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+                    <span class="details_sideNav"> Location: Lebanon</span>
+                    <hr>
+            </div>
+               <div id="mySidenav2" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+                <hr>
+                <button id="details_sideNavImg1" value="" name="details_sideNavImg1" ></button>
+                <span class="details_sideNav"  > YouTube Tv</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg2" value="" name="details_sideNavImg2" ></button>
+                <span class="details_sideNav" >YouTube Music</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg3" value="" name="details_sideNavImg3"></button>
+                <span class="details_sideNav"   > YouTube Kids</span>
+                <hr>
         </div>
 
         <div class="vertNav">
             <ul>
-                <li id="homeBtn" onclick="window.location.href = ''">
-                    <a href="homeAfter.html">
+                <li id="homeBtn">
+                    <a href="homeAfter.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/home.png" alt="Home Image">
                         <p>Home</p>
                     </a>
                 </li>
-                <li id="subBtn" onclick="window.location.href = ''">
-                    <a href="subAfter.html">
+                <li id="subBtn">
+                    <a href="subAfter.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/sub.png" alt="Sub Image">
                         <p>Subscriptions</p>
                     </a>
                 </li>
-                <li id="libBtn" onclick="window.location.href = ''">
-                    <a href="home.html">
+                <li id="libBtn">
+                    <a href="lib_after.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/lib.png" alt="Library Image">
                         <p>Library</p>
                     </a>
                 </li>
-                <li id="historyBtn" onclick="window.location.href = ''">
-                    <a href="home.html">
+                <li id="historyBtn">
+                    <a href="History.html?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/hist.png" alt="History Image">
                         <p>History</p>
                     </a>
                 </li>
-                <li id="urvidBtn" onclick="window.location.href = ''">
-                    <a href="home.html">
+                <li id="urvidBtn">
+                    <a href="upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/ur vid.png" alt="Your Vid Image">
                         <p>Your Videos</p>
                     </a>
                 </li>
-                <li id="laterBtn" onclick="window.location.href = ''">
-                    <a href="home.html">
+                <li id="laterBtn">
+                    <a href="later.html?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
                         <img src="images/later.png" alt="Later Image">
                         <p>Watch Later</p>
                     </a>
@@ -83,11 +115,16 @@
             </ul>
         </div>
 
+
         <?php
             $db = new PDO("mysql:dbname=278project", "root","");
             $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0");
             $rows0 = $db->query("SELECT * FROM Channel WHERE owner='$email'");
             $rows01 = $db->query("SELECT * FROM Channel WHERE owner='$email'");
+        ?>
+            <div class="laterVids">
+            <ul>
+            <?php
             foreach($rows0 as $row)
             {
                 $sar = $row["id"];
@@ -104,172 +141,35 @@
                         foreach($channels as $channel)
                         {
                             ?>
-                            <button id="videoBtn" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>`">
-                                <video id="watchVideo" width="100%">
+                                  
+                                <button onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>`">
+                                <video id="watchVideo" width="30%">
                                     <source src="test_uploads/<?php echo $row2["fileName"] ?>" type="video/mp4">
                                 </video>
-                                <div id="channelIm">
-                                    <input type="button" id="channelImage">
-                                </div>
-                                
-                                <h4><?php echo $row2["title"] ?></h4>
-                                <p id="chanName"><?php echo $channel["name"] ?></p>
-                                <p id="vidDate">
-                                    <?php 
-                                        $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                                    ?>
-                                    <span><?php echo $views ?> views • </span>
-                                    <span><?php echo $row2['upload_date'] ?></span>
-                                </p>
-                            </button>
+                                    <div id="vidDetails">
+                                        <h2> <?= $row2["title"] ?></h2>     
+                                        <span class="desWatchLater">
+                                        <?= $channel["name"] ?>  
+                                            &bull; 
+                                            <?php 
+                                                $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                            ?> 
+                                            <?php echo $views ?> views
+                                            <br>
+                                            <br>
+                                            Decription: kdwkcdkncoienci 
+                                        </span>          
+                                    </div>
+                                </button>
                             <?php
                         }
                     }
                 }
             }
         ?>
-        <!-- <div id="laterVids">
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-            <button>
-                <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                <div id="vidDetails">
-                    <h2> Video title</h2>     
-                    <span class="desWatchLater">
-                        Youtuber name  
-                        &bull;  
-                        1.2M
-                        <br>
-                        <br>
-                        Decription: kdwkcdkncoienci 
-                    </span>          
-                </div>
-            </button>
-        </div> -->
+         </ul>
+        </div>
+       
         <div id="historyInfo">
             <br>  
             <button id="searchBtnHis">
@@ -286,4 +186,21 @@
         </div>
 
     </body>
+
+    <script>
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    }
+    function openNav2() {
+    document.getElementById("mySidenav2").style.width = "250px";
+    }
+
+        function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    }
+    function closeNav2() {
+    document.getElementById("mySidenav2").style.width = "0";
+    }
+
+    </script>
 </html>
