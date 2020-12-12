@@ -117,6 +117,7 @@ create table Playlist (
 	id varchar(60),
 	owner varchar(60),
 	title varchar(60),
+	private boolean,
 	primary key(id),
 	foreign key (owner) references Channel(id) ON DELETE CASCADE
 );
@@ -124,6 +125,7 @@ create table Playlist (
 create table PlaylistVideos (
 	video varchar(60),
 	playlist varchar(60),
+	playlist_datetime datetime,
 	primary key (video, playlist),
 	foreign key (video) references Video(id) ON DELETE CASCADE,
 	foreign key (playlist) references Playlist(id) ON DELETE CASCADE

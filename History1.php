@@ -3,8 +3,8 @@
     <head>
         <title> History Page - Youtube</title>
         <meta charset="UTF-8">
-     
-        <link href="History.css" rel="stylesheet" type="text/css">
+       
+      
     </head>
     <body>
         
@@ -33,13 +33,17 @@
                 <!-- <input type="button" id="bellImage"> -->
                 <!-- <button id="gridImage"onclick="openNav()"> -->
                 <input type="button" id="bellImage">
-                <input type="button" id="profileImage" onclick="openNav()" value="<?php echo $fname[0]; echo $lname[0];?>">
+                <input type="button" id="profileImage" onclick="openNav()">
 
-				<!-- </button> -->
-            </div>
-        </div>
-        <div id="mySidenav" class="sidenav">
-                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				<?php
+					print $fname[0];
+					print $lname[0];
+				?>
+
+                <!-- </button> -->
+                <div id="mySidenav" class="sidenav">
+                    hello
+                    <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <hr>
                     <input type="button" id="details_sideNavImg" name="details_sideNavImg" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
                     <span class="details_sideNav"> Your Channel</span>
@@ -51,23 +55,33 @@
                     <hr>
                     <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
                     <span class="details_sideNav"> Location: Lebanon</span>
-                    <hr>
+                    <hr> -->
+                </div>
+
+
             </div>
-               <div id="mySidenav2" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
-                <hr>
-                <button id="details_sideNavImg1" value="" name="details_sideNavImg1" ></button>
-                <span class="details_sideNav"  > YouTube Tv</span>
-                <br>
-                <hr>
-                <button id="details_sideNavImg2" value="" name="details_sideNavImg2" ></button>
-                <span class="details_sideNav" >YouTube Music</span>
-                <br>
-                <hr>
-                <button id="details_sideNavImg3" value="" name="details_sideNavImg3"></button>
-                <span class="details_sideNav"   > YouTube Kids</span>
-                <hr>
+
+
+        
+
+        
+        <!-- <div id="mySidenav2" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <hr>
+            <button id="details_sideNavImg1" value="" name="details_sideNavImg1" ></button>
+            <span class="details_sideNav"  > YouTube Tv</span>
+            <br>
+            <hr>
+            <button id="details_sideNavImg2" value="" name="details_sideNavImg2" ></button>
+            <span class="details_sideNav" >YouTube Music</span>
+            <br>
+            <hr>
+            <button id="details_sideNavImg3" value="" name="details_sideNavImg3"></button>
+            <span class="details_sideNav"   > YouTube Kids</span>
+            <hr>
+        </div> -->
         </div>
+       
 
         <div class="vertNav">
             <ul>
@@ -183,19 +197,26 @@
     </body>
 
     <script>
+
+    var commentBtn = document.getElementById("mySidenav");
+    commentBtn.onclick = openNav;
+
+    var commentBtn2 = document.getElementById("mySidenav2");
+    commentBtn.onclick = openNav2;
+        
     function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    commentBtn.style.width = "250px";
     }
     function openNav2() {
-    document.getElementById("mySidenav2").style.width = "250px";
+    commentBtn2.style.width = "250px";
     }
 
         function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     }
-    function closeNav2() {
-    document.getElementById("mySidenav2").style.width = "0";
-    }
+    // function closeNav2() {
+    // document.getElementById("mySidenav2").style.width = "0";
+    // }
 
     </script>
 </html>

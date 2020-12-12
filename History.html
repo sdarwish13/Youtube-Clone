@@ -24,9 +24,11 @@
                 <a href="upload_vid.html" id="upload">
                     <input type="button" id="vidImage" onclick="window.location.href = ''">
                 </a>
-                <input type="button" id="gridImage">
+                <input type="button" id="gridImage" onclick="openNav2()">
+                <!-- <input type="button" id="bellImage"> -->
+                <!-- <button id="gridImage"onclick="openNav()"> -->
                 <input type="button" id="bellImage">
-                <input type="button" id="profileImage">
+                <input type="button" id="profileImage" onclick="openNav()">
             </div>
         </div>
 
@@ -70,6 +72,41 @@
                 </li>
             </ul>
         </div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <hr>
+            <button id="details_sideNavImg" value="" name="details_sideNavImg" onclick="window.location.href ='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?'"> 
+            </button>
+            <span class="details_sideNav"> Your Channel</span>
+            <br>
+            <hr>
+            <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+            <span class="details_sideNav">Language: English</span>
+            <br>
+            <hr>
+            <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+            <span class="details_sideNav"> Location: Lebanon</span>
+            <hr>
+            <!-- <a href="#">Contact</a> -->
+        </div>
+        
+        <div id="mySidenav2" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+            <hr>
+            <button id="details_sideNavImg1" value="" name="details_sideNavImg1" onclick="window.location.href = 'https://tv.youtube.com/welcome/?utm_campaign=home&utm_medium=ep&utm_source=youtube_web&ve=34273 '"></button>
+            <span class="details_sideNav"  onclick="window.location.href = 'https://tv.youtube.com/welcome/?utm_campaign=home&utm_medium=ep&utm_source=youtube_web&ve=34273'"> YouTube Tv</span>
+            <br>
+            <hr>
+            <button id="details_sideNavImg2" value="" name="details_sideNavImg2" onclick="window.location.href = 'https://music.youtube.com/'"></button>
+            <span class="details_sideNav" onclick="window.location.href = 'https://music.youtube.com/'">YouTube Music</span>
+            <br>
+            <hr>
+            <button id="details_sideNavImg3" value="" name="details_sideNavImg3"  onclick="window.location.href = 'https://www.youtube.com/kids/'" ></button>
+            <span class="details_sideNav"   onclick="window.location.href = 'https://www.youtube.com/kids/'"> YouTube Kids</span>
+            <hr>
+            <!-- <a href="#">Contact</a> -->
+        </div>
+
 
         <!-- <div id="prev">
             <div id="name">
@@ -263,4 +300,20 @@
         </div>
 
     </body>
+    <script>
+         function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    }
+    function openNav2() {
+    document.getElementById("mySidenav2").style.width = "250px";
+    }
+
+    function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    }
+    function closeNav2() {
+    document.getElementById("mySidenav2").style.width = "0";
+    }
+   
+    </script>
 </html>

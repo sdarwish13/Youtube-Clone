@@ -24,7 +24,7 @@
                 </form>
                 
             </div>
- <?php
+            <?php
                     $db = new PDO("mysql:dbname=278project", "root","");
                     
                     $fname = $_REQUEST["fname"];
@@ -33,17 +33,15 @@
                     $vid_id_link = $_REQUEST["id"];
 
                     $emailLinks = $db->query("SELECT * FROM `Channel` WHERE owner='$email'");
-
                     // $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '$vid_id_link ';");
                     $id_linked="";
                     foreach($emailLinks as $emailLink){
                         // $owner=$emailLink["owner"];
                         // if($email == $owner){
                             $id_linked = $emailLink["id"];
-                     
-
                         // }
                     // break;
+<<<<<<< HEAD
 					
                      
         
@@ -58,6 +56,20 @@
                     //$view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
                     //$db->exec($view);
 					echo "$id_linked --- $vid_id_link";
+=======
+                    }
+
+                    $testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != $id_linked");
+                    foreach($testing62s as $testing62){
+                        $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
+                        $db->exec($view);
+                    }
+
+
+                    
+            
+
+>>>>>>> a37dfd421b5db9d26354db9dd27de8bf2cdd3f73
                     // echo $id_linked;
                     // echo $owner;
                     // echo "THis is email : ",$email;
@@ -89,8 +101,9 @@
 
             <div id="buttons">
 
-                <input type="button" id="vidImage">
-                <input type="button" id="gridImage">
+                <!-- <input type="button" id="vidImage"> -->
+                <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
+                <input type="button" id="gridImage" onclick="openNav2()">
                 <input type="button" id="bellImage">
                 <button id="profileImage" onclick="openNav()">
 
@@ -100,16 +113,40 @@
 				?>
 
 				</button>
-               
             </div>
            
             <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="#">About</a>
-                    <a href="#">Services</a>
-                    <a href="#">Clients</a>
-                    <a href="#">Contact</a>
-                </div>
+                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <hr>
+                    <input type="button" id="details_sideNavImg" name="details_sideNavImg" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
+                    <span class="details_sideNav"> Your Channel</span>
+                    <br>
+                    <hr>
+                    <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+                    <span class="details_sideNav">Language: English</span>
+                    <br>
+                    <hr>
+                    <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+                    <span class="details_sideNav"> Location: Lebanon</span>
+                    <hr>
+            </div>
+               <div id="mySidenav2" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+                <hr>
+                <button id="details_sideNavImg1" value="" name="details_sideNavImg1" ></button>
+                <span class="details_sideNav"  > YouTube Tv</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg2" value="" name="details_sideNavImg2" ></button>
+                <span class="details_sideNav" >YouTube Music</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg3" value="" name="details_sideNavImg3"></button>
+                <span class="details_sideNav"   > YouTube Kids</span>
+                <hr>
+        </div>
+
+
 
         </div>
 
@@ -195,15 +232,22 @@
                                 $channelId=$row["channel"];
                             } 
 
+                            // $conn= new mysqli('localhost', 'root', '','278project');
                             //for likes and dislikes
                             if(isset($_POST['likeImage'])) {
                                 $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE video=$vid_id_link AND viewer=$id_linked";
                                 $db->exec($sqlLike);
+                                // $conn->query($sqlLike);
 
-                                // $likesCount1=$db->query("SELECT * FROM Likes")->rowCount();
-                                // $likesCount1++;
-                                $sqlLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '1');"; 
-                                $db->exec($sqlLike12);
+                                // $sqlLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '1');"; 
+                                // $db->exec($sqlLike12);
+                                // $conn->query($sqlLike12);
+
+                                $insertlikes1 = $db->query("SELECT * FROM `Likes` WHERE `viewer` != $id_linked");
+                                foreach($insertlikes1 as $insertlike1 ){
+                                    $sqlLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '1');";
+                                    $db->exec($sqlLike12);
+                                }
                                
                                
                             };
@@ -213,8 +257,15 @@
 
                                 // $dislikesCount1=$db->query("SELECT * FROM Likes")->rowCount();
                                 // $dislikesCount1++;
-                                $sqldisLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '0');"; 
-                                $db->exec($sqldisLike12);
+                                // $sqldisLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '0');"; 
+                                // $db->exec($sqldisLike12);
+
+                                $insertdislikes1 = $db->query("SELECT * FROM `Likes` WHERE `viewer` != $id_linked");
+                                foreach($insertdislikes1 as $insertdislike1 ){
+                                    $sqldisLike12="INSERT INTO `Likes` (`viewer`, `video`, `is_liked`) VALUES ('$id_linked', '$vid_id_link', '0');"; 
+                                    $db->exec($sqldisLike12);
+
+                                }
                             };
                             //to display dislikes 
                             $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link");
@@ -278,7 +329,7 @@
                 
               
                 <div id="likeMenu">
-                    <form method="post" id="formLike" > 
+                    <form action="" method="post" id="formLike"  > 
                     <button id="likeImage" value="likeImage" name="likeImage" ></button>
                     <span class="likes"> <?=$countLikes?> </span>
                     <button id="dislikeImage"  value="dislikeImage" name="dislikeImage"></button>
@@ -402,6 +453,14 @@
                     $subs_table= "INSERT INTO `Subscription` (`subscriber`, `channel`) VALUES ('$id_linked', '$channelId')";
                     $db->exec($subs_table);
                     // echo"successsss!";
+
+                    // $testings21 = $db->query("SELECT * FROM `Subscription` WHERE `subscriber` = $id_linked");
+                    // foreach($testings21 as $testing21){
+                    //     $subs_table= " DELETE FROM `Subscription` WHERE `Subscription`.`subscriber` = '$id_linked' AND `Subscription`.`channel` = '$channelId'";
+                    //     $db->exec($subs_table);
+                    // }
+                
+
                 }
                 // echo  "  this is sub ",$id_linked;
                 // echo " this is channel id",$channelId;
@@ -424,6 +483,8 @@
                     $replies++;
                     $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '$id_linked', '$vid_id_link ', '$replyContent')";
                     $db->exec($replySql); 
+
+
                     echo" success reply saved to db!";
                     echo "this is :" ,$replyContent;
                 }
@@ -432,22 +493,32 @@
                 if(isset($_POST['likeImageComm'])){  
 
                     $test1=$_POST['commentIDinput'];
-                    $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link '; "; 
+                    $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link' AND `CommentLikes`.`viewer`='$id_linked'; "; 
                     $db->exec($sqlLikeComment1);
 
-                    $likesCommCount1=$db->query("SELECT * FROM CommentLikes")->rowCount();
-                    $likesCommCount1++;
-                    $sqlCommLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '1');"; 
-                    $db->exec($sqlCommLike12);
+                    $insertlikes1c = $db->query("SELECT * FROM `CommentLikes` WHERE `viewer` != $id_linked");
+                        foreach($insertlikes1c as $insertlike1c ){
+                         
+                            $sqlCommLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '1');"; 
+                            $db->exec($sqlCommLike12);     
+                    }
 
 
                    
                 };
                 if(isset($_POST['dislikeImageComm'])){
+
                     $test1=$_POST['commentIDinput'];
                     //WHERE `CommentLikes`.`viewer` = '3'
-                    $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link '; "; 
+                    $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link ' AND `CommentLikes`.`viewer`='$id_linked'; "; 
                     $db->exec($sqldisLikeComment);
+
+                   $insertlikes1cd = $db->query("SELECT * FROM `CommentLikes` WHERE `viewer` != $id_linked");
+                        foreach($insertlikes1cd as $insertlike1cd ){
+                          
+                            $sqlCommdLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '0');"; 
+                            $db->exec($sqlCommdLike12);     
+                    }
                 };
 
                 if(isset($_POST['viewReply'])){
@@ -569,6 +640,18 @@
     function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     }
+    function closeNav2() {
+    document.getElementById("mySidenav2").style.width = "0";
+    }
+    function openNav2() {
+        document.getElementById("mySidenav2").style.width = "250px";
+    }
+
+   
+//   document.querySelector('button.LikeI,').addEventListener("click", function() {
+//     this.type = "submit";
+//     });
+
 
     // var form = document.getElementById("myForm");
     // function handleForm(event) { event.preventDefault(); } 
