@@ -90,7 +90,7 @@
 			
 			<div id="displaythechannel">
                 <?php
-                $channels = $db->query("SELECT * FROM Channel WHERE id=$channelId");
+                $channels = $db->query("SELECT * FROM Channel WHERE id='$channelId'");
                 foreach($channels as $channel)
                 {  
                     ?>
@@ -102,78 +102,25 @@
                     <label id="marginfromtop"><?= $channel["name"]?></label>
                     <?php
                 } 
-                $subs = $db->query("SELECT * FROM Subscription WHERE channel=$channelId")->rowCount();
+                $subs = $db->query("SELECT * FROM Subscription WHERE channel='$channelI'd")->rowCount();
                 ?>
                 <label id="subscribercount"><?= $subs?> Subscribers</label>
 				<div class="tab">
 					<button class="tablelinks" id="defaultOpen" onclick="opencity(event, 'HOME')">HOME</button>
 					<button class="tablelinks" onclick="opencity(event, 'VIDEOS')">VIDEOS</button>
 					<button class="tablelinks" onclick="opencity(event, 'ABOUT')">ABOUT</button>
-<<<<<<< HEAD
-					
-				</div>
-				<div id="HOME" class="tabcontent">
-				  <h3>HOME</h3>
-				  <p>HOME is the capital city of England.</p>
-				</div>
-				<div id="VIDEOS" class="tabcontent">
-				<!--	
-				  <h3>VIDEOS</h3>
-				  <p>VIDEOS is the capital of France.</p> 
-				-->
-				<?php
-=======
                 </div>
             </div>				  
             <div id="HOME" class="videos">
                 <h3>HOME</h3>
                 <?php
-                $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND channel=$channelId ORDER BY RAND()");
->>>>>>> a37dfd421b5db9d26354db9dd27de8bf2cdd3f73
+                $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private='0' AND channel='$channelId' ORDER BY RAND()");
                 foreach($rows as $row)
                 {
                     $vid = $row["id"];
                     $chan = $row["channel"];
-                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                    $channels = $db->query("SELECT * FROM Channel WHERE id='$chan'");
                     foreach($channels as $channel)
-<<<<<<< HEAD
-                    {
-                        ?>
-                        <form action="watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>" method="POST">
-                            <button id="videoBtn" name="videoBtn">
-                                <video id="watchVideo" width="100%">
-                                    <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-                                </video>
-                                <div id="channelIm">
-                                    <input type="button" id="channelImage">
-                                </div>
-                                
-                                <h4><?php echo $row["title"] ?></h4>
-                                <p><?php echo $channel["name"] ?></p>
-                                <p>
-                                    <?php 
-                                        $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                                    ?>
-                                    <span><?php echo $views ?> views • </span>
-                                    <span><?php echo $row['upload_date'] ?></span>
-                                </p>
-                            </button>
-                        </form>
-                        <?php
-                        if(isset($_POST["videoBtn"]))
-                        {
-                            echo $email;
-                            // $acc = $db->query("SELECT * FROM Channel WHERE email=$email");
-                            // $cid = $acc['id'];
-                            $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES (1, $vid);";
-                            $db->exec($view);
-                        }
-                    }
-                    
-                }
-            ?>
-				</div>
-=======
                     {   
                     ?>
                         <button id="videoBtn" name="videoBtn" onclick="window.location.href='watchvideo.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?= $vid?>'">
@@ -188,7 +135,7 @@
                             <p><?php echo $channel["name"] ?></p>
                             <p>
                                 <?php 
-                                    $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                    $views = $db->query("SELECT * FROM Views WHERE video='$vid'")->rowCount();
                                 ?>
                                 <span><?php echo $views ?> views • </span>
                                 <span><?php echo $row['upload_date'] ?></span>
@@ -204,12 +151,12 @@
             <div id="VIDEOS" class="videos">
                 <h3>VIDEOS</h3>
                 <?php
-                $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND channel=$channelId ORDER BY upload_date DESC");
+                $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private='0' AND channel='$channelId' ORDER BY upload_date DESC");
                 foreach($rows as $row)
                 {
                     $vid = $row["id"];
                     $chan = $row["channel"];
-                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                    $channels = $db->query("SELECT * FROM Channel WHERE id='$chan'");
                     foreach($channels as $channel)
                     {   
                     ?>
@@ -241,7 +188,7 @@
             <div id="ABOUT" class="videos">
                 <h3>ABOUT</h3>
                 <?php
-                $channels = $db->query("SELECT * FROM Channel WHERE id=$channelId");
+                $channels = $db->query("SELECT * FROM Channel WHERE id='$channelId'");
                 foreach($channels as $channel)
                 {   
                     ?>
@@ -254,7 +201,6 @@
             
 
 
->>>>>>> a37dfd421b5db9d26354db9dd27de8bf2cdd3f73
 
 			<script>
 			document.getElementById("defaultOpen").click();

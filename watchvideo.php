@@ -41,25 +41,9 @@
                             $id_linked = $emailLink["id"];
                         // }
                     // break;
-<<<<<<< HEAD
-					
-                     
-        
-                    }
-					
-					$testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != $id_linked");
-                    foreach($testing62s as $testing62){
-                        $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                        $db->exec($view);
-                    }
-					
-                    //$view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                    //$db->exec($view);
-					echo "$id_linked --- $vid_id_link";
-=======
                     }
 
-                    $testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != $id_linked");
+                    $testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != '$id_linked'");
                     foreach($testing62s as $testing62){
                         $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
                         $db->exec($view);
@@ -69,7 +53,6 @@
                     
             
 
->>>>>>> a37dfd421b5db9d26354db9dd27de8bf2cdd3f73
                     // echo $id_linked;
                     // echo $owner;
                     // echo "THis is email : ",$email;
@@ -165,16 +148,17 @@
 
                 <ul>
                     <?php
-                        $rows6 = $db->query("SELECT * FROM Video WHERE id != $vid_id_link");
+                        $rows6 = $db->query("SELECT * FROM Video WHERE id != '$vid_id_link'");
                         $varChannelIds= $db->query("SELECT channel FROM Video");
  
                         foreach($rows6 as $row6)
                         {   
+                            $vid = $row6["id"];
                             ?>
 
                         <li>
                         <div id="details"> 
-                            <video id="detailsImg" >
+                            <video id="detailsImg" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>`">
                                 <source src="test_uploads/<?php echo $row6["fileName"] ?>" type="video/mp4">
                             </video>    
                             <h3 id="test"> <?php echo $row6["title"] ?> </h3>
@@ -183,7 +167,7 @@
                                 foreach($varChannelIds as $varChannelId)
                                 {
                                     $ID = $varChannelId["channel"];
-                                    $rows7 = $db->query("SELECT name FROM Channel WHERE id=$ID");
+                                    $rows7 = $db->query("SELECT name FROM Channel WHERE id='$ID'");
                                     foreach($rows7 as $row7)
                                     {
                                         ?>
@@ -193,11 +177,11 @@
                                 break;
                                 }
                                 $chan = $row6["channel"];
-                                $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                                $channels = $db->query("SELECT * FROM Channel WHERE id='$chan'");
                                 foreach($channels as $channel)
                                 {
                                     $vid = $row6["id"];
-                                    $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                    $views = $db->query("SELECT * FROM Views WHERE video='$vid'")->rowCount();
                                     ?>
                                     <h5><?php echo $views ?> views 
                                     &bull;
@@ -218,7 +202,7 @@
                         <?php
                             //des and title and video playback
                             // $db = new PDO("mysql:dbname=278project", "root","");
-                            $rows = $db->query("SELECT * FROM Video WHERE id=$vid_id_link ");
+                            $rows = $db->query("SELECT * FROM Video WHERE id='$vid_id_link' ");
                             $des ="";
                             $vidTitle="";
                             foreach($rows as $row){
@@ -268,7 +252,7 @@
                                 }
                             };
                             //to display dislikes 
-                            $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link");
+                            $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video='$vid_id_link'");
                             $countDislikes=0; //dislikes count
                             foreach($rows12 as $row12){
                                 if( $row12["is_liked"] == 0){
@@ -276,7 +260,7 @@
                                 }
                             };
                             //to display likes 
-                            $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link ");
+                            $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video='$vid_id_link' ");
                             $countLikes =0; //likes count
                             foreach($rows1 as $row1){
                                 if( $row1["is_liked"] == 1 ){
@@ -284,21 +268,21 @@
                                 }
                             };
                             #for channel name ( tuber name)
-                            $rows2 = $db->query("SELECT name FROM Channel WHERE id=$channelId ");
+                            $rows2 = $db->query("SELECT name FROM Channel WHERE id='$channelId' ");
                             $tuberName="";
                             foreach($rows2 as $row2){
                                 $tuberName = $row2["name"];
                             };
 
                             #for subscribers( sub count)
-                            $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=$channelId");
+                            $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel='$channelId'");
                             $subsCount=0;
                             foreach($rows3 as $row3){
                                 $subsCount++;
                             };
 
                             #for comment count
-                            $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link  ");
+                            $rows4 = $db->query("SELECT * FROM VideoComment WHERE video='$vid_id_link'  ");
                             $CommentCount=0;
                             $varCommentid=0;
                             foreach($rows4 as $row4){
@@ -307,7 +291,7 @@
                                
                             };       
                             #display video views
-                            $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid_id_link  ");
+                            $rows8 = $db->query("SELECT * FROM Views WHERE video='$vid_id_link'  ");
                             $viewsCount=0;
                                 foreach($rows8 as $row8){
                                     $viewsCount++;
@@ -496,7 +480,7 @@
                     $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link' AND `CommentLikes`.`viewer`='$id_linked'; "; 
                     $db->exec($sqlLikeComment1);
 
-                    $insertlikes1c = $db->query("SELECT * FROM `CommentLikes` WHERE `viewer` != $id_linked");
+                    $insertlikes1c = $db->query("SELECT * FROM `CommentLikes` WHERE `viewer` != '$id_linked'");
                         foreach($insertlikes1c as $insertlike1c ){
                          
                             $sqlCommLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '1');"; 
@@ -513,7 +497,7 @@
                     $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '$vid_id_link ' AND `CommentLikes`.`viewer`='$id_linked'; "; 
                     $db->exec($sqldisLikeComment);
 
-                   $insertlikes1cd = $db->query("SELECT * FROM `CommentLikes` WHERE `viewer` != $id_linked");
+                   $insertlikes1cd = $db->query("SELECT * FROM `CommentLikes` WHERE `viewer` != '$id_linked'");
                         foreach($insertlikes1cd as $insertlike1cd ){
                           
                             $sqlCommdLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '0');"; 
@@ -545,7 +529,7 @@
                 }
                 $g = true;
                 if( $g == true){
-                    $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link  ");
+                    $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video='$vid_id_link' ");
                     foreach($commentDbs as $commentDb){
 
                         $commContent= $commentDb["comment"];
@@ -553,7 +537,7 @@
 
                         #for comment author  name
                          $author=$commentDb["author"]; //make author = var , id=author
-                         $rows5 = $db->query("SELECT name FROM Channel WHERE id= $author ");
+                         $rows5 = $db->query("SELECT name FROM Channel WHERE id= '$author' ");
                          $commenterName="";
                          $replyName="";
                          foreach($rows5 as $row5){
@@ -567,7 +551,7 @@
                          };
                          
                         // echo $commentID;
-                        $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=$vid_id_link  AND id= $commentID AND is_liked=1");
+                        $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video='$vid_id_link'  AND id= '$commentID' AND is_liked='1'");
                         $likeCommCount=0;
                         // $dislikeCommCount=0;
                         foreach($commentLikes as $commentLike){
