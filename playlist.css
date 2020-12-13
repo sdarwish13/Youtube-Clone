@@ -351,3 +351,131 @@ hr {
     overflow: hidden;
     width: calc(100% - 150px);
 }
+
+.sidenav {
+    height: 25%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color:white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 35px;
+    margin-top: 10px;
+    margin-right:65px;
+    }
+    
+    .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    }
+    
+    .sidenav a:hover {
+    color: #f1f1f1;
+    }
+    
+    .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    }
+    
+    @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+    
+    #details_sideNavImg{
+        margin-top: 8px;
+        width: 25px;
+        height: 25px;
+        background: url("images/profile.png") no-repeat;
+        background-size: contain;
+        border: none;
+        vertical-align: middle;  
+        margin-left: 10px; 
+    }
+    .details_sideNav{
+        color: rgb(78, 78, 78);
+        margin-left: 15px;
+        font-family: sans-serif;
+    }
+    #details_sideNavImg_lang{
+        margin-top: 8px;
+        width: 25px;
+        height: 25px;
+        background: url("images/englishIconpng.png") no-repeat;
+        background-size: contain;
+        border: none;
+        vertical-align: middle;  
+        margin-left: 10px;  
+    }
+    #details_sideNavImg_loc{
+        margin-top: 8px;
+        width: 25px;
+        height: 25px;
+        background: url("images/location.svg") no-repeat;
+        background-size: contain;
+        border: none;
+        vertical-align: middle;  
+        margin-left: 10px; 
+    
+    }
+    #details_sideNavImg1{
+        margin-top: 8px;
+        width: 25px;
+        height: 25px;
+        background: url("images/youtubeTv.jpg") no-repeat;
+        background-size: contain;
+        border: none;
+        vertical-align: middle;  
+        margin-left: 10px; 
+    }
+    .details_sideNav{
+        color: rgb(78, 78, 78);
+        margin-left: 15px;
+        font-family: sans-serif;
+    }
+    .details_sideNav:hover {
+        cursor: pointer;
+    }
+    #details_sideNavImg2{
+        margin-top: 8px;
+        width: 25px;
+        height: 25px;
+        background: url("images/youtubeMusic.png") no-repeat;
+        background-size: contain;
+        border: none;
+        vertical-align: middle;  
+        margin-left: 10px; 
+    }
+    #details_sideNavImg3{
+        margin-top: 8px;
+        width: 25px;
+        height: 25px;
+        background: url("images/youtubeKids.png") no-repeat;
+        background-size: contain;
+        border: none;
+        vertical-align: middle;  
+        margin-left: 10px; 
+    }
+    #details_sideNavImg3:hover {
+        cursor: pointer;
+    }
+    #details_sideNavImg2:hover {
+        cursor: pointer;
+    }
+    #details_sideNavImg1:hover {
+        cursor: pointer;
+    }
+    #details_sideNavImg{
+        cursor: pointer;
+    }

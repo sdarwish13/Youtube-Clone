@@ -1,4 +1,4 @@
-/* Channel page after sign in/ sign up */
+/* Channel page before sign in/ sign up */
 
 body {
     margin-top: 4px;
@@ -7,6 +7,7 @@ body {
 }
 
 .horizNav {
+    
     margin: 0px;  
     height: 45px;
     border-bottom: 1px solid rgb(226, 226, 226);
@@ -17,19 +18,22 @@ body {
     height: 20px;
 }
 
-#profileImage {
-    width: 27px;
-    height: 27px;
-    /* background: url("unnamed.png") no-repeat; */
-    background-size: contain;
-    border-radius: 50%;
-    vertical-align: middle;
-    border: none;
-	color:black;
+#signinBtn {
+    width: 80px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid rgb(0, 81, 255);
+    color: rgb(0, 81, 255);
+    border-radius: 2px;
+    font-size: 13px;
 }
 
-#profileImage:hover {
+#signinBtn:hover {
     cursor: pointer;
+}
+
+#signinBtn:active {
+    background-color: lightgrey;
 }
 
 #gridImage {
@@ -56,16 +60,18 @@ body {
     vertical-align: middle;
 }
 
-#bellImage {
-    width: 20px;
-    height: 20px;
-    background: url("images/bell.webp") no-repeat;
+#settingsImage {
+    margin-left: 10px;
+    padding: 0px;
+    width: 28px;
+    height: 28px;
+    background: url("images/settings.png") no-repeat;
     background-size: contain;
     border: none;
     vertical-align: middle;
 }
 
-#bellImage:hover {
+#settingsImage:hover {
     cursor: pointer;
 }
 
@@ -110,18 +116,18 @@ body {
 }
 
 #buttons {
-    width: 175px;
+    width: 230px;
     min-width: 175px;
     float: right;
     align-items: right;
-    margin-top: 8px;
+    margin-top: 3px;
     margin-right: 15px;
     
 }
 
 #searchBox {
     text-align: center;
-    width: calc(100% - 305px);
+    width: calc(100% - 360px);
     float: left;
 }
 
@@ -164,7 +170,7 @@ body {
     color: black;
 }
 
-.vertNav li :active {
+.vertNav li:active {
     text-decoration: none;
     color: red;
 }
@@ -180,6 +186,41 @@ body {
     margin: 0px;
     font-size: small;
 }
+
+/* .videos {
+    position: fixed;
+    top: 50px;
+    left: 80px;
+    background-color: rgb(247, 247, 247);
+    overflow: scroll;
+    float: left;
+    width: calc(100% - 80px);
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+    padding: 0px;
+    height: calc(100% - 50px);
+} */
+
+/* .video form {
+    margin: 10px;
+    border: none;
+    background-color:  rgb(247, 247, 247);
+    margin-bottom: 10px;
+    width: calc((100% - 80px) / 4);
+    height: calc(width * 1.777);
+} */
+
+/* .videos button {
+    margin: 10px;
+    border: none;
+    background-color:  rgb(247, 247, 247);
+    margin-bottom: 10px;
+    float: left;
+    width: calc((100% - 80px) / 4);
+    height: calc(width * 1.777);
+} */
 
 .videos button:hover {
     cursor: pointer;
@@ -197,6 +238,46 @@ body {
 .videos button p {
     text-align: left;
     margin: 2px;
+}
+
+#buttons a {
+    margin-left: 10px;
+}
+
+/* @media (max-width: 921px)
+{
+    .videos button {
+        width: calc((100% - 65px) / 3);
+    }
+}
+
+@media (max-width: 670px)
+{
+    .videos button {
+        width: calc((100% - 45px) / 2);
+    }
+} */
+
+#channelImage {
+    width: 27px;
+    height: 27px;
+    /* background: url("unnamed.png") no-repeat; */
+    background-size: contain;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: none;
+    color: black;
+    float: left;
+}
+
+#channelImage:hover {
+    cursor: pointer;
+}
+
+#channelIm {
+    margin: 2px 10px 0px 2px;
+    float: left;
+    height: 40px;
 }
 
 #channelImage {
@@ -338,131 +419,3 @@ body {
         width: calc((100% - 45px) / 2);
     }
 }
-
-.sidenav {
-    height: 25%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    background-color:white;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 35px;
-    margin-top: 10px;
-    margin-right:65px;
-    }
-    
-    .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-    }
-    
-    .sidenav a:hover {
-    color: #f1f1f1;
-    }
-    
-    .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-    }
-    
-    @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-    }
-    
-    #details_sideNavImg{
-        margin-top: 8px;
-        width: 25px;
-        height: 25px;
-        background: url("images/profile.png") no-repeat;
-        background-size: contain;
-        border: none;
-        vertical-align: middle;  
-        margin-left: 10px; 
-    }
-    .details_sideNav{
-        color: rgb(78, 78, 78);
-        margin-left: 15px;
-        font-family: sans-serif;
-    }
-    #details_sideNavImg_lang{
-        margin-top: 8px;
-        width: 25px;
-        height: 25px;
-        background: url("images/englishIconpng.png") no-repeat;
-        background-size: contain;
-        border: none;
-        vertical-align: middle;  
-        margin-left: 10px;  
-    }
-    #details_sideNavImg_loc{
-        margin-top: 8px;
-        width: 25px;
-        height: 25px;
-        background: url("images/location.svg") no-repeat;
-        background-size: contain;
-        border: none;
-        vertical-align: middle;  
-        margin-left: 10px; 
-    
-    }
-    #details_sideNavImg1{
-        margin-top: 8px;
-        width: 25px;
-        height: 25px;
-        background: url("images/youtubeTv.jpg") no-repeat;
-        background-size: contain;
-        border: none;
-        vertical-align: middle;  
-        margin-left: 10px; 
-    }
-    .details_sideNav{
-        color: rgb(78, 78, 78);
-        margin-left: 15px;
-        font-family: sans-serif;
-    }
-    .details_sideNav:hover {
-        cursor: pointer;
-    }
-    #details_sideNavImg2{
-        margin-top: 8px;
-        width: 25px;
-        height: 25px;
-        background: url("images/youtubeMusic.png") no-repeat;
-        background-size: contain;
-        border: none;
-        vertical-align: middle;  
-        margin-left: 10px; 
-    }
-    #details_sideNavImg3{
-        margin-top: 8px;
-        width: 25px;
-        height: 25px;
-        background: url("images/youtubeKids.png") no-repeat;
-        background-size: contain;
-        border: none;
-        vertical-align: middle;  
-        margin-left: 10px; 
-    }
-    #details_sideNavImg3:hover {
-        cursor: pointer;
-    }
-    #details_sideNavImg2:hover {
-        cursor: pointer;
-    }
-    #details_sideNavImg1:hover {
-        cursor: pointer;
-    }
-    #details_sideNavImg{
-        cursor: pointer;
-    }

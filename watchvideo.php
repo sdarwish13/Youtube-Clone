@@ -5,9 +5,6 @@
         <title>Youtube Watch Video</title>
         <meta charset="UTF-8">
         <link href="watchvideo.css" rel="stylesheet" type="text/css">
-        <!-- <script src="watchvideo.js">
-
-        </script> -->
     </head>
 
     <body>
@@ -16,8 +13,8 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search" onclick="window.location.href='homeAfter.php?fname=<?= $fname?>&lname=<?= $lname?>&email=<?= $email?>'">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
@@ -36,7 +33,6 @@
                     $id_linked="";
                     foreach($emailLinks as $emailLink){
                         $id_linked = $emailLink["id"];
-                        // $authorName = $emailLink["name"];
                     }
 
                     $testing62s = $db->query("SELECT * FROM `Views` WHERE video !='$vid_id_link' ");
@@ -48,25 +44,24 @@
                         }
                         else{
                             echo " success!!!!!!!!!1";
-                           
                         }
-                       
-                        
-                      
-                      
                     }
-                  
-                    
 
-
-                 
-                
+                    error_reporting(0);
+                    if (empty($_POST["searchinput"]))
+                    {
+                        $searchinput = $_POST["searchinput"];
+                        $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+                    }
+                    else
+                    {
+                        $searchinput = $_POST["searchinput"];
+                        $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+                    }
                 ?>
 
             <div id="buttons">
-
-                <!-- <input type="button" id="vidImage"> -->
-                <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
+                <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                 <input type="button" id="gridImage" onclick="openNav2()">
                 <input type="button" id="bellImage">
                 <button id="profileImage" onclick="openNav()">
@@ -80,19 +75,19 @@
             </div>
            
             <div id="mySidenav" class="sidenav">
-                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <hr>
-                    <input type="button" id="details_sideNavImg" name="details_sideNavImg" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
-                    <span class="details_sideNav"> Your Channel</span>
-                    <br>
-                    <hr>
-                    <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
-                    <span class="details_sideNav">Language: English</span>
-                    <br>
-                    <hr>
-                    <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
-                    <span class="details_sideNav"> Location: Lebanon</span>
-                    <hr>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <hr>
+                <input type="button" id="profileImage" name="details_sideNavImg" value="<?= $fname[0], $lname[0]?>" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $mychannelid?>'">
+                <span class="details_sideNav" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $mychannelid?>'">Your Channel</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+                <span class="details_sideNav">Language: English</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+                <span class="details_sideNav">Location: Lebanon</span>
+                <hr>
             </div>
             <div id="mySidenav2" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
@@ -109,18 +104,9 @@
                 <span class="details_sideNav"   > YouTube Kids</span>
                 <hr>
             </div>
-
-
-
         </div>
 
         <div id="box">
-
-                <?php
-                    $db = new PDO("mysql:dbname=278project", "root","");
-                   
-                ?>
-
             <div id="upNext">
 
                 <span class="upNexttxt">
@@ -183,7 +169,6 @@
                 <div>
                         <?php
                             //des and title and video playback
-                            // $db = new PDO("mysql:dbname=278project", "root","");
                             $rows = $db->query("SELECT * FROM Video WHERE id='$vid_id_link' ");
                             $des ="";
                             $vidTitle="";
@@ -199,7 +184,6 @@
                                 $vidDate = $row["upload_date"];
                             } 
 
-                            // $conn= new mysqli('localhost', 'root', '','278project');
                             //for likes and dislikes
                             if(isset($_POST['likeImage'])) {
 
@@ -271,13 +255,8 @@
                                 foreach($rows8 as $row8){
                                     $viewsCount++;
                             };
-
-                           
-
-                            
                             ?>
                 </div>
-        
                 <h2 class="vidTitle"> <?= $vidTitle?> </h2>
 
                 <div id="viewCount">
@@ -285,11 +264,8 @@
                         &nbsp;
                         &bull;
                         <?= $vidDate ?>
-                        
                 </div>
 
-                
-              
                 <div id="likeMenu">
                     <form action="" method="post" id="formLike"  > 
                     <button id="likeImage" value="likeImage" name="likeImage" ></button>
@@ -309,29 +285,19 @@
                         <ul id="reportList">
                             
                                 <li> <input type="submit" placeholder="Report" value="Report" id="reportBtn" name="reportBtn" > </li>
-                           
-                        
-                        <!-- <li> <button id="reportBtn" name="reportBtn" value="Report">Report</button></li> -->
                         </ul>
                         </span>
                     </div>
                     </button> 
 
-                    
-                    
                 </div>
                 <?php
                      if (isset($_POST['reportBtn'])){
                          $report = "INSERT INTO `Report` (`reporter`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
                          $db->exec( $report);  
                      }
-
-
                     ?>
-
-
                 </form>
-               
 
                 <div id="myModal" class="modal">
                     <!-- Modal content -->
@@ -398,9 +364,7 @@
                             <input type="radio" name="playlistForm" value="<?= $playlst["id"]?> ">
                             <label for=" <?= $playlst["id"]?>" > <?= $playlst["title"]?> </label>
                             <br>
-
                             <?php
-                            // echo  $playlst["id"];
                         }
                        
                         ?>
@@ -421,8 +385,6 @@
                         //on click add  to watch later 
                         if (isset($_POST['addWatchLater'])){
                             $datetime = date('Y-m-d H:i:s');
-                            // $datetime =  DATE_FORMAT('%m-%d-%Y');
-                            // $date=date("Y-m-d",strtotime($date));
                             $watchlaters = "INSERT INTO `WatchLater` (`viewer`, `video`, `later_datetime`) VALUES ('$id_linked ', '$vid_id_link', '$datetime') ";
                             $db->exec($watchlaters);
                             echo $datetime;
@@ -438,10 +400,9 @@
 
                             $playlistmake = "INSERT INTO `Playlist` (`id`, `owner`, `title`, `private`) VALUES ('$playlists', '$id_linked', '$playlist_title', '$privacy') ";
                             $db->exec($playlistmake);
-                            // echo "this is privacy :", $privacy;
                         }
 
-                        //    //add to a playlist on click
+                        //add to a playlist on click
                   
                         if(isset($_POST['saveVidPlaylist'])){
                             $datetime = date('Y-m-d H:i:s');
@@ -450,25 +411,21 @@
                             $db->exec($playlistAdd);
                         }
                           ?>
-
-
                         </form>
                     </div>
                 </div>   
-
             </div>
 
             <div id="descriptionCont">
-                <input type="button" id="tuberImage">
+                <input type="button" id="tuberImage" value="<?= $tuberName[0] ?>" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $channelId?>'">
                 <div id="tuberInfo">
-                        <span class="tuberName"> <?= $tuberName ?>
+                        <span class="tuberName" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $channelId?>'"> <?= $tuberName ?>
                         </span>
                         <br>
                         <span class="tuberSubs"> <?=$subsCount ?> subscribers</span> 
                         <form action="" method="post" id="formSub">
                         <button id="subButton" name="subButton"> Subscribe</button>
                         </form>
-                        <!-- <button id="subButton" name="subButton"> Subscribe</button> -->
                         <input type="button" id="notifImage">
                 </div>
                 <br>
@@ -476,10 +433,8 @@
                     <?= $des ?>
                 </div>
             </div>
-
           
             <form action="" method="post">
-            
             <div id="commentsBox">
 
                 <span class="commentsBoxS"> <?=$CommentCount ?> comments</span>
@@ -491,8 +446,6 @@
                 </div>
                 <?php
 
-             
-
                 // //on click sub to channel
                 if (isset($_POST['subButton'])){
                     $subs_table= "INSERT INTO `Subscription` (`subscriber`, `channel`) VALUES ('$id_linked', '$channelId')";
@@ -502,7 +455,6 @@
                 //to insert a comment
                 $commContent="";
                 if(isset($_POST['commentBtn']) ){
-                    // $db = new PDO("mysql:dbname=278project", "root","");
                     $varComment = $_POST['commentInput'];
                     $comments = $db->query("SELECT * FROM VideoComment")->rowCount();
                     $comments++;
@@ -517,10 +469,6 @@
                     $replies++;
                     $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '$id_linked', '$vid_id_link ', '$replyContent')";
                     $db->exec($replySql); 
-
-
-                    // echo" success reply saved to db!";
-                    // echo "this is :" ,$replyContent;
                 }
 
                 //likes and dislike for comments 
@@ -536,8 +484,6 @@
                     $sqlCommLike12="INSERT INTO `CommentLikes` (`viewer`, `id`, `video`, `is_liked`) VALUES ('$id_linked', '$test1', '$vid_id_link', '1');"; 
                     $db->exec($sqlCommLike12); 
 
-                  
-                   
                 };
                 if(isset($_POST['dislikeImageComm'])){
 
@@ -574,7 +520,6 @@
                             <button id="likeImageReply" name="likeImageReply"></button>
                             <span class="likesReply"> </span>
                             <button id="dislikeImageReply" name="dislikeImageReply"></button>
-                            <!-- <button id="reply"  onclick="replyBtn()"> REPLY</button> -->
                         </div>
                     <?php
                 };
@@ -611,9 +556,6 @@
                             if( $commentLike["is_liked"] == 1 ){
                                 $likeCommCount++;
                             }
-                            // else if($commentLike["is_liked"] == 0){
-                            //     $dislikeCommCount++;
-                            // }
                         };
                         
                         ?>
@@ -628,17 +570,15 @@
                             <button id="dislikeImageComm" name="dislikeImageComm"></button>
                             <button id="reply" name="reply"> REPLY</button>
                             <input type="hidden" value="<?= $commentID ?>"  name="commentIDinput"  >
-                             <br>
+                            <br>
                             <button id="viewReply" name="viewReply"> View reply </button>
                             </div>
                         </div>
-                       
 
                         <?php
 
                         if(isset($_POST['reply'])){
                             ?>
-                            
                             <input type="text" name="replyInput" id="replyInput" placeholder="Add a public reply">
                           
                            <div id="replyBtns">
@@ -655,13 +595,10 @@
                 else{
                     echo "No comments yet";
                 }
-
                 ?>
             </div>
             </form>
 
-
-           
 </body>
 
 <script>
@@ -726,9 +663,6 @@
             modal1.style.display = "none";
         }
         }
-     
-      
-            
-            </script>
+        </script>
 
 </html>

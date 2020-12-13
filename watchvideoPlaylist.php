@@ -13,8 +13,8 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search" onclick="window.location.href='homeAfter.php?fname=<?= $fname?>&lname=<?= $lname?>&email=<?= $email?>'">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
@@ -30,25 +30,25 @@
                     $shuffle = $_REQUEST["shuffle"];
                 ?>
                 <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php?fname=<?= $fname?>&lname=<?= $lname?>&email=<?= $email?>'">
-                <input type="button" id="gridImage">
+                <input type="button" id="gridImage" onclick="openNav2()">
                 <input type="button" id="bellImage">
                 <input type="button" id="profileImage" onclick="openNav()" value="<?= $fname[0], $lname[0]?>">
             </div>
 
             <div id="mySidenav" class="sidenav">
-                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <hr>
-                    <input type="button" id="details_sideNavImg" name="details_sideNavImg" onclick="window.location.href='upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?> '">
-                    <span class="details_sideNav"> Your Channel</span>
-                    <br>
-                    <hr>
-                    <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
-                    <span class="details_sideNav">Language: English</span>
-                    <br>
-                    <hr>
-                    <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
-                    <span class="details_sideNav"> Location: Lebanon</span>
-                    <hr>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <hr>
+                <input type="button" id="profileImage" name="details_sideNavImg" value="<?= $fname[0], $lname[0]?>" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $mychannelid?>'">
+                <span class="details_sideNav" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $mychannelid?>'">Your Channel</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+                <span class="details_sideNav">Language: English</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+                <span class="details_sideNav">Location: Lebanon</span>
+                <hr>
             </div>
             <div id="mySidenav2" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
@@ -72,6 +72,18 @@
             <?php
                 $db = new PDO("mysql:dbname=278project", "root","");
                 $vid_id_link;
+
+                error_reporting(0);
+                if (empty($_POST["searchinput"]))
+                {
+                    $searchinput = $_POST["searchinput"];
+                    $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+                }
+                else
+                {
+                    $searchinput = $_POST["searchinput"];
+                    $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+                }
             ?>
             <div id="videoBox">
                 <div>
@@ -832,6 +844,7 @@
 
                     foreach($rows6 as $row6)
                     {   
+                        $vid = $row6["id"];
                     ?>
                         <div id="details"> 
                             <video id="detailsImg" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname ?>&lname=<?php echo $lname ?>&email=<?php echo $email ?>&id=<?php echo $vid ?>`" >

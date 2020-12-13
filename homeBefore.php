@@ -11,8 +11,8 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search" onclick="window.location.href='homeBefore.php'">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
@@ -38,19 +38,19 @@
                     </a>
                 </li>
                 <li id="subBtn">
-                    <a href="subBefore.html">
+                    <a href="subBefore.php">
                         <img src="images/sub.png" alt="Sub Image">
                         <p>Subscriptions</p>
                     </a>
                 </li>
                 <li id="libBtn">
-                    <a href="lib_before.html">
+                    <a href="lib_before.php">
                         <img src="images/lib.png" alt="Library Image">
                         <p>Library</p>
                     </a>
                 </li>
                 <li id="historyBtn">
-                    <a href="History.html">
+                    <a href="historyBefore.php">
                         <img src="images/hist.png" alt="History Image">
                         <p>History</p>
                     </a>
@@ -61,6 +61,18 @@
         <?php
             $db = new PDO("mysql:dbname=278project", "root","");
             $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");
+
+            error_reporting(0);
+            if (empty($_POST["searchinput"]))
+            {
+                $searchinput = $_POST["searchinput"];
+                $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+            }
+            else
+            {
+                $searchinput = $_POST["searchinput"];
+                $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+            }
         ?>
         <div class="videos">
             <?php
@@ -72,9 +84,9 @@
                 foreach($channels as $channel)
                 {
                 ?>
-                    <button id="videoBtn" onclick="window.location.href = `watchvideo.php?id=<?php echo $row['id'] ?>`">
+                    <button id="videoBtn" onclick="window.location.href = `watchvideoBefore.php?id=<?php echo $row['id']?>`">
                         <video id="watchVideo" width="100%">
-                            <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
+                            <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
                         </video>
                         <div id="channelIm">
                             <input type="button" id="channelImage" value="<?= $channel["name"][0]?>">

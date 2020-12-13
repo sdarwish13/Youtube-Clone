@@ -4,10 +4,7 @@
     <head>
         <title>Youtube video</title>
         <meta charset="UTF-8">
-        <link href="watchvideo.css" rel="stylesheet" type="text/css">
-        <!-- <script src="watchvideo.js">
-
-        </script> -->
+        <link href="watchvideoBefore.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
@@ -16,33 +13,40 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search" onclick="window.location.href='homeBefore.php'">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
                 </form>
                 
             </div>
- <?php
+                <?php
                     $db = new PDO("mysql:dbname=278project", "root","");
                     
                   
                     $vid_id_link = $_REQUEST["id"];
 
+                    error_reporting(0);
+                    if (empty($_POST["searchinput"]))
+                    {
+                        $searchinput = $_POST["searchinput"];
+                        $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+                    }
+                    else
+                    {
+                        $searchinput = $_POST["searchinput"];
+                        $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+                    }
                 ?>
 
             <div id="buttons">
-
-                <input type="button" id="vidImage">
+                <input type="button" id="vidImage" onclick="window.location.href = 'signin.php'">
                 <input type="button" id="gridImage">
-                <input type="button" id="bellImage">
-                <button id="profileImage" onclick="window.location.href='signin.php'">
-
-				
-
-				</button>
-               
+                <input type="button" id="settingsImage">
+                <a href="signin.php">
+                    <button id="signinBtn">SIGN IN</button> 
+                </a>
             </div>
            
           
@@ -51,10 +55,6 @@
 
         <div id="box">
 
-                <?php
-                    $db = new PDO("mysql:dbname=278project", "root","");
-                   
-                ?>
 
             <div id="upNext">
 
@@ -73,7 +73,7 @@
 
                         <li>
                         <div id="details"> 
-                            <video id="detailsImg" onclick="window.location.href = `watchvideoBefore.php?id=<?php echo $vid ?>`" >
+                            <video id="detailsImg" onclick="window.location.href = `watchvideoBefore.php?id=<?php echo $vid?>`" >
                                 <source src="test_uploads/<?php echo $row6["fileName"] ?>" type="video/mp4">
                             </video>    
                             <h3 id="test"> <?php echo $row6["title"] ?> </h3>
@@ -116,7 +116,6 @@
                 <div>
                         <?php
                             //des and title and video playback
-                            // $db = new PDO("mysql:dbname=278project", "root","");
                             $rows = $db->query("SELECT * FROM Video WHERE id=$vid_id_link ");
                             $des ="";
                             $vidTitle="";
@@ -130,12 +129,8 @@
                                 $des = $row["description"];
                                 $vidTitle= $row["title"];
                                 $channelId=$row["channel"];
-                                
-
                             } 
 
-                            
-                             
                             //to display dislikes 
                             $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video='$vid_id_link'   ");
                             $countDislikes=0; //dislikes count
@@ -199,7 +194,6 @@
                 </div>
 
                 
-              
                 <div id="likeMenu">
                    
                     <button id="likeImage" value="likeImage" name="likeImage" onclick="window.location.href='signin.php'" ></button>
@@ -267,16 +261,15 @@
             </div>
 
             <div id="descriptionCont">
-                <input type="button" id="tuberImage">
+                <input type="button" id="tuberImage" value="<?= $tuberName[0]?>" onclick="window.location.href='channelBefore.php?&channelid=<?= $channelId?>'">
                 <div id="tuberInfo">
-                        <span class="tuberName"> <?= $tuberName ?>
+                        <span class="tuberName" onclick="window.location.href='channelBefore.php?&channelid=<?= $channelId?>'"> <?= $tuberName ?>
                         </span>
                         <br>
                         <span class="tuberSubs"> <?=$subsCount ?> subscribers</span> 
                     
                         <button id="subButton" name="subButton" onclick="window.location.href='signin.php'" > Subscribe</button>
                  
-                        <!-- <button id="subButton" name="subButton"> Subscribe</button> -->
                         <input type="button" id="notifImage">
                 </div>
                 <br>
@@ -285,8 +278,6 @@
                 </div>
             </div>
 
-          
-           
             
             <div id="commentsBox">
 
@@ -314,7 +305,6 @@
                          $rows5 = $db->query("SELECT name FROM Channel WHERE id= $author ");
                          $commenterName="";
                         ?>
-                         
                       
                         <?php
                          $replyName="";
@@ -331,7 +321,6 @@
                              <?php
                          };
                          ?>
-                       
                          
                          <?php
                          
@@ -343,14 +332,10 @@
                             if( $commentLike["is_liked"] == 1 ){
                                 $likeCommCount++;
                             }
-                            // else if($commentLike["is_liked"] == 0){
-                            //     $dislikeCommCount++;
-                            // }
                         };
                         
                         ?>
 
-                     
 
                          <div id="comment">
                             <input type="button" id="tuberImage">
@@ -394,13 +379,6 @@
     popup.classList.toggle("show");
     }
    
-    // function openNav() {
-    // document.getElementById("mySidenav").style.width = "250px";
-    // }
-
-    // function closeNav() {
-    // document.getElementById("mySidenav").style.width = "0";
-    // }
  
             // Get the modal
         var modal = document.getElementById("myModal");

@@ -31,7 +31,23 @@
                 <button id="buttonme">
 					<i style="color:red;font-size:16px;" class="fa fa-upload"></i> Upload 
 				</button>
-                <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0'];?>">
+                <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0'];?>" onclick="openNav()">
+			</div>
+			
+			<div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <hr>
+                <input type="button" id="profileImage" name="details_sideNavImg" value="<?= $fname[0], $lname[0]?>" onclick="window.location.href='homeAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
+                <span class="details_sideNav" onclick="window.location.href='homeAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">Youtube Home</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+                <span class="details_sideNav">Language: English</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+                <span class="details_sideNav">Location: Lebanon</span>
+                <hr>
             </div>
 		</div>
 		
@@ -223,6 +239,26 @@
 			function openwindow(){
 				window.open("upload_form.html", "_self");
 			}
+
+			function myFunction() {
+			var popup = document.getElementById("myPopup");
+			popup.classList.toggle("show");
+			}
+		
+			function openNav() {
+			document.getElementById("mySidenav").style.width = "250px";
+			}
+
+			function closeNav() {
+			document.getElementById("mySidenav").style.width = "0";
+			}
+			function closeNav2() {
+			document.getElementById("mySidenav2").style.width = "0";
+			}
+			function openNav2() {
+				document.getElementById("mySidenav2").style.width = "250px";
+			}
+
 			</script>
 		
 		

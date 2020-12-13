@@ -11,8 +11,8 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search" onclick="window.location.href='homeAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
@@ -29,10 +29,10 @@
 				
 				?>
 
-                <input type="button" id="vidImage">
-                <input type="button" id="gridImage">
+                <input type="button" id="vidImage" onclick="window.location.href = 'upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <input type="button" id="gridImage" onclick="openNav2()">
                 <input type="button" id="bellImage">
-                <button id="profileImage">
+                <button id="profileImage" onclick="openNav()">
 
 				<?php
 					print $fname[0];
@@ -40,6 +40,37 @@
 				?>
 
 				</button>
+            </div>
+
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <hr>
+                <input type="button" id="profileImage" name="details_sideNavImg" value="<?= $fname[0], $lname[0]?>" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $mychannelid?>'">
+                <span class="details_sideNav" onclick="window.location.href='channelAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&channelid=<?= $mychannelid?>'">Your Channel</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_lang" value="" name="details_sideNavImg_lang" ></button>
+                <span class="details_sideNav">Language: English</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg_loc" value="" name="details_sideNavImg_loc" ></button>
+                <span class="details_sideNav">Location: Lebanon</span>
+                <hr>
+            </div>
+            <div id="mySidenav2" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+                <hr>
+                <button id="details_sideNavImg1" value="" name="details_sideNavImg1" ></button>
+                <span class="details_sideNav"  > YouTube Tv</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg2" value="" name="details_sideNavImg2" ></button>
+                <span class="details_sideNav" >YouTube Music</span>
+                <br>
+                <hr>
+                <button id="details_sideNavImg3" value="" name="details_sideNavImg3"></button>
+                <span class="details_sideNav"   > YouTube Kids</span>
+                <hr>
             </div>
         </div>
 
@@ -64,7 +95,7 @@
                     </a>
                 </li>
                 <li id="historyBtn">
-                    <a href="History.html">
+                    <a href="history_after.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>">
                         <img src="images/hist.png" alt="History Image">
                         <p>History</p>
                     </a>
@@ -89,6 +120,18 @@
                 <?php
                     $db = new PDO("mysql:dbname=278project", "root","");
                     $rows = $db->query("SELECT * FROM Channel WHERE owner='$email'");
+
+                    error_reporting(0);
+                    if (empty($_POST["searchinput"]))
+                    {
+                        $searchinput = $_POST["searchinput"];
+                        $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+                    }
+                    else
+                    {
+                        $searchinput = $_POST["searchinput"];
+                        $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+                    }
                 ?>
                 
                 <div id="center">
@@ -195,5 +238,26 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function myFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+            }
+        
+            function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            }
+
+            function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            }
+            function closeNav2() {
+            document.getElementById("mySidenav2").style.width = "0";
+            }
+            function openNav2() {
+                document.getElementById("mySidenav2").style.width = "250px";
+            }
+        </script>
     </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html> <!-- Subscription page before sign in/ sign up -->
+<html> <!-- History page before sign in/ sign up -->
     <head>
-        <title>Youtube</title>
+        <title>History Before</title>
         <meta charset="UTF-8">
-        <link href="subBefore.css" rel="stylesheet" type="text/css">
+        <link href="historyBefore.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="horizNav">
@@ -11,16 +11,30 @@
                 <img src="images/youtube logo.png" alt="youtube logo" id="logo">
             </div>
             <div id="searchBox">
-                <form>
-                    <input type="text" id="searchText" placeholder="Search">
+                <form action="" method="post">
+                    <input type="text" id="searchText" name="searchinput" placeholder="Search" onclick="window.location.href='homeBefore.php'">
                     <button id="searchBtn">
                         <img src="images/search logo.png" alt="Search">
                     </button>
                 </form>
                 
             </div>
+            <?php
+                $db = new PDO("mysql:dbname=278project", "root","");
+                error_reporting(0);
+                if (empty($_POST["searchinput"]))
+                {
+                    $searchinput = $_POST["searchinput"];
+                    $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 ORDER BY RAND()");				
+                }
+                else
+                {
+                    $searchinput = $_POST["searchinput"];
+                    $rows = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE private=0 AND title = '$searchinput'");
+                }
+            ?>
             <div id="buttons">
-                <input type="button" id="vidImage" onclick="window.location.hrey = 'signin.php'">
+                <input type="button" id="vidImage" onclick="window.location.href = 'signin.php'">
                 <input type="button" id="gridImage">
                 <input type="button" id="settingsImage">
                 <a href="signin.php">
@@ -59,9 +73,9 @@
         </div>
 
         <div id="noSub">
-            <img src="images/sub.png" alt="Sub Image">
-            <h2>Don't miss new videos</h2>
-            <p>Sign in to see updates from your favourite YouTube channels</p>
+            <img src="images/hist.png" alt="Sub Image">
+            <h2>Keep track of what you watch</h2>
+            <p>Watch history isn't viewable when you're signed out.</p>
             <a href="signin.php">
                 <button id="signinBtn">SIGN IN</button> 
             </a>
