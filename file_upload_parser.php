@@ -26,7 +26,7 @@ if (!$fileTmpLoc) { // if file not chosen
     exit();
 }
 if(move_uploaded_file($fileTmpLoc, "test_uploads/$fileName")){
-	$sql = "INSERT into Video(id, fileName,location) VALUES('$videoid', '$fileName','$fileTmpLoc')";
+	$sql = "INSERT into Video(id, fileName,location) VALUES('$videoid', '$fileName','test_uploads/')";
 	if(mysqli_query($conn,$sql)){
 		echo "$fileName upload is complete"; 
     }

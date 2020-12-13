@@ -108,7 +108,7 @@ create table History (
 	viewer varchar(60),
 	video varchar(60),
 	view_datetime datetime,
-	primary key (viewer, video, view_datetime) ON DELETE CASCADE,
+	primary key (viewer, video, view_datetime),
 	foreign key (viewer) references Channel(id) ON DELETE CASCADE,
 	foreign key (video) references Video(id) ON DELETE CASCADE
 );

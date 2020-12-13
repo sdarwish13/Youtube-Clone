@@ -35,12 +35,8 @@
                         $id_linked = $emailLink["id"];
                     }
 
-                    
-                   $testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != $id_linked");
-                    foreach($testing62s as $testing62){
-                        $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                        $db->exec($view);
-                    }
+                    $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
+                    $db->exec($view);
 					
 					
                     error_reporting(0);
@@ -381,7 +377,7 @@
                         //on click add  to watch later 
                         if (isset($_POST['addWatchLater'])){
                             $datetime = date('Y-m-d H:i:s');
-                            $watchlaters = "INSERT INTO `WatchLater` (`viewer`, `video`, `later_datetime`) VALUES ('$id_linked ', '$vid_id_link', '$datetime') ";
+                            $watchlaters = "INSERT INTO WatchLater (viewer, video, later_datetime) VALUES ('$id_linked ', '$vid_id_link', '$datetime') ";
                             $db->exec($watchlaters);
                             echo $datetime;
                         }
