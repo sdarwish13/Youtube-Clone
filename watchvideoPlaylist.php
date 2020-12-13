@@ -5,9 +5,6 @@
         <title>Youtube video</title>
         <meta charset="UTF-8">
         <link href="watchvideoPlaylist.css" rel="stylesheet" type="text/css">
-        <!-- <script src="watchvideo.js">
-
-        </script> -->
     </head>
 
     <body>
@@ -22,232 +19,262 @@
                         <img src="images/search logo.png" alt="Search">
                     </button>
                 </form>
-                
             </div>
+
             <div id="buttons">
-                <input type="button" id="vidImage">
+                <?php
+                    $fname = $_REQUEST["fname"];
+                    $lname = $_REQUEST["lname"];
+                    $email = $_REQUEST["email"];
+                    $watchlater = $_REQUEST["watchlater"];
+                    $shuffle = $_REQUEST["shuffle"];
+                ?>
+                <input type="button" id="vidImage" onclick="window.location.href='upload_vid.php?fname=<?= $fname?>&lname=<?= $lname?>&email=<?= $email?>'">
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
-                <input type="button" id="profileImage" onclick="openNav()">
-               
+                <input type="button" id="profileImage" onclick="openNav()" value="<?= $fname[0], $lname[0]?>">
             </div>
+
             <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="#">About</a>
-                    <a href="#">Services</a>
-                    <a href="#">Clients</a>
-                    <a href="#">Contact</a>
-                </div>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Clients</a>
+                <a href="#">Contact</a>
+            </div>
 
         </div>
 
         <div id="box">
-                <?php
-                    $db = new PDO("mysql:dbname=278project", "root","");
-                   
-                ?>
-            <div id="upNext">
-
-            <div id="PlaylistVids">
-                <button>
-                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                    <div id="vidDetailsPlay">
-                        <h2> Video title</h2>     
-                        <span class="desWatchLater">
-                            Youtuber name  
-                        </span>          
-                    </div>
-                </button>
-                <button>
-                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                    <div id="vidDetailsPlay">
-                        <h2> Video title</h2>     
-                        <span class="desWatchLater">
-                            Youtuber name  
-                        </span>          
-                    </div>
-                </button>
-                <button>
-                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                    <div id="vidDetailsPlay">
-                        <h2> Video title</h2>     
-                        <span class="desWatchLater">
-                            Youtuber name  
-                        </span>          
-                    </div>
-                </button>
-                <button>
-                    <img src="images/videoimg.jpg" alt="Video Thumbnail">
-                    <div id="vidDetailsPlay">
-                        <h2> Video title</h2>     
-                        <span class="desWatchLater">
-                            Youtuber name  
-                        </span>          
-                    </div>
-                </button>    
-                
-                 
-            </div>
-
-             <span class="upNexttxt">
-                 Up Next
-                </span>
-            
-
-                <ul >
-                    <?php
-                        $rows6 = $db->query("SELECT * FROM Video");
-                        $varChannelIds= $db->query("SELECT channel FROM Video");
- 
-                        foreach($rows6 as $row6)
-                        {   
-                            ?>
-
-                        <li>
-                        <div id="details"> 
-                            <video id="detailsImg" >
-                                <source src="test_uploads/<?php echo $row6["fileName"] ?>" type="video/mp4">
-                            </video>    
-                            <h3 id="test"> <?php echo $row6["title"] ?> </h3>
-                            <?php 
-
-                                foreach($varChannelIds as $varChannelId)
-                                {
-                                    $ID = $varChannelId["channel"];
-                                    $rows7 = $db->query("SELECT name FROM Channel WHERE id=$ID");
-                                    foreach($rows7 as $row7)
-                                    {
-                                        ?>
-                                        <h5><?php echo $row7["name"] ?>  </h5>
-                                        <?php
-                                    }
-                                break;
-                                }
-                                $chan = $row6["channel"];
-                                $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
-                                foreach($channels as $channel)
-                                {
-                                    $vid = $row6["id"];
-                                    $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                                    ?>
-                                    <h5><?php echo $views ?> views 
-                                    &bull;
-                                    2 months ago
-                                    </h5>
-                                <?php
-                                }
-                            ?>
-                        </div>
-                    </li>
-                    <?php
-                        }
-                    ?>     
-                </ul>
-            </div>
+            <?php
+                $db = new PDO("mysql:dbname=278project", "root","");
+            ?>
             <div id="videoBox">
                 <div>
-                        <?php
-                            //des and title and video playback
-                            // $db = new PDO("mysql:dbname=278project", "root","");
-                            $rows = $db->query("SELECT * FROM Video WHERE id=1");
+                <?php
+                    $rows0 = $db->query("SELECT * FROM Channel WHERE owner='$email'");
+                    foreach($rows0 as $row)
+                    {
+                        $cid = $row["id"];
+                    }
+                    
+                    if($watchlater=="true")
+                    {
+                        if($shuffle=="true")
+                        {
+                            $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY RAND()");
                             $des ="";
                             $vidTitle="";
-                            foreach($rows as $row){
-                                ?>
-                                    <video id="watchVideo" controls>
-                                        <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
-                                    </video>
+                            foreach($later as $late)
+                            {
+                                $vid = $late["video"];
+                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
+                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
+                                foreach($rows01 as $row)
+                                {
+                                    $chan = $row["channel"];
+                                    $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                    $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=$chan");
+                                    ?>
+                                        <video id="watchVideo" controls>
+                                            <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                        </video>
 
-                                <?php
-                                $des = $row["description"];
-                                $vidTitle= $row["title"];
-                            } 
-
-                            //for likes and dislikes
-                            if(isset($_POST['likeImage'])) {
-                                $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE id=1";
-                                $db->exec($sqlLike);
-                            };
-                            if(isset($_POST['dislikeImage'])) {
-                                $sqlDislike = "UPDATE `Likes` SET is_liked='0' WHERE id=1";
-                                $db->exec($sqlDislike);
-                            };
-                             
-                            //to display dislikes 
-                            $rows12 = $db->query("SELECT is_liked FROM Likes ");
-                            $countDislikes=0; //dislikes count
-                            foreach($rows12 as $row12){
-                                if( $row12["is_liked"] == 0){
-                                    $countDislikes++;
+                                    <?php
+                                    $des = $row["description"];
+                                    $vidTitle = $row["title"];
+                                    $date = $row["upload_date"];
+                                    break;
                                 }
-                            };
-                            //to display likes 
-                            $rows1 = $db->query("SELECT is_liked FROM Likes ");
-                            $countLikes =0; //likes count
-                            foreach($rows1 as $row1){
-                                if( $row1["is_liked"] == 1 ){
-                                        $countLikes++;
-                                    }
-                                };
+                                break;
+                            } 
+                        }
+                        else if($shuffle=="false")
+                        {
+                            $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY later_datetime DESC");
+                            $des ="";
+                            $vidTitle="";
+                            foreach($later as $late)
+                            {
+                                $vid = $late["video"];
+                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
+                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
+                                foreach($rows01 as $row)
+                                {
+                                    $chan = $row["channel"];
+                                    $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                    $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=$chan");
+                                    ?>
+                                        <video id="watchVideo" controls>
+                                            <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                        </video>
 
-                            #for channel name ( tuber name)
-                            $rows2 = $db->query("SELECT name FROM Channel WHERE id=1 ");
-                            $tuberName="";
-                            foreach($rows2 as $row2){
-                                $tuberName = $row2["name"];
-                            };
+                                    <?php
+                                    $des = $row["description"];
+                                    $vidTitle = $row["title"];
+                                    $date = $row["upload_date"];
+                                    break;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    else if($watchlater=="false")
+                    {
+                        $playlist = $_REQUEST["playlist"];
+                        if($shuffle=="true")
+                        {
+                            $play = $db->query("SELECT * FROM PlaylistVideos WHERE playlist=$playlist ORDER BY RAND()");
+                            $des ="";
+                            $vidTitle="";
+                            foreach($play as $list)
+                            {
+                                $vid = $list["video"];
+                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
+                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
+                                foreach($rows01 as $row)
+                                {
+                                    $chan = $row["channel"];
+                                    $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                    $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=$chan");
+                                    ?>
+                                        <video id="watchVideo" controls>
+                                            <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                        </video>
 
-                            #for subscribers( sub count)
-                            $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=1 ");
-                            $subsCount=0;
-                            
-                            foreach($rows3 as $row3){
-                                $subsCount++;
-                            };
+                                    <?php
+                                    $des = $row["description"];
+                                    $vidTitle = $row["title"];
+                                    $date = $row["upload_date"];
+                                    break;
+                                }
+                                break;
+                            } 
+                        }
+                        else if($shuffle=="false")
+                        {
+                            $play = $db->query("SELECT * FROM PlaylistVideos WHERE playlist=$playlist ORDER BY playlist_datetime DESC");
+                            $des ="";
+                            $vidTitle="";
+                            foreach($play as $list)
+                            {
+                                $vid = $list["video"];
+                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
+                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
+                                foreach($rows01 as $row)
+                                {
+                                    $chan = $row["channel"];
+                                    $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                    $rows3 = $db->query("SELECT subscriber FROM Subscription WHERE channel=$chan");
+                                    ?>
+                                        <video id="watchVideo" controls>
+                                            <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                        </video>
 
-                            #for comment count
-                            $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=1 ");
-                            $CommentCount=0;
-                            $varCommentid=0;
-                            foreach($rows4 as $row4){
-                                $CommentCount++;
-                               
-                               
-                            };       
-                            #display video views
-                            $rows8 = $db->query("SELECT * FROM Views WHERE video=1 ");
-                            $viewsCount=0;
-                                foreach($rows8 as $row8){
-                                    $viewsCount++;
-                            };
-                            ?>
+                                    <?php
+                                    $des = $row["description"];
+                                    $vidTitle = $row["title"];
+                                    $date = $row["upload_date"];
+                                    break;
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    //for likes and dislikes
+                    if(isset($_POST['likeImage'])) {
+                        $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE id=1";
+                        $db->exec($sqlLike);
+                    };
+                    if(isset($_POST['dislikeImage'])) {
+                        $sqlDislike = "UPDATE `Likes` SET is_liked='0' WHERE id=1";
+                        $db->exec($sqlDislike);
+                    };
+                        
+                    //to display dislikes 
+                    
+                    $countDislikes=0; //dislikes count
+                    foreach($rows12 as $row12){
+                        if( $row12["is_liked"] == 0){
+                            $countDislikes++;
+                        }
+                    };
+                    //to display likes 
+                    
+                    $countLikes =0; //likes count
+                    foreach($rows1 as $row1){
+                        if( $row1["is_liked"] == 1 ){
+                                $countLikes++;
+                            }
+                        };
+
+                    #for channel name ( tuber name)
+                    
+                    $tuberName="";
+                    foreach($rows2 as $row2){
+                        $tuberName = $row2["name"];
+                    };
+
+                    #for subscribers( sub count)
+                    
+                    $subsCount=0;
+                    
+                    foreach($rows3 as $row3){
+                        $subsCount++;
+                    };
+
+                    #for comment count
+                    
+                    $CommentCount=0;
+                    $varCommentid=0;
+                    foreach($rows4 as $row4){
+                        $CommentCount++;
+                        
+                        
+                    };       
+                    #display video views
+                    
+                    $viewsCount=0;
+                        foreach($rows8 as $row8){
+                            $viewsCount++;
+                    };
+                ?>
                 </div>
         
                 <h2 class="vidTitle"> <?= $vidTitle?> </h2>
 
                 <div id="viewCount">
                     <?= $viewsCount?> views 
-                        &nbsp;
                         &bull;
-                        <script>
-                            document.write( '&nbsp'+ new Date().toDateString()); 
-                       </script>
+                    <?= $date?>
                 </div>
 
                 
               
                 <div id="likeMenu">
                     <form method="post" id="formLike" > 
-                    <button id="likeImage" value="likeImage" name="likeImage" ></button>
-                    <span class="likes"> <?=$countLikes?> </span>
-                    <button id="dislikeImage"  value="dislikeImage" name="dislikeImage"></button>
-                    <span class="likes"> <?=$countDislikes?> </span>
+                        <button id="likeImage" value="likeImage" name="likeImage" ></button>
+                        <span class="likes"> <?=$countLikes?> </span>
+                        <button id="dislikeImage"  value="dislikeImage" name="dislikeImage"></button>
+                        <span class="likes"> <?=$countDislikes?> </span>
                     </form>
                     <button id="shareImage"></button>
                     <span class="likes"> SHARE </span>
                     <button id="saveImage"></button>
                     <span class="likes"> SAVE </span>
-                    <!-- onclick report -->
                     <button id="dotsImage" onclick="myFunction()" class="popup">
                     <div> 
                         <span class="popuptext" id="myPopup">A Simple Popup!
@@ -257,7 +284,6 @@
                         </span>
                     </div>
                     </button> 
-                    
                 </div>
                
 
@@ -303,11 +329,8 @@
                         <br>
                         <span> Reddit</span>
                         </button>
-
                         </div>
-
                     </div>
-
                 </div>
 
                 <div id="myModal1" class="modal">
@@ -322,175 +345,380 @@
                         <span> Facebook</span>
                         </button>
                     </div>
-                </div>   
-
-            </div>
-
-            <div id="descriptionCont">
-                <input type="button" id="tuberImage">
-                <div id="tuberInfo">
+                </div>  
+                
+                <div id="descriptionCont">
+                    <input type="button" id="tuberImage">
+                    <div id="tuberInfo">
                         <span class="tuberName"> <?= $tuberName ?>
                         </span>
                         <br>
                         <span class="tuberSubs"> <?=$subsCount ?> subscribers</span> 
                         <button id="subButton" onclick=""> Subscribe</button>
                         <input type="button" id="notifImage">
-                </div>
-                <br>
-                <div id="description">
-                    <?= $des ?>
-                </div>
-            </div>
+                    </div>
+                    <br>
+                    <div id="description">
+                        <?= $des ?>
+                    </div>
 
-          
-            <form action="" method="post">
-            
-            <div id="commentsBox">
+                    <form action="" method="post">
+                        <div id="commentsBox">
 
-                <span class="commentsBoxS"> <?=$CommentCount ?> comments</span>
-                <input type="text" name="commentInput" id="commentInput" placeholder="Add a public comment">
-                <div id="commentBtns">
-                    <button id="cancelCommBtn" onclick="document.getElementById('commentInput').value = ''">CANCEL</button>
-                    <button id="commentBtn" name="commentBtn" onclick="commentBtn()">COMMENT</button>
-                </div>
-                <?php
-              
-                //to insert a comment
-                $commContent="";
-                if(isset($_POST['commentBtn']) ){
-                    // $db = new PDO("mysql:dbname=278project", "root","");
-                    $varComment = $_POST['commentInput'];
-                    $comments = $db->query("SELECT * FROM VideoComment")->rowCount();
-                    $comments++;
-                    $sql10 = "INSERT INTO `VideoComment` (`id`, `author`, `video`, `comment`) VALUES ( '$comments', '2', '1', '$varComment')";
-                    $db->exec($sql10); 
-                };
-                 //add reply to db 
-                if(isset($_POST['reply2commBtn'])){
-                    $replyContent = $_POST['replyInput'];
-                    $replies= $db->query("SELECT * FROM CommentReply")->rowCount();
-                    $test=$_POST['commentIDinput'];
-                    $replies++;
-                    $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '2', '1', '$replyContent')";
-                    $db->exec($replySql); 
-                    echo" success reply saved to db!";
-                    echo "this is :" ,$replyContent;
-                }
-
-                //likes and dislike for comments //need to insert if first time liking
-                if(isset($_POST['likeImageComm'])){  
-                    $test1=$_POST['commentIDinput'];
-                    $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
-                    $db->exec($sqlLikeComment1);
-                  
-                };
-                if(isset($_POST['dislikeImageComm'])){
-                    $test1=$_POST['commentIDinput'];
-                    //WHERE `CommentLikes`.`viewer` = '3'
-                    $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
-                    $db->exec($sqldisLikeComment);
-                };
-
-                if(isset($_POST['viewReply'])){
-                    $test2=$_POST['commentIDinput'];
-                    $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '1';");
-                    $replyContentDb="";
-                    $replyNam_db=$_POST['replyName_db'];
-                    foreach($replyTables as $replyTable){
-                        $replyContentDb= $replyTable['reply'];
-                        ?>
-                        <div id="replyBox">
-                            <input type="button" id="tuberImage">
-                            <div id="replyName"> <?= $replyNam_db ?></div>
-                            <div id="replyContent"> <?= $replyContentDb ?></div>
-                            <div id="likeMenuReply"> 
-                            <button id="likeImageReply" name="likeImageReply"></button>
-                            <span class="likesReply"> </span>
-                            <button id="dislikeImageReply" name="dislikeImageReply"></button>
-                            <!-- <button id="reply"  onclick="replyBtn()"> REPLY</button> -->
-                        </div>
-                    <?php
-                };
-              
-                }
-                $g = true;
-                if( $g == true){
-                    $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=1 ");
-                    foreach($commentDbs as $commentDb){
-
-                        $commContent= $commentDb["comment"];
-                        $commentID= $commentDb["id"];
-
-                        #for comment author  name
-                         $author=$commentDb["author"]; //make author = var , id=author
-                         $rows5 = $db->query("SELECT name FROM Channel WHERE id= $author ");
-                         $commenterName="";
-                         $replyName="";
-                         foreach($rows5 as $row5){
-                             $commenterName = $row5["name"];
-                             $replyName = $row5["name"];
-                             ?>
-                             <form action=""> 
-                              <input type="hidden" value="<?= $replyName?>"  name="replyName_db"  >
-                             </form>
-                             <?php
-                         };
-                         
-                        // echo $commentID;
-                        $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=1 AND id= $commentID AND is_liked=1");
-                        $likeCommCount=0;
-                        // $dislikeCommCount=0;
-                        foreach($commentLikes as $commentLike){
-                            if( $commentLike["is_liked"] == 1 ){
-                                $likeCommCount++;
-                            }
-                            // else if($commentLike["is_liked"] == 0){
-                            //     $dislikeCommCount++;
-                            // }
-                        };
-                        
-                        ?>
-                         <form action="" method="post">
-                         <div id="comment">
-                            <input type="button" id="tuberImage">
-                            <div id="commName">  <?=$commenterName?> </div>
-                            <div id="commContent"> <?=$commContent?></div>
-                            <div id="likeMenuComm"> 
-                            <button id="likeImageComm" name="likeImageComm"></button>
-                            <span class="likesComm"> <?=$likeCommCount?> </span>
-                            <button id="dislikeImageComm" name="dislikeImageComm"></button>
-                            <button id="reply" name="reply"> REPLY</button>
-                            <input type="hidden" value="<?= $commentID ?>"  name="commentIDinput"  >
-                             <br>
-                            <button id="viewReply" name="viewReply"> View reply </button>
-                            </div>
-                        </div>
-                       
-
-                        <?php
-
-                        if(isset($_POST['reply'])){
-                            ?>
-                            
-                            <input type="text" name="replyInput" id="replyInput" placeholder="Add a public reply">
-                          
-                           <div id="replyBtns">
-                                <button id="cancelReplyBtn" onclick="document.getElementById('replyInput').value = ''">CANCEL</button>
-                                <button id="reply2commBtn" name="reply2commBtn">REPLY</button>
+                            <span class="commentsBoxS"> <?=$CommentCount ?> comments</span>
+                            <input type="text" name="commentInput" id="commentInput" placeholder="Add a public comment">
+                            <div id="commentBtns">
+                                <button id="cancelCommBtn" onclick="document.getElementById('commentInput').value = ''">CANCEL</button>
+                                <button id="commentBtn" name="commentBtn" onclick="commentBtn()">COMMENT</button>
                             </div>
                             <?php
+                        
+                            //to insert a comment
+                            $commContent="";
+                            if(isset($_POST['commentBtn']) ){
+                                // $db = new PDO("mysql:dbname=278project", "root","");
+                                $varComment = $_POST['commentInput'];
+                                $comments = $db->query("SELECT * FROM VideoComment")->rowCount();
+                                $comments++;
+                                $sql10 = "INSERT INTO `VideoComment` (`id`, `author`, `video`, `comment`) VALUES ( '$comments', '2', '1', '$varComment')";
+                                $db->exec($sql10); 
                             };
+                            //add reply to db 
+                            if(isset($_POST['reply2commBtn'])){
+                                $replyContent = $_POST['replyInput'];
+                                $replies= $db->query("SELECT * FROM CommentReply")->rowCount();
+                                $test=$_POST['commentIDinput'];
+                                $replies++;
+                                $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '2', '1', '$replyContent')";
+                                $db->exec($replySql); 
+                                echo" success reply saved to db!";
+                                echo "this is :" ,$replyContent;
+                            }
+
+                            //likes and dislike for comments //need to insert if first time liking
+                            if(isset($_POST['likeImageComm'])){  
+                                $test1=$_POST['commentIDinput'];
+                                $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
+                                $db->exec($sqlLikeComment1);
+                            
+                            };
+                            if(isset($_POST['dislikeImageComm'])){
+                                $test1=$_POST['commentIDinput'];
+                                //WHERE `CommentLikes`.`viewer` = '3'
+                                $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
+                                $db->exec($sqldisLikeComment);
+                            };
+
+                            if(isset($_POST['viewReply'])){
+                                $test2=$_POST['commentIDinput'];
+                                $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '1';");
+                                $replyContentDb="";
+                                $replyNam_db=$_POST['replyName_db'];
+                                foreach($replyTables as $replyTable){
+                                    $replyContentDb= $replyTable['reply'];
+                                    ?>
+                                    <div id="replyBox">
+                                        <input type="button" id="tuberImage">
+                                        <div id="replyName"> <?= $replyNam_db ?></div>
+                                        <div id="replyContent"> <?= $replyContentDb ?></div>
+                                        <div id="likeMenuReply"> 
+                                        <button id="likeImageReply" name="likeImageReply"></button>
+                                        <span class="likesReply"> </span>
+                                        <button id="dislikeImageReply" name="dislikeImageReply"></button>
+                                        <!-- <button id="reply"  onclick="replyBtn()"> REPLY</button> -->
+                                    </div>
+                                <?php
+                            };
+                        
+                            }
+                            $g = true;
+                            if( $g == true){
+                                $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=1 ");
+                                foreach($commentDbs as $commentDb){
+
+                                    $commContent= $commentDb["comment"];
+                                    $commentID= $commentDb["id"];
+
+                                    #for comment author  name
+                                    $author=$commentDb["author"]; //make author = var , id=author
+                                    $rows5 = $db->query("SELECT name FROM Channel WHERE id= $author ");
+                                    $commenterName="";
+                                    $replyName="";
+                                    foreach($rows5 as $row5){
+                                        $commenterName = $row5["name"];
+                                        $replyName = $row5["name"];
+                                        ?>
+                                        <form action=""> 
+                                        <input type="hidden" value="<?= $replyName?>"  name="replyName_db"  >
+                                        </form>
+                                        <?php
+                                    };
+                                    
+                                    // echo $commentID;
+                                    $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=1 AND id= $commentID AND is_liked=1");
+                                    $likeCommCount=0;
+                                    // $dislikeCommCount=0;
+                                    foreach($commentLikes as $commentLike){
+                                        if( $commentLike["is_liked"] == 1 ){
+                                            $likeCommCount++;
+                                        }
+                                        // else if($commentLike["is_liked"] == 0){
+                                        //     $dislikeCommCount++;
+                                        // }
+                                    };
+                                    
+                                    ?>
+                                    <form action="" method="post">
+                                    <div id="comment">
+                                        <input type="button" id="tuberImage">
+                                        <div id="commName">  <?=$commenterName?> </div>
+                                        <div id="commContent"> <?=$commContent?></div>
+                                        <div id="likeMenuComm"> 
+                                        <button id="likeImageComm" name="likeImageComm"></button>
+                                        <span class="likesComm"> <?=$likeCommCount?> </span>
+                                        <button id="dislikeImageComm" name="dislikeImageComm"></button>
+                                        <button id="reply" name="reply"> REPLY</button>
+                                        <input type="hidden" value="<?= $commentID ?>"  name="commentIDinput"  >
+                                        <br>
+                                        <button id="viewReply" name="viewReply"> View reply </button>
+                                        </div>
+                                    </div>
+                                
+
+                                    <?php
+
+                                    if(isset($_POST['reply'])){
+                                        ?>
+                                        
+                                        <input type="text" name="replyInput" id="replyInput" placeholder="Add a public reply">
+                                    
+                                    <div id="replyBtns">
+                                            <button id="cancelReplyBtn" onclick="document.getElementById('replyInput').value = ''">CANCEL</button>
+                                            <button id="reply2commBtn" name="reply2commBtn">REPLY</button>
+                                        </div>
+                                        <?php
+                                        };
+                                        ?>
+                                    </form>
+                                    <?php
+                                };
+                            }
+                            else
+                            {
+                                echo "No comments yet";
+                            }
                             ?>
-                        </form>
-                        <?php
-                };
-                }
-                else{
-                    echo "No comments yet";
-                }
-                ?>
+                        </div>
+                    </form>
+                </div>
             </div>
-            </form>
+
+            <div id="upNext">
+                <div id="idk">
+                    <div id="playlistButtons">
+                    <?php
+                        if($watchlater=="true")
+                        {
+                            if($shuffle=="true")
+                            {
+                                $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY RAND()");
+                                foreach($later as $late)
+                                {
+                                    $vid = $late["video"];
+                                    $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE id=$vid");
+                                    foreach($rows01 as $row)
+                                    {
+                                        $chan = $row["channel"];
+                                        $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                        foreach($rows2 as $row2)
+                                        {
+                                            $channelName = $row2["name"];
+                                        };
+                                        ?>
+                                            <button>
+                                                <video id="watchVideos" width="150px" style="float:left;">
+                                                    <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                                </video>
+                                                <div id="vidDetails" style="float:left;">
+                                                
+                                                    <h4><?= $row["title"]?></h4>
+                                                    <p><?= $channelName?></p>
+                                                    <p>
+                                                        <?php 
+                                                            $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                                        ?>
+                                                        <span><?= $views?> views • </span>
+                                                        <span><?= $row["upload_date"]?></span>
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        <?php
+                                    }
+                                } 
+                            }
+                            else if($shuffle=="false")
+                            {
+                                $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY later_datetime DESC");
+                                foreach($later as $late)
+                                {
+                                    $vid = $late["video"];
+                                    $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE id=$vid");
+                                    foreach($rows01 as $row)
+                                    {
+                                        $chan = $row["channel"];
+                                        $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                        foreach($rows2 as $row2)
+                                        {
+                                            $channelName = $row2["name"];
+                                        };
+                                        ?>
+                                            <button>
+                                                <video id="watchVideos" width="150px" style="float:left;">
+                                                    <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                                </video>
+                                                <div id="vidDetails" style="float:left;">
+                                                
+                                                    <h4><?= $row["title"]?></h4>
+                                                    <p><?= $channelName?></p>
+                                                    <p>
+                                                        <?php 
+                                                            $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                                        ?>
+                                                        <span><?= $views?> views • </span>
+                                                        <span><?= $row["upload_date"]?></span>
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        <?php
+                                    }
+                                }
+                            }
+                        }
+                        else if($watchlater=="false")
+                        {
+                            $playlist = $_REQUEST["playlist"];
+                            if($shuffle=="true")
+                            {
+                                $play = $db->query("SELECT * FROM PlaylistVideos WHERE playlist=$playlist ORDER BY RAND()");
+                                foreach($play as $list)
+                                {
+                                    $vid = $list["video"];
+                                    $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE id=$vid");
+                                    foreach($rows01 as $row)
+                                    {
+                                        $chan = $row["channel"];
+                                        $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                        foreach($rows2 as $row2)
+                                        {
+                                            $channelName = $row2["name"];
+                                        };
+                                        ?>
+                                            <button>
+                                                <video id="watchVideos" width="150px" style="float:left;">
+                                                    <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                                </video>
+                                                <div id="vidDetails" style="float:left;">
+                                                
+                                                    <h4><?= $row["title"]?></h4>
+                                                    <p><?= $channelName?></p>
+                                                    <p>
+                                                        <?php 
+                                                            $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                                        ?>
+                                                        <span><?= $views?> views • </span>
+                                                        <span><?= $row["upload_date"]?></span>
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        <?php
+                                    }
+                                } 
+                            }
+                            else if($shuffle=="false")
+                            {
+                                $play = $db->query("SELECT * FROM PlaylistVideos WHERE playlist=$playlist ORDER BY playlist_datetime DESC");
+                                foreach($play as $list)
+                                {
+                                    $vid = $list["video"];
+                                    $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE id=$vid");
+                                    foreach($rows01 as $row)
+                                    {
+                                        $chan = $row["channel"];
+                                        $rows2 = $db->query("SELECT name FROM Channel WHERE id=$chan");
+                                        foreach($rows2 as $row2)
+                                        {
+                                            $channelName = $row2["name"];
+                                        };
+                                        ?>
+                                            <button>
+                                                <video id="watchVideos" width="150px" style="float:left;">
+                                                    <source src="<?= $row["location"], $row["fileName"]?>" type="video/mp4">
+                                                </video>
+                                                <div id="vidDetails" style="float:left;">
+                                                
+                                                    <h4><?= $row["title"]?></h4>
+                                                    <p><?= $channelName?></p>
+                                                    <p>
+                                                        <?php 
+                                                            $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                                        ?>
+                                                        <span><?= $views?> views • </span>
+                                                        <span><?= $row["upload_date"]?></span>
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        <?php
+                                    }
+                                } 
+                            }
+                        } 
+                    ?>
+                        
+                    </div>
+                </div>
+
+                <span class="upNexttxt">Up Next</span>
+            
+                <div id="next">
+                    <?php
+                    $rows6 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video ORDER BY RAND()");
+                    $varChannelIds= $db->query("SELECT channel FROM Video");
+
+                    foreach($rows6 as $row6)
+                    {   
+                    ?>
+                        <div id="details"> 
+                            <video id="detailsImg" >
+                                <source src="test_uploads/<?php echo $row6["fileName"] ?>" type="video/mp4">
+                            </video>    
+                            <h3 id="test"> <?php echo $row6["title"] ?> </h3>
+                            <?php 
+                                $chan = $row6["channel"];
+                                $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                                foreach($channels as $channel)
+                                {
+                                    $vid = $row6["id"];
+                                    $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                    ?>
+                                    <h5><?php echo $channel["name"] ?>  </h5>
+                                    <h5><?php echo $views ?> views 
+                                    &bull;
+                                    <?= $row6["upload_date"]?>
+                                    </h5>
+                                <?php
+                                }
+                            ?>
+                        </div>
+                    <?php
+                    }
+                    ?>     
+                </div>
+            </div>
+
+            
+
+          
+            
 
            
 </body>

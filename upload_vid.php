@@ -31,7 +31,7 @@
                 <button id="buttonme">
 					<i style="color:red;font-size:16px;" class="fa fa-upload"></i> Upload 
 				</button>
-                <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0']; ?>">
+                <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0'];?>">
             </div>
 		</div>
 		
@@ -39,16 +39,16 @@
 		<div class="vertNav">
             <ul>
                 <li>
-                    <input type="button" id="profileImage">
+                    <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0'];?>">
 				</li>
 				<li id="urvidBtn">
-                    <a href="upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
+                    <a href="upload_vid.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>">
                         <img src="images/ur vid.png" alt="Your Vid Image">
                         <p>Your Videos</p>
                     </a>
                 </li>
                 <li id="playlistBtn">
-                    <a href="home.html">
+                    <a href="playlists.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>">
                         <img src="images/playlist.png" alt="Playlist Image">
                         <p>Playlists</p>
                     </a>

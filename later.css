@@ -235,7 +235,12 @@ body {
 }
 
 #actions {
+    height: 20px;
     margin: 10px 10px 20px 0px;
+}
+
+#actions form {
+    display: inline;
 }
 
 hr {
@@ -254,14 +259,24 @@ hr {
     margin: 0px 10px 0px 0px;
 }
 
+#shufflePlay :hover {
+    cursor: pointer;
+}
+
+#moreInfo :hover {
+    cursor: pointer;
+}
+
 #moreInfo {
     width: 20px;
     height: 20px;
-    background: url("images/more.png") no-repeat;
+    /* background: url("images/more.png") no-repeat; */
     background-size: contain;
     border: none;
     vertical-align: middle;
-    margin: 0px 10px 0px 10px;
+    background-color: #f9f9f9;
+    margin: 0px 10px 5px 10px;
+    font-size: large;
 }
 
 #accountInfo span {
@@ -278,10 +293,6 @@ hr {
     border-radius: 50%;
     vertical-align: middle;
     border: none;
-}
-
-#actions {
-    height: 20px;
 }
 
 #wrapLater {

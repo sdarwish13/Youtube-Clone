@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html> <!-- Watch Later page after sign in/ sign up -->
+<html> <!-- Playlist page after sign in/ sign up -->
     <head>
-        <title>Watch later - Youtube</title>
+        <title>Playlist - Youtube</title>
         <meta charset="UTF-8">
-        <link href="later.css" rel="stylesheet" type="text/css">
+        <link href="playlist.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div class="horizNav">
@@ -133,9 +133,9 @@
             </div>
             <?php
             $playlists = $db->query("SELECT * FROM Playlist WHERE id=$playlist");
-            foreach($playlists as $playlist)
+            foreach($playlists as $playlst)
             {
-                if($playlist["private"]==1)
+                if($playlst["private"]==1)
                 {
                     ?>
                     <div id="type">
@@ -147,8 +147,10 @@
             }
             ?>
             <div id="actions">
-                <input type="button" id="shufflePlay">
-                <input type="button" id="moreInfo">
+                <input type="button" id="shufflePlay" onclick="window.location.href='watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=false&shuffle=true&playlist=<?= $playlist?>'">
+                <form action="playlists.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>" method="POST">
+                    <button id="moreInfo" name="delete">X</button>
+                </form>
             </div><hr>
             <div id="accountInfo">
             <button id="pImage">
@@ -161,46 +163,53 @@
             </button>
                 <span><?= $fname?> <?= $lname?> </span>
             </div>
+            <?php
+                if(isset($_POST["delete"]))
+                {
+                    $rows = $db->query("SELECT * FROM Channel WHERE owner='$email'");
+                    foreach($rows as $row)
+                    {
+                        $cid = $row["id"];
+                        $db->exec("DELETE FROM Playlist WHERE owner=$cid AND id=$playlist");
+                    }
+                }
+            ?>
         </div>
 
         <div id="laterVids">
             <div id="wrapLater">
             <?php
-            foreach($rows01 as $row)
+            $playlistVids = $db->query("SELECT * FROM PlaylistVideos WHERE playlist=$playlist ORDER BY playlist_datetime DESC");
+            foreach($playlistVids as $playlistVid)
             {
-                $pid = $row["id"];
-                $rows1 = $db->query("SELECT * FROM WatchLater WHERE viewer=$pid ORDER BY later_datetime DESC");
-                foreach($rows1 as $row1)
+                $vid = $playlistVid["video"];
+                $videos = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE id=$vid");
+                foreach($videos as $video)
                 {
-                    $videoId = $row1["video"];
-                    $rows2 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%m-%d-%Y') AS upload_date FROM Video WHERE id='$videoId'");
-                    foreach($rows2 as $row2)
+                    $vid = $video["id"];
+                    $chan = $video["channel"];
+                    $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
+                    foreach($channels as $channel)
                     {
-                        $vid = $row2["id"];
-                        $chan = $row2["channel"];
-                        $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
-                        foreach($channels as $channel)
-                        {
-                            ?>
-                            <button id="videoBtn" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>&playlist=<?= $pid?>`">
-                                <video id="watchVideo" width="150px" style="float:left;">
-                                    <source src="test_uploads/<?php echo $row2["fileName"] ?>" type="video/mp4">
-                                </video>
-                                <div id="vidDetails" style="float:left;">
-                                
-                                <h4><?php echo $row2["title"] ?></h4>
+                    ?>
+                        <button id="videoBtn" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>&watchlater=false&shuffle=false&playlist=<?= $playlist?>`">
+                            <video id="watchVideo" width="150px" style="float:left;">
+                                <source src="test_uploads/<?php echo $video["fileName"] ?>" type="video/mp4">
+                            </video>
+                            <div id="vidDetails" style="float:left;">
+                            
+                                <h4><?php echo $video["title"] ?></h4>
                                 <p><?php echo $channel["name"] ?></p>
                                 <p>
                                     <?php 
                                         $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
                                     ?>
                                     <span><?php echo $views ?> views • </span>
-                                    <span><?php echo $row2['upload_date'] ?></span>
+                                    <span><?php echo $video['upload_date'] ?></span>
                                 </p>
-                                </div>
-                            </button>
-                            <?php
-                        }
+                            </div>
+                        </button>
+                    <?php
                     }
                 }
             }

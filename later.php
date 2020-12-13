@@ -144,8 +144,11 @@
                 <span>Private</span>
             </div>
             <div id="actions">
-                <input type="button" id="shufflePlay">
-                <input type="button" id="moreInfo">
+                <input type="button" id="shufflePlay" onclick="window.location.href='watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=true&shuffle=true'">
+                <form action="" method="POST">
+                    <button id="moreInfo" name="remove">X</button>
+                </form>
+                
             </div><hr>
             <div id="accountInfo">
             <button id="pImage">
@@ -156,6 +159,30 @@
             </button>
                 <span><?= $fname?> <?= $lname?> </span>
             </div>
+            <?php
+                if(isset($_POST["remove"]))
+                {
+                    $rows = $db->query("SELECT * FROM Channel WHERE owner='$email'");
+                    foreach($rows as $row)
+                    {
+                        $cid = $row["id"];
+                        $rows1 = $db->query("SELECT * FROM Views WHERE viewer=$cid");
+                        foreach($rows1 as $row1)
+                        {
+                            $video = $row1["video"];
+                            $rows2 = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid");
+                            foreach($rows2 as $row2)
+                            {
+                                if($video==$row2["video"])
+                                {
+                                    $db->exec("DELETE FROM WatchLater WHERE viewer=$cid AND video=$video");
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            ?>
         </div>
 
         <div id="laterVids">
@@ -177,21 +204,21 @@
                         foreach($channels as $channel)
                         {
                             ?>
-                            <button id="videoBtn" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>`">
+                            <button id="videoBtn" onclick="window.location.href = 'watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=true&shuffle=false'">
                                 <video id="watchVideo" width="150px" style="float:left;">
-                                    <source src="test_uploads/<?php echo $row2["fileName"] ?>" type="video/mp4">
+                                    <source src="<?= $row2["location"],$row2["fileName"]?>" type="video/mp4">
                                 </video>
                                 <div id="vidDetails" style="float:left;">
                                 
-                                <h4><?php echo $row2["title"] ?></h4>
-                                <p><?php echo $channel["name"] ?></p>
-                                <p>
-                                    <?php 
-                                        $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
-                                    ?>
-                                    <span><?php echo $views ?> views • </span>
-                                    <span><?php echo $row2['upload_date'] ?></span>
-                                </p>
+                                    <h4><?php echo $row2["title"] ?></h4>
+                                    <p><?php echo $channel["name"] ?></p>
+                                    <p>
+                                        <?php 
+                                            $views = $db->query("SELECT * FROM Views WHERE video=$vid")->rowCount();
+                                        ?>
+                                        <span><?php echo $views ?> views • </span>
+                                        <span><?php echo $row2['upload_date'] ?></span>
+                                    </p>
                                 </div>
                             </button>
                             <?php
