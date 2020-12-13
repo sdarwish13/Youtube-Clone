@@ -48,6 +48,7 @@
         <div id="box">
             <?php
                 $db = new PDO("mysql:dbname=278project", "root","");
+                $vid_id_link;
             ?>
             <div id="videoBox">
                 <div>
@@ -55,23 +56,24 @@
                     $rows0 = $db->query("SELECT * FROM Channel WHERE owner='$email'");
                     foreach($rows0 as $row)
                     {
-                        $cid = $row["id"];
+                        $id_linked = $row["id"];
                     }
                     
                     if($watchlater=="true")
                     {
                         if($shuffle=="true")
                         {
-                            $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY RAND()");
+                            $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$id_linked ORDER BY RAND()");
                             $des ="";
                             $vidTitle="";
                             foreach($later as $late)
                             {
                                 $vid = $late["video"];
+                                $vid_id_link = $vid;
                                 $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
                                 $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
-                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
-                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
                                 $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
                                 foreach($rows01 as $row)
                                 {
@@ -94,16 +96,17 @@
                         }
                         else if($shuffle=="false")
                         {
-                            $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY later_datetime DESC");
+                            $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$id_linked ORDER BY later_datetime DESC");
                             $des ="";
                             $vidTitle="";
                             foreach($later as $late)
                             {
                                 $vid = $late["video"];
+                                $vid_id_link = $vid;
                                 $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
                                 $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
-                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
-                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
                                 $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
                                 foreach($rows01 as $row)
                                 {
@@ -136,10 +139,11 @@
                             foreach($play as $list)
                             {
                                 $vid = $list["video"];
+                                $vid_id_link = $vid;
                                 $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
                                 $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
-                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
-                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
                                 $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
                                 foreach($rows01 as $row)
                                 {
@@ -168,10 +172,11 @@
                             foreach($play as $list)
                             {
                                 $vid = $list["video"];
+                                $vid_id_link = $vid;
                                 $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
                                 $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
-                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
-                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$cid");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
                                 $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
                                 foreach($rows01 as $row)
                                 {
@@ -378,18 +383,18 @@
                             if(isset($_POST['commentBtn']) ){
                                 // $db = new PDO("mysql:dbname=278project", "root","");
                                 $varComment = $_POST['commentInput'];
-                                $comments = $db->query("SELECT * FROM VideoComment")->rowCount();
+                                $comments = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link")->rowCount();
                                 $comments++;
-                                $sql10 = "INSERT INTO `VideoComment` (`id`, `author`, `video`, `comment`) VALUES ( '$comments', '2', '1', '$varComment')";
+                                $sql10 = "INSERT INTO `VideoComment` (`id`, `author`, `video`, `comment`) VALUES ( '$comments', $id_linked, $vid_id_link, '$varComment')";
                                 $db->exec($sql10); 
                             };
                             //add reply to db 
                             if(isset($_POST['reply2commBtn'])){
                                 $replyContent = $_POST['replyInput'];
-                                $replies= $db->query("SELECT * FROM CommentReply")->rowCount();
+                                $replies = $db->query("SELECT * FROM CommentReply WHERE video=$vid_id_link")->rowCount();
                                 $test=$_POST['commentIDinput'];
                                 $replies++;
-                                $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', '2', '1', '$replyContent')";
+                                $replySql="INSERT INTO `CommentReply` (`id`, `parent_id`, `author`, `video`, `reply`) VALUES ('$replies', '$test', $id_linked, $vid_id_link, '$replyContent')";
                                 $db->exec($replySql); 
                                 echo" success reply saved to db!";
                                 echo "this is :" ,$replyContent;
@@ -398,20 +403,20 @@
                             //likes and dislike for comments //need to insert if first time liking
                             if(isset($_POST['likeImageComm'])){  
                                 $test1=$_POST['commentIDinput'];
-                                $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
+                                $sqlLikeComment1="UPDATE `CommentLikes` SET `is_liked` = '1' WHERE  `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = $vid_id_link; "; 
                                 $db->exec($sqlLikeComment1);
                             
                             };
                             if(isset($_POST['dislikeImageComm'])){
                                 $test1=$_POST['commentIDinput'];
                                 //WHERE `CommentLikes`.`viewer` = '3'
-                                $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = '1'; "; 
+                                $sqldisLikeComment="UPDATE `CommentLikes` SET `is_liked` = '0' WHERE `CommentLikes`.`id` = $test1 AND `CommentLikes`.`video` = $vid_id_link; "; 
                                 $db->exec($sqldisLikeComment);
                             };
 
                             if(isset($_POST['viewReply'])){
                                 $test2=$_POST['commentIDinput'];
-                                $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '1';");
+                                $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = $vid_id_link;");
                                 $replyContentDb="";
                                 $replyNam_db=$_POST['replyName_db'];
                                 foreach($replyTables as $replyTable){
@@ -433,7 +438,7 @@
                             }
                             $g = true;
                             if( $g == true){
-                                $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=1 ");
+                                $commentDbs = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link ");
                                 foreach($commentDbs as $commentDb){
 
                                     $commContent= $commentDb["comment"];
@@ -455,7 +460,7 @@
                                     };
                                     
                                     // echo $commentID;
-                                    $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=1 AND id= $commentID AND is_liked=1");
+                                    $commentLikes = $db->query("SELECT * FROM CommentLikes WHERE video=$vid_id_link AND id= $commentID AND is_liked=1");
                                     $likeCommCount=0;
                                     // $dislikeCommCount=0;
                                     foreach($commentLikes as $commentLike){
@@ -521,7 +526,7 @@
                         {
                             if($shuffle=="true")
                             {
-                                $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY RAND()");
+                                $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$id_linked ORDER BY RAND()");
                                 foreach($later as $late)
                                 {
                                     $vid = $late["video"];
@@ -558,7 +563,7 @@
                             }
                             else if($shuffle=="false")
                             {
-                                $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$cid ORDER BY later_datetime DESC");
+                                $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$id_linked ORDER BY later_datetime DESC");
                                 foreach($later as $late)
                                 {
                                     $vid = $late["video"];
