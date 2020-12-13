@@ -165,7 +165,7 @@
          </ul>
         </div>
        
-        <div id="historyInfo">
+        <!-- <div id="historyInfo">
             <br>  
             <button id="searchBtnHis">
                 <img src="images/search logo.png" alt="Search">
@@ -178,7 +178,7 @@
                     CLEAR ALL WATCH HISTORY
                 </h2>
             </button>
-        </div>
+        </div> -->
 
     </body>
 

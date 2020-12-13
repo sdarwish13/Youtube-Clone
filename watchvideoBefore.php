@@ -27,57 +27,9 @@
  <?php
                     $db = new PDO("mysql:dbname=278project", "root","");
                     
-                    $fname = $_REQUEST["fname"];
-                    $lname = $_REQUEST["lname"];
-                    $email = $_REQUEST["email"];
+                  
                     $vid_id_link = $_REQUEST["id"];
 
-                    // $emailLinks = $db->query("SELECT * FROM `Channel` WHERE owner='$email'");
-
-                    // $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '$vid_id_link ';");
-                    // $id_linked="";
-                    // foreach($emailLinks as $emailLink){
-                    //     // $owner=$emailLink["owner"];
-                    //     // if($email == $owner){
-                    //         $id_linked = $emailLink["id"];
-                     
-
-                    //     // }
-                    // // break;
-
-                     
-        
-                    // }
-                    // $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                    // $db->exec($view);
-
-                    // echo $id_linked;
-                    // echo $owner;
-                    // echo "THis is email : ",$email;
-                 
-
-
-                    // $trueVar=true;
-                    // if($trueVar==true){
-
-                    //     $rows89= $db->query("SELECT * FROM `Channel` ");
-                    //     foreach($rows89 as $row89){
-                    //         $owner= $row89["owner"];
-                    //         $id_from_channel=$rows89["id"];
-                    //         if($email == $owner){
-
-
-
-
-                    //         }
-                           
-                    //     }
-
-                    // }
-
-                  
-                 
-                
                 ?>
 
             <div id="buttons">
@@ -85,24 +37,15 @@
                 <input type="button" id="vidImage">
                 <input type="button" id="gridImage">
                 <input type="button" id="bellImage">
-                <button id="profileImage" onclick="openNav()">
+                <button id="profileImage" onclick="window.location.href='signin.php'">
 
-				<?php
-					print $fname[0];
-					print $lname[0];
-				?>
+				
 
 				</button>
                
             </div>
            
-            <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="#">About</a>
-                    <a href="#">Services</a>
-                    <a href="#">Clients</a>
-                    <a href="#">Contact</a>
-                </div>
+          
 
         </div>
 
@@ -130,7 +73,7 @@
 
                         <li>
                         <div id="details"> 
-                            <video id="detailsImg" >
+                            <video id="detailsImg" onclick="window.location.href = `watchvideoBefore.php?id=<?php echo $vid ?>`" >
                                 <source src="test_uploads/<?php echo $row6["fileName"] ?>" type="video/mp4">
                             </video>    
                             <h3 id="test"> <?php echo $row6["title"] ?> </h3>
@@ -179,7 +122,7 @@
                             $vidTitle="";
                             foreach($rows as $row){
                                 ?>
-                                    <video id="watchVideo" controls>
+                                    <video id="watchVideo" controls >
                                         <source src="test_uploads/<?php echo $row["fileName"] ?>" type="video/mp4">
                                     </video>
 
@@ -191,26 +134,19 @@
 
                             } 
 
-                            //for likes and dislikes
-                            // if(isset($_POST['likeImage'])) {
-                            //     $sqlLike = "UPDATE `Likes` SET is_liked='1' WHERE id=$vid_id_link ";
-                            //     $db->exec($sqlLike);
-                            // };
-                            // if(isset($_POST['dislikeImage'])) {
-                            //     $sqlDislike = "UPDATE `Likes` SET is_liked='0' WHERE id=$vid_id_link ";
-                            //     $db->exec($sqlDislike);
-                            // };
+                            
                              
                             //to display dislikes 
-                            $rows12 = $db->query("SELECT is_liked FROM Likes WHERE id=$vid_id_link   ");
+                            $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video='$vid_id_link'   ");
                             $countDislikes=0; //dislikes count
                             foreach($rows12 as $row12){
                                 if( $row12["is_liked"] == 0){
                                     $countDislikes++;
                                 }
                             };
+
                             //to display likes 
-                            $rows1 = $db->query("SELECT is_liked FROM Likes WHERE id=$vid_id_link  ");
+                            $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video='$vid_id_link'  ");
                             $countLikes =0; //likes count
                             foreach($rows1 as $row1){
                                 if( $row1["is_liked"] == 1 ){
@@ -266,24 +202,18 @@
               
                 <div id="likeMenu">
                    
-                    <button id="likeImage" value="likeImage" name="likeImage"onclick="window.location.href='signin.php'" ></button>
+                    <button id="likeImage" value="likeImage" name="likeImage" onclick="window.location.href='signin.php'" ></button>
                     <span class="likes"> <?=$countLikes?> </span>
                     <button id="dislikeImage"  value="dislikeImage" name="dislikeImage"onclick="window.location.href='signin.php'"></button>
                     <span class="likes"> <?=$countDislikes?> </span>
                    
                     <button id="shareImage"></button>
                     <span class="likes"> SHARE </span>
-                    <button id="saveImage"></button>
-                    <span class="likes"> SAVE </span>
+                    <button id="saveImage" onclick="window.location.href='signin.php'"></button>
+                    <span class="likes" > SAVE </span>
                     <!-- onclick report -->
-                    <button id="dotsImage" onclick="myFunction()" class="popup">
-                    <div> 
-                        <span class="popuptext" id="myPopup">A Simple Popup!
-                        <ul id="reportList">
-                        <li> <input type="button" placeholder="Report" value="Report" id="reportBtn" > </li>
-                        </ul>
-                        </span>
-                    </div>
+                    <button id="dotsImage"  onclick="window.location.href='signin.php'" >
+                
                     </button> 
                     
                 </div>
@@ -331,27 +261,9 @@
                         <br>
                         <span> Reddit</span>
                         </button>
-
                         </div>
-
                     </div>
-
                 </div>
-
-                <div id="myModal1" class="modal">
-
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>Share</p>
-                        <button id="iconButton">
-                        <img id="iconImages"src="images/facebookIcon.png" alt="Avatar" style="width:70px" onclick="window.location.href='https://www.facebook.com/';">
-                        <br>
-                        <span> Facebook</span>
-                        </button>
-                    </div>
-                </div>   
-
             </div>
 
             <div id="descriptionCont">
@@ -387,36 +299,7 @@
                 
                 <?php
                 
-
                 ?>
-               
-
-                <?php
-                if(isset($_POST['viewReply'])){
-                    $test2=$_POST['commentIDinput'];
-                    $replyTables = $db->query("SELECT * FROM `CommentReply` WHERE `CommentReply`.`parent_id` = $test2 AND `CommentReply`.`video` = '$vid_id_link ';");
-                    $replyContentDb="";
-                    $replyNam_db=$_POST['replyName_db'];
-                    foreach($replyTables as $replyTable){
-                        $replyContentDb= $replyTable['reply'];
-                        ?>
-                        <div id="replyBox">
-                            <input type="button" id="tuberImage">
-                            <div id="replyName"> <?= $replyNam_db ?></div>
-                            <div id="replyContent"> <?= $replyContentDb ?></div>
-                            <div id="likeMenuReply"> 
-                            <button id="likeImageReply" name="likeImageReply"></button>
-                            <span class="likesReply"> </span>
-                            <button id="dislikeImageReply" name="dislikeImageReply"></button>
-                            <!-- <button id="reply"  onclick="replyBtn()"> REPLY</button> -->
-                        </div>
-                    <?php
-                };
-            
-                }
-                ?>
-                
-                
                 <?php
                 $g = true;
                 if( $g == true){
@@ -482,7 +365,7 @@
                             <input type="hidden" value="<?= $commentID ?>"  name="commentIDinput"  >
                              <br>
                           
-                            <button id="viewReply" name="viewReply"> View reply </button>
+                            <button id="viewReply" name="viewReply" onclick="window.location.href='signin.php'"> View reply </button>
                             </form>
 
                             </div>
@@ -511,13 +394,13 @@
     popup.classList.toggle("show");
     }
    
-    function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    }
+    // function openNav() {
+    // document.getElementById("mySidenav").style.width = "250px";
+    // }
 
-    function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    }
+    // function closeNav() {
+    // document.getElementById("mySidenav").style.width = "0";
+    // }
  
             // Get the modal
         var modal = document.getElementById("myModal");
