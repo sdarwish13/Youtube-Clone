@@ -36,7 +36,7 @@
 		<div class="vertNav">
             <ul>
                 <li>
-                    <input type="button" id="profileImage">
+                    <input type="button" id="profileImage" value="<?php echo $fname['0']; echo $lname['0']; ?>">
 				</li>
 				<li id="urvidBtn">
                     <a href="upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>">
@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li id="playlistBtn">
-                    <a href="home.html">
+                    <a href="playlists.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>">
                         <img src="images/playlist.png" alt="Playlist Image">
                         <p>Playlists</p>
                     </a>

@@ -69,6 +69,7 @@
  
                         foreach($rows6 as $row6)
                         {   
+                            $vid = $row6["id"];
                             ?>
 
                         <li>
@@ -92,6 +93,7 @@
                                 break;
                                 }
                                 $chan = $row6["channel"];
+                                $upload_date = $row6['upload_date'];
                                 $channels = $db->query("SELECT * FROM Channel WHERE id=$chan");
                                 foreach($channels as $channel)
                                 {
@@ -100,7 +102,7 @@
                                     ?>
                                     <h5><?php echo $views ?> views 
                                     &bull;
-                                    2 months ago
+                                    <?php echo $upload_date ?> 
                                     </h5>
                                 <?php
                                 }
@@ -129,6 +131,7 @@
                                 $des = $row["description"];
                                 $vidTitle= $row["title"];
                                 $channelId=$row["channel"];
+                                $date= $row["upload_date"];
                             } 
 
                             //to display dislikes 
@@ -189,7 +192,7 @@
                         &nbsp;
                         &bull;
                         <script>
-                            document.write( '&nbsp'+ new Date().toDateString()); 
+                            <?= $date ?>
                        </script>
                 </div>
 

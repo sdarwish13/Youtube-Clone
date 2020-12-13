@@ -35,18 +35,14 @@
                         $id_linked = $emailLink["id"];
                     }
 
-                    $testing62s = $db->query("SELECT * FROM `Views` WHERE video !='$vid_id_link' ");
+                    
+                   $testing62s = $db->query("SELECT * FROM `Views` WHERE `viewer` != $id_linked");
                     foreach($testing62s as $testing62){
-                        $vid21=$testing62["video"];
-                        if( $vid21 != $vid_id_link){
-                            $view23 = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
-                            $db->exec($view23);
-                        }
-                        else{
-                            echo " success!!!!!!!!!1";
-                        }
+                        $view = "INSERT INTO `Views` (`viewer`, `video`) VALUES ('$id_linked ', '$vid_id_link')";
+                        $db->exec($view);
                     }
-
+					
+					
                     error_reporting(0);
                     if (empty($_POST["searchinput"]))
                     {

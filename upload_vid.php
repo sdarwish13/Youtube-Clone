@@ -69,6 +69,14 @@
                         <p>Playlists</p>
                     </a>
                 </li>
+				
+				<li id="analyticsBtn">
+                    <a href="analytics.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>">
+                        <img src="images/analytics.png" alt="Analytics Image">
+                        <p>Analytics</p>
+                    </a>
+                </li>
+				
             </ul>
         </div>
 		
