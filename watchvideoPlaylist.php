@@ -96,18 +96,18 @@
                         }
                         else if($shuffle=="false")
                         {
+                            $vid_id_link = $_REQUEST["id"];
                             $later = $db->query("SELECT * FROM WatchLater WHERE viewer=$id_linked ORDER BY later_datetime DESC");
                             $des ="";
                             $vidTitle="";
                             foreach($later as $late)
                             {
                                 $vid = $late["video"];
-                                $vid_id_link = $vid;
-                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
-                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
-                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
-                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
-                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
+                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link");
+                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid_id_link");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link AND viewer=$id_linked");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link AND viewer=$id_linked");
+                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid_id_link");
                                 foreach($rows01 as $row)
                                 {
                                     $chan = $row["channel"];
@@ -166,18 +166,18 @@
                         }
                         else if($shuffle=="false")
                         {
+                            $vid_id_link = $_REQUEST["id"];
                             $play = $db->query("SELECT * FROM PlaylistVideos WHERE playlist=$playlist ORDER BY playlist_datetime DESC");
                             $des ="";
                             $vidTitle="";
                             foreach($play as $list)
                             {
                                 $vid = $list["video"];
-                                $vid_id_link = $vid;
-                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid");
-                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid");
-                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
-                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid AND viewer=$id_linked");
-                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid");
+                                $rows4 = $db->query("SELECT * FROM VideoComment WHERE video=$vid_id_link");
+                                $rows8 = $db->query("SELECT * FROM Views WHERE video=$vid_id_link");
+                                $rows1 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link AND viewer=$id_linked");
+                                $rows12 = $db->query("SELECT is_liked FROM Likes WHERE video=$vid_id_link AND viewer=$id_linked");
+                                $rows01 = $db->query("SELECT *, DATE_FORMAT(upload_date , '%b %d, %Y') AS upload_date FROM Video WHERE id=$vid_id_link");
                                 foreach($rows01 as $row)
                                 {
                                     $chan = $row["channel"];

@@ -95,7 +95,7 @@
                             foreach($rows2 as $row2)
                             {
                             ?>
-                                <video width="300px">
+                                <video width="300px" onclick="window.location.href = 'watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=true&shuffle=false&id=<?= $videoId?>'">
                                     <source src="test_uploads/<?php echo $row2["fileName"] ?>" type="video/mp4">
                                 </video>
 
@@ -204,7 +204,7 @@
                         foreach($channels as $channel)
                         {
                             ?>
-                            <button id="videoBtn" onclick="window.location.href = 'watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=true&shuffle=false'">
+                            <button id="videoBtn" onclick="window.location.href = 'watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=true&shuffle=false&id=<?= $vid?>'">
                                 <video id="watchVideo" width="150px" style="float:left;">
                                     <source src="<?= $row2["location"],$row2["fileName"]?>" type="video/mp4">
                                 </video>

@@ -92,7 +92,7 @@
                         foreach($videos as $video)
                         {
                         ?>
-                            <video width="300px">
+                            <video width="300px" onclick="window.location.href = `watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>&watchlater=false&shuffle=false&playlist=<?= $playlist?>&id=<?= $vid?>`">
                                 <source src="test_uploads/<?php echo $video["fileName"] ?>" type="video/mp4">
                             </video>
                         <?php
@@ -192,7 +192,7 @@
                     foreach($channels as $channel)
                     {
                     ?>
-                        <button id="videoBtn" onclick="window.location.href = `watchvideo.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>&watchlater=false&shuffle=false&playlist=<?= $playlist?>`">
+                        <button id="videoBtn" onclick="window.location.href = `watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>&watchlater=false&shuffle=false&playlist=<?= $playlist?>&id=<?= $vid?>`">
                             <video id="watchVideo" width="150px" style="float:left;">
                                 <source src="test_uploads/<?php echo $video["fileName"] ?>" type="video/mp4">
                             </video>
