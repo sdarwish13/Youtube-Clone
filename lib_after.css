@@ -182,7 +182,7 @@ body {
     background-color: rgb(247, 247, 247);
     overflow: scroll;
     float: left;
-    width: calc(100% - 350px);
+    width: 70%;
     flex-wrap: wrap;
     flex-direction: row;
     display: flex;
@@ -289,17 +289,70 @@ body {
 }
 
 #accountInfo {
+    padding-top: 80px;
     position: fixed;
     top: 50px;
-    left: calc(100% - 230px);
+    left: calc(70% + 120px);
     float: left;
     background-color: rgb(247, 247, 247);
     height: 100%;
-    width: 100%;
+    width: calc(30% - 120px);
 }
 
-@media(min-width: 1382px) {
+#big {
+    background-size: contain;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: none;
+    width: 80px;
+    height: 80px;
+    font-size:25px;
+    position: relative;
+    left: calc(50% - 40px);
+    margin-bottom: 5px;
+}
+
+#idk {
+    font-size: 24px;
+    margin: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#subs {
+    height: 30px;
+    border-top: 1px solid lightgrey;
+    width: 80%;
+    position:relative;
+    left: calc(50% - 40%);
+}
+
+#text {
+    position: relative;
+    top: 6px;
+    float: left;
+}
+
+#back {
+    position: relative;
+    top: 6px;
+    float: right;
+}
+
+#uploads {
+    height: 30px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    width: 80%;
+    position:relative;
+    left: calc(50% - 40%);
+}
+
+@media(max-width: 1021px) {
     #accountInfo {
-        left: 1152px;
+        display: none;
+    }
+    .videos {
+        width: calc(100% - 120px);
     }
 }

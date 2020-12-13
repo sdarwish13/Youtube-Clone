@@ -54,27 +54,27 @@
 
         <div class="vertNav">
             <ul>
-                <li id="homeBtn" onclick="window.location.href = 'homeAfter.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="homeBtn" onclick="window.location.href = 'homeAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <img src="images/home.png" alt="Home Image">
                     <p>Home</p>
                 </li>
-                <li id="subBtn" onclick="window.location.href = 'subAfter.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="subBtn" onclick="window.location.href = 'subAfter.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <img src="images/sub.png" alt="Sub Image">
                     <p>Subscriptions</p>
                 </li>
-                <li id="libBtn" onclick="window.location.href = 'lib_after.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="libBtn" onclick="window.location.href = 'lib_after.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <img src="images/lib.png" alt="Library Image">
                     <p>Library</p>
                 </li>
-                <li id="historyBtn" onclick="window.location.href = 'History.html?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="historyBtn" onclick="window.location.href = 'History.html?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <img src="images/hist.png" alt="History Image">
                     <p>History</p>
                 </li>
-                <li id="urvidBtn" onclick="window.location.href = 'upload_vid.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="urvidBtn" onclick="window.location.href = 'upload_vid.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <img src="images/ur vid.png" alt="Your Vid Image">
                     <p>Your Videos</p>
                 </li>
-                <li id="laterBtn" onclick="window.location.href = 'later.php?fname=<?php echo $fname?> &lname=<?php echo $lname?> &email=<?php echo $email?>'">
+                <li id="laterBtn" onclick="window.location.href = 'later.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>'">
                     <img src="images/later.png" alt="Later Image">
                     <p>Watch Later</p>
                 </li>
@@ -92,7 +92,7 @@
                         foreach($videos as $video)
                         {
                         ?>
-                            <video width="300px" onclick="window.location.href = `watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&id=<?php echo $vid?>&watchlater=false&shuffle=false&playlist=<?= $playlist?>&id=<?= $vid?>`">
+                            <video width="300px" onclick="window.location.href = `watchvideoPlaylist.php?fname=<?php echo $fname?>&lname=<?php echo $lname?>&email=<?php echo $email?>&watchlater=false&shuffle=false&playlist=<?= $playlist?>&id=<?= $vid?>`">
                                 <source src="test_uploads/<?php echo $video["fileName"] ?>" type="video/mp4">
                             </video>
                         <?php
