@@ -5,11 +5,8 @@ The purpose this project is to create a website similar to YouTube. The followin
 - Uploading video(s) via drag/drop or “browse”
 - Percentage of video being uploaded
 - Video info: title, author, date of upload, description
-- View the list of uploaded videos: number of views, number of comments, number of
-# likes, dislikes, status (shown/hidden)
-- Analytical data: total number of views in the last month, total number of views in
-general, Top videos (the most viewed videos in the last 48 hours and the top 10
-viewed videos).
+- View the list of uploaded videos: number of views, number of comments, number of likes, dislikes, status (shown/hidden)
+- Analytical data: total number of views in the last month, total number of views in general, Top videos (the most viewed videos in the last 48 hours and the top 10 viewed videos).
 - Videos management: create, update, delete, hide, show
 # Watching videos:
 - Video Info: Name, Author, total number of views, date of upload, link to author’s channel + channel’s image, and description.
