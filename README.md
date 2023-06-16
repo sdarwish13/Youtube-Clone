@@ -1,4 +1,4 @@
-he purpose of this semester’s project is to create a website similar to YouTube. The following is the list of the specifications:
+The purpose this project is to create a website similar to YouTube. The following is the list of the specifications:
 Credentials Management:
 - Sign up/sign in/remember me Own Videos Management:
 - Uploading a video requires authentication first.
